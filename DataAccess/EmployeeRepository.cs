@@ -66,7 +66,7 @@ namespace DataAccess
             }
         }
 
-        public Employee GetEmployeeById(int id)
+        public Employee GetEmployeeById(Guid id)
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -81,7 +81,7 @@ namespace DataAccess
                         {
                             return new Employee
                             {
-                                ID = (int)reader["ID"],
+                                ID = (Guid)reader["ID"],
                                 FirstName = reader["FirstName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
                                 JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
@@ -109,7 +109,7 @@ namespace DataAccess
                         {
                             employees.Add(new Employee
                             {
-                                ID = (int)reader["ID"],
+                                ID = (Guid)reader["ID"],
                                 FirstName = reader["FirstName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
                                 JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
@@ -122,14 +122,14 @@ namespace DataAccess
             return employees;
         }
 
-        public Employee Authenticate(string username, string password)
+        public Employee Authenticate(Guid id, string password)
         {
             using (var connection = new SqlConnection(connectionString))
             {
                 string query = "SELECT * FROM dbo.Employee WHERE ID = @ID AND Password = @Password";
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ID", username);
+                    command.Parameters.AddWithValue("@ID", id);
                     command.Parameters.AddWithValue("@Password", password);
                     connection.Open();
                     using (var reader = command.ExecuteReader())
@@ -138,7 +138,7 @@ namespace DataAccess
                         {
                             return new Employee
                             {
-                                ID = (int)reader["ID"],
+                                ID = (Guid)reader["ID"],
                                 FirstName = reader["FirstName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
                                 JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),

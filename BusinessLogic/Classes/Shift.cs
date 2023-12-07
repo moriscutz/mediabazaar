@@ -9,12 +9,12 @@ namespace BusinessLogic.Classes
 {
     public class Shift
     {
-        public int ShiftId { get; set; }
+        public Guid ShiftId { get; set; }
         public DateTime Date { get; set; }
         public ShiftType Type { get; set; } 
-        public int EmployeeID { get; set; }
+        public Guid EmployeeID { get; set; }
 
-        public Shift(int shiftId, DateTime date, ShiftType type, int employeeID)
+        public Shift(Guid shiftId, DateTime date, ShiftType type, Guid employeeID)
         {
             ShiftId = shiftId;
             this.Date = date;

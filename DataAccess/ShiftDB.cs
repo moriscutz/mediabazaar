@@ -29,7 +29,7 @@ namespace DataAccess
         {
             shiftRepository.DeleteShift(shift);
         }
-        public Shift GetShiftById(int shiftId)
+        public Shift GetShiftById(Guid shiftId)
         {
             return shiftRepository.GetShiftById(shiftId);
         }

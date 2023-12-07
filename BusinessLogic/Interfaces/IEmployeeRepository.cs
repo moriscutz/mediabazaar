@@ -12,8 +12,8 @@ namespace BusinessLogic.Interfaces
         public void AddEmployee(Employee employee);
         public void UpdateEmployee(Employee employee);
         public void DeleteEmployee(Employee employee);
-        public Employee GetEmployeeById(int id);
+        public Employee GetEmployeeById(Guid id);
         public List<Employee> GetAllEmployees();
-        public Employee Authenticate(string username, string password);
+        public Employee Authenticate(Guid id, string password);
     }
 }

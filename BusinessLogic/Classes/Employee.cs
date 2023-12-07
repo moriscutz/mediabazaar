@@ -8,14 +8,14 @@ namespace BusinessLogic.Classes
 {
     public class Employee
     {
-        public int ID { get; set; }
+        public Guid ID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Position JobPosition { get; set; } 
         public List<Shift> Shifts { get; set; }
         public Department Department { get; set; } 
         public string Password { get; set; }
-        public Employee(int id, string firstName, string lastName, Position jobPosition, Department department, string password)
+        public Employee(Guid id, string firstName, string lastName, Position jobPosition, Department department, string password)
         {
             this.ID = id;
             this.FirstName = firstName;

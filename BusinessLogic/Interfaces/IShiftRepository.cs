@@ -12,7 +12,7 @@ namespace BusinessLogic.Interfaces
         public void AddShift(Shift shift);
         public void UpdateShift(Shift shift);
         public void DeleteShift(Shift shift);
-        public Shift GetShiftById(int shiftId);
+        public Shift GetShiftById(Guid shiftId);
         public List<Shift> GetAllShifts();
     }
 }

@@ -62,7 +62,7 @@ namespace DataAccess
             }
         }
 
-        public Shift GetShiftById(int shiftId)
+        public Shift GetShiftById(Guid shiftId)
         {
             using (var connection = new SqlConnection(connectionString))
             {
@@ -75,10 +75,10 @@ namespace DataAccess
                     {
                         if (reader.Read())
                         {
-                            int shiftId = (int)reader["ShiftId"];
+                            shiftId = (Guid)reader["ShiftId"];
                             DateTime date = (DateTime)reader["Date"];
                             ShiftType shiftType = (ShiftType)Enum.Parse(typeof(ShiftType), reader["Type"].ToString());
-                            int employeeId = (int)reader["EmployeeID"];
+                            Guid employeeId = (Guid)reader["EmployeeID"];
                             var shift = new Shift(shiftId, date, shiftType, employeeId);
                         }
                     }
@@ -100,10 +100,10 @@ namespace DataAccess
                     {
                         while (reader.Read())
                         {
-                            int shiftId = (int)reader["ShiftId"];
+                            Guid shiftId = (Guid)reader["ShiftId"];
                             DateTime date = (DateTime)reader["Date"];
                             ShiftType shiftType = (ShiftType)Enum.Parse(typeof(ShiftType), reader["Type"].ToString());
-                            int employeeId = (int)reader["EmployeeID"];
+                            Guid employeeId = (Guid)reader["EmployeeID"];
                             var shift = new Shift(shiftId, date, shiftType, employeeId);
                             
                             shifts.Add(shift);

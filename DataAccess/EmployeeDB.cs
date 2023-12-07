@@ -28,7 +28,7 @@ namespace DataAccess
         {
             employeeRepository.DeleteEmployee(employee);
         }
-        public Employee GetEmployeeById(int id)
+        public Employee GetEmployeeById(Guid id)
         {
             return employeeRepository.GetEmployeeById(id);
         }
@@ -36,9 +36,9 @@ namespace DataAccess
         {
             return employeeRepository.GetAllEmployees();
         }
-        public Employee Authenticate(string username, string password)
+        public Employee Authenticate(Guid id, string password)
         {
-            return employeeRepository.Authenticate(username, password);
+            return employeeRepository.Authenticate(id, password);
         }
     }
 }

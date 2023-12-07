@@ -30,7 +30,7 @@ namespace BusinessLogic.Classes
         {
             employeeDB.DeleteEmployee(employee);
         }
-        public Employee GetEmployeeById(int id)
+        public Employee GetEmployeeById(Guid id)
         {
             return employeeDB.GetEmployeeById(id);
         }
@@ -38,9 +38,9 @@ namespace BusinessLogic.Classes
         {
             return employeeDB.GetAllEmployees();
         }
-        public Employee Authenticate(string username, string password)
+        public Employee Authenticate(Guid id, string password)
         {
-            return employeeDB.Authenticate(username, password);
+            return employeeDB.Authenticate(id, password);
         }
 
         public void AddShift(Shift shift)
@@ -55,7 +55,7 @@ namespace BusinessLogic.Classes
         {
             shiftDB.DeleteShift(shift);
         }
-        public Shift GetShiftById(int shiftId)
+        public Shift GetShiftById(Guid shiftId)
         {
             return shiftDB.GetShiftById(shiftId);
         }
