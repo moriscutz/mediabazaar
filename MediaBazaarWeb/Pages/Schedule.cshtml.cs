@@ -5,20 +5,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Hosting;
+using MediaBazaarWeb.Pages.Shared;
 
 namespace MediaBazaarWeb.Pages
 {
     public class ScheduleModel : PageModel
     {
         private readonly Administration _administration;
-        private readonly string _defaultEmployeeId = "1"; // Replace with logged-in user ID later
+        private readonly ILogger<ScheduleModel> _logger;    
+        //private readonly string _defaultEmployeeId = "1"; // Replace with logged-in user ID later
 
         public List<DayStatus> TwoWeeksSchedule { get; set; }
 
-        public ScheduleModel(Administration administration)
+        public ScheduleModel(IEmployeeDB employeeDB, IShiftDB shiftDB, ILogger<ScheduleModel> logger)
         {
-            _administration = administration;
-            TwoWeeksSchedule = new List<DayStatus>(); // Initialize the list here
+            _administration = new Administration(employeeDB, shiftDB);
+            TwoWeeksSchedule = new List<DayStatus>();
+            _logger = logger;
         }
         public Employee CurrentEmployee { get; set; }
         public void OnGet()
@@ -26,9 +29,10 @@ namespace MediaBazaarWeb.Pages
             var userIdClaim = HttpContext.User.FindFirst("id");
             if (userIdClaim != null)
             {
-
+                
                 Guid userId = new Guid(userIdClaim.Value);
                 CurrentEmployee = _administration.GetEmployeeById(userId);
+                _logger.LogInformation($"User authenticated. CurrentEmployee ID: {CurrentEmployee?.ID}");
             }
             else
             {
@@ -52,7 +56,7 @@ namespace MediaBazaarWeb.Pages
                 TwoWeeksSchedule.Add(new DayStatus
                 {
                     Date = currentDate,
-                    Shifts = new List<Shift>() // Initialize with no shifts
+                    Shifts = new List<Shift>() 
                 });
             }
         }
@@ -65,9 +69,10 @@ namespace MediaBazaarWeb.Pages
 
         private void PopulateShiftsForEmployee(Guid employeeId)
         {
-            var employee = _administration.GetEmployeeById(employeeId);
+            _logger.LogInformation($"Populating shifts for employee ID: {employeeId}...");
 
-            var employeeShifts = employee?.Shifts ?? new List<Shift>();
+            // Use the new method to get shifts for the employee by ID
+            var employeeShifts = _administration.GetShiftsForEmployeeById(employeeId);
 
             foreach (var dayStatus in TwoWeeksSchedule)
             {

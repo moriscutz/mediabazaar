@@ -1,0 +1,19 @@
+﻿@page
+@model MediaBazaarWeb.Pages.PreferencesModel
+@{
+    ViewData["Title"] = "Preferences";
+}
+
+<h2>Set Your Preferences</h2>
+
+<form method="post">
+    @for (int day = 1; day <= 7; day++)
+    {
+        <div>
+            <label>Preference for Day @day:</label>
+            <select asp-for="SelectedPreferences[day]" asp-items="Model.ShiftTypes"></select>
+        </div>
+    }
+
+    <button type="submit">Save Preferences</button>
+</form>

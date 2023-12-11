@@ -16,6 +16,7 @@ namespace BusinessLogic.Classes
         public Department Department { get; set; } 
         public string Password { get; set; }
         public string Username { get; set; }
+        public List<Preference> Preferences { get; set; }
         public Employee(Guid id, string firstName, string lastName, Position jobPosition, Department department, string password, string username)
         {
             this.ID = id;
@@ -26,6 +27,7 @@ namespace BusinessLogic.Classes
             this.Department = department;
             Password = password;
             Username = username;
+            this.Preferences = new List<Preference>();
         }
         public Employee() { }
     }

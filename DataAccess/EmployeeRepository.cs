@@ -81,7 +81,7 @@ namespace DataAccess
                     {
                         if (reader.Read())
                         {
-                            return new Employee
+                            var employee = new Employee
                             {
                                 ID = (Guid)reader["ID"],
                                 FirstName = reader["FirstName"].ToString(),
@@ -90,6 +90,10 @@ namespace DataAccess
                                 Password = reader["Password"].ToString(),
                                 Username = reader["Username"].ToString()
                             };
+
+                            employee.Shifts = new List<Shift>();
+
+                            return employee;
                         }
                     }
                 }

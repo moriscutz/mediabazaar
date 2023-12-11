@@ -32,7 +32,12 @@ namespace BusinessLogic.Classes
         }
         public Employee GetEmployeeById(Guid id)
         {
-            return employeeDB.GetEmployeeById(id);
+            var employee = employeeDB.GetEmployeeById(id);
+            if (employee != null && employee.Shifts == null) ;
+            {
+                employee.Shifts = new List<Shift>();
+            }
+            return employee;
         }
         public List<Employee> GetAllEmployees()
         {
@@ -62,6 +67,28 @@ namespace BusinessLogic.Classes
         public List<Shift> GetAllShifts()
         {
             return shiftDB.GetAllShifts();
+        }
+
+        public List<Shift> GetShiftsForEmployeeById(Guid employeeId)
+        {
+            return shiftDB.GetShiftsForEmployeeById(employeeId);
+        }
+
+        public List<Preference> GetPreferencesByEmployeeId(Guid employeeId)
+        {
+            return shiftDB.GetPreferencesByEmployeeId(employeeId);
+        }
+        public List<Preference> GetPreferencesByDayOfWeek(int dayOfWeek)
+        {
+            return shiftDB.GetPreferencesByDayOfWeek(dayOfWeek);
+        }
+        public void AddPreference(Preference preference)
+        {
+            shiftDB.AddPreference(preference);
+        }
+        public void UpdatePreference(Preference preference)
+        {
+            shiftDB.UpdatePreference(preference);
         }
     }
 }

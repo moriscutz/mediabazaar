@@ -17,9 +17,10 @@ namespace DataAccess
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO dbo.Shift (Date, Type, EmployeeID) VALUES (@Date, @Type, @EmployeeID)";
+                string query = "INSERT INTO dbo.Shift (ShiftId, Date, Type, EmployeeID) VALUES (@ShiftId, @Date, @Type, @EmployeeID)";
                 using (var command = new SqlCommand(query, connection))
                 {
+                    command.Parameters.AddWithValue("@ShiftId", Guid.NewGuid());
                     command.Parameters.AddWithValue("@Date", shift.Date);
                     command.Parameters.AddWithValue("@Type", shift.Type.ToString());
                     command.Parameters.AddWithValue("@EmployeeID", shift.EmployeeID);
@@ -80,6 +81,8 @@ namespace DataAccess
                             ShiftType shiftType = (ShiftType)Enum.Parse(typeof(ShiftType), reader["Type"].ToString());
                             Guid employeeId = (Guid)reader["EmployeeID"];
                             var shift = new Shift(shiftId, date, shiftType, employeeId);
+
+                            return shift;
                         }
                     }
                 }
@@ -113,5 +116,125 @@ namespace DataAccess
             }
             return shifts;
         }
+
+        public List<Shift> GetShiftsForEmployeeById(Guid employeeId)
+        {
+            var shifts = new List<Shift>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT ShiftId, Date, Type FROM dbo.Shift WHERE EmployeeID = @EmployeeID";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@EmployeeID", employeeId);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Guid shiftId = (Guid)reader["ShiftId"];
+                            DateTime date = (DateTime)reader["Date"];
+                            ShiftType shiftType = (ShiftType)Enum.Parse(typeof(ShiftType), reader["Type"].ToString());
+                            var shift = new Shift(shiftId, date, shiftType, employeeId);
+
+                            shifts.Add(shift);
+                        }
+                    }
+                }
+            }
+            return shifts;
+        }
+        public List<Preference> GetPreferencesByEmployeeId(Guid employeeId)
+        {
+            var preferences = new List<Preference>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Preferences WHERE EmployeeId = @EmployeeId";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@EmployeeId", employeeId);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var preference = new Preference
+                            {
+                                PreferenceId = (Guid)reader["PreferenceId"],
+                                DayOfWeek = (int)reader["DayOfWeek"],
+                                ShiftType = (ShiftType)(int)reader["ShiftType"],
+                                EmployeeId = (Guid)reader["EmployeeId"]
+                            };
+                            preferences.Add(preference);
+                        }
+                    }
+                }
+            }
+            return preferences;
+        }
+
+        public List<Preference> GetPreferencesByDayOfWeek(int dayOfWeek)
+        {
+            var preferences = new List<Preference>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Preferences WHERE DayOfWeek = @DayOfWeek";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@DayOfWeek", dayOfWeek);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var preference = new Preference
+                            {
+                                PreferenceId = (Guid)reader["PreferenceId"],
+                                DayOfWeek = (int)reader["DayOfWeek"],
+                                ShiftType = (ShiftType)(int)reader["ShiftType"],
+                                EmployeeId = (Guid)reader["EmployeeId"]
+                            };
+                            preferences.Add(preference);
+                        }
+                    }
+                }
+            }
+            return preferences;
+        }
+
+        public void UpdatePreference(Preference preference)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "UPDATE dbo.Preferences SET ShiftType = @ShiftType WHERE PreferenceId = @PreferenceId";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
+                    command.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void AddPreference(Preference preference)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO dbo.Preferences (PreferenceId, DayOfWeek, ShiftType, EmployeeId) " +
+                               "VALUES (@PreferenceId, @DayOfWeek, @ShiftType, @EmployeeId)";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
+                    command.Parameters.AddWithValue("@DayOfWeek", preference.DayOfWeek);
+                    command.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
+                    command.Parameters.AddWithValue("@EmployeeId", preference.EmployeeId);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
     }
 }

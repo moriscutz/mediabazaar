@@ -48,6 +48,10 @@ namespace MediaBazaarWeb.Pages
                 }
                 else
                 {
+
+                    CurrentEmployee = user;
+
+
                     _logger.LogInformation("User was not null, authenticating in");
                     List<Claim> claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, CurrentEmployee.ID.ToString()));
