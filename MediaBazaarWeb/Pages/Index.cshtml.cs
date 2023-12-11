@@ -20,11 +20,13 @@ namespace MediaBazaarWeb.Pages
             administration = new Administration(employeeDB, shiftDB);
         }
         [BindProperty]
+        public LoginDTO loginDto { get; set; }
         public Employee CurrentEmployee { get; set; }
         public IActionResult OnGet()
         {
             if (User.Identity.IsAuthenticated)
             {
+                _logger.LogInformation("User was not authenticated");
                 return RedirectToPage("/Schedule");
             }
             return Page();
@@ -33,15 +35,20 @@ namespace MediaBazaarWeb.Pages
         {
             if (ModelState.IsValid)
             {
-                var user = administration.Authenticate(CurrentEmployee.ID, CurrentEmployee.Password);
+                _logger.LogInformation("ModelState is Valid");
+                _logger.LogInformation("Trying to authenticate the user");
+                var user = administration.Authenticate(loginDto.Username, loginDto.Password);
+
                 if (user == null)
                 {
+                    _logger.LogInformation("User was null");
                     ModelState.AddModelError("", "The user was not found");
                     TempData["CredentialsWrong"]="The id or the password is wrong";
                     return Page();
                 }
                 else
                 {
+                    _logger.LogInformation("User was not null, authenticating in");
                     List<Claim> claims = new List<Claim>();
                     claims.Add(new Claim(ClaimTypes.NameIdentifier, CurrentEmployee.ID.ToString()));
                     claims.Add(new Claim("id", CurrentEmployee.ID.ToString()));
@@ -57,6 +64,21 @@ namespace MediaBazaarWeb.Pages
             }
             else
             {
+                foreach (var key in ModelState.Keys)
+                {
+                    var state = ModelState[key];
+
+                    foreach (var error in state.Errors)
+                    {
+                        _logger.LogError($"Error in ModelState for key '{key}': {error.ErrorMessage}");
+
+                        
+                        if (error.Exception != null)
+                        {
+                            _logger.LogError(error.Exception, "Exception in ModelState");
+                        }
+                    }
+                }
                 _logger.LogInformation("ModelState was invalid");
                 return Page();
             }

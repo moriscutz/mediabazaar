@@ -38,9 +38,9 @@ namespace BusinessLogic.Classes
         {
             return employeeDB.GetAllEmployees();
         }
-        public Employee Authenticate(Guid id, string password)
+        public Employee Authenticate(string username, string password)
         {
-            return employeeDB.Authenticate(id, password);
+            return employeeDB.Authenticate(username, password);
         }
 
         public void AddShift(Shift shift)

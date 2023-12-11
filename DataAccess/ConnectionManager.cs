@@ -10,7 +10,7 @@ namespace DataAccess
     {
         public static string GetConnectionString()
         {
-            return "Server=mssqlstud.fhict.local;Database=dbi516431;User Id=dbi516431;Password=Un1v3rs1t4t324@";
+            return "Server=DESKTOP-54O2PH5\\SQLEXPRESS;Database=MediaBazaar;User Id=DESKTOP-54O2PH5\\ritov;Integrated Security=True;";
         }
     }
 }

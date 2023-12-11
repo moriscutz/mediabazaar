@@ -18,7 +18,7 @@ namespace DataAccess
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO dbo.Employee (ID, FirstName, LastName, JobPosition, Password) VALUES (@ID, @FirstName, @LastName, @JobPosition, @Password)";
+                string query = "INSERT INTO dbo.Employee (ID, FirstName, LastName, JobPosition, Password, Username) VALUES (@ID, @FirstName, @LastName, @JobPosition, @Password, @Username)";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@ID", employee.ID);
@@ -26,6 +26,7 @@ namespace DataAccess
                     command.Parameters.AddWithValue("@LastName", employee.LastName);
                     command.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
                     command.Parameters.AddWithValue("@Password", employee.Password);
+                    command.Parameters.AddWithValue("@Username", employee.Username);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -45,6 +46,7 @@ namespace DataAccess
                     command.Parameters.AddWithValue("@LastName", employee.LastName);
                     command.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
                     command.Parameters.AddWithValue("@Password", employee.Password);
+                    
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -85,7 +87,8 @@ namespace DataAccess
                                 FirstName = reader["FirstName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
                                 JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
-                                Password = reader["Password"].ToString()
+                                Password = reader["Password"].ToString(),
+                                Username = reader["Username"].ToString()
                             };
                         }
                     }
@@ -113,7 +116,8 @@ namespace DataAccess
                                 FirstName = reader["FirstName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
                                 JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
-                                Password = reader["Password"].ToString()
+                                Password = reader["Password"].ToString(),
+                                Username = reader["Username"].ToString()
                             });
                         }
                     }
@@ -122,14 +126,14 @@ namespace DataAccess
             return employees;
         }
 
-        public Employee Authenticate(Guid id, string password)
+        public Employee Authenticate(string username, string password)
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM dbo.Employee WHERE ID = @ID AND Password = @Password";
+                string query = "SELECT * FROM dbo.Employee WHERE Username = @Username AND Password = @Password";
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ID", id);
+                    command.Parameters.AddWithValue("@Username", username);
                     command.Parameters.AddWithValue("@Password", password);
                     connection.Open();
                     using (var reader = command.ExecuteReader())
@@ -142,7 +146,8 @@ namespace DataAccess
                                 FirstName = reader["FirstName"].ToString(),
                                 LastName = reader["LastName"].ToString(),
                                 JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
-                                Password = reader["Password"].ToString()
+                                Password = reader["Password"].ToString(),
+                                Username = reader["Username"].ToString()
                             };
                         }
                     }

@@ -5,11 +5,11 @@ VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessLogic", "BusinessLogic.csproj", "{A159C7EB-87D5-4252-B5ED-2370DBB8EDB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{60C54E12-0580-4FA1-9A42-09EAE9E64B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "..\DataAccess\DataAccess.csproj", "{60C54E12-0580-4FA1-9A42-09EAE9E64B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaBazaarApp", "..\MediaBazaarApp\MediaBazaarApp.csproj", "{1CEE0420-F765-49B8-940B-FF5C0309A937}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaBazaarApp", "..\MediaBazaarApp\MediaBazaarApp.csproj", "{1CEE0420-F765-49B8-940B-FF5C0309A937}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaBazaarWeb", "..\MediaBazaarWeb\MediaBazaarWeb.csproj", "{0D4AAF21-AC6A-4A97-AB32-F1BC0914809C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediaBazaarWeb", "..\MediaBazaarWeb\MediaBazaarWeb.csproj", "{0D4AAF21-AC6A-4A97-AB32-F1BC0914809C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

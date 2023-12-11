@@ -15,7 +15,8 @@ namespace BusinessLogic.Classes
         public List<Shift> Shifts { get; set; }
         public Department Department { get; set; } 
         public string Password { get; set; }
-        public Employee(Guid id, string firstName, string lastName, Position jobPosition, Department department, string password)
+        public string Username { get; set; }
+        public Employee(Guid id, string firstName, string lastName, Position jobPosition, Department department, string password, string username)
         {
             this.ID = id;
             this.FirstName = firstName;
@@ -24,6 +25,7 @@ namespace BusinessLogic.Classes
             this.Shifts = new List<Shift>();
             this.Department = department;
             Password = password;
+            Username = username;
         }
         public Employee() { }
     }

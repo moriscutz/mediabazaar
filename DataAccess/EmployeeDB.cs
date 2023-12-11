@@ -36,9 +36,9 @@ namespace DataAccess
         {
             return employeeRepository.GetAllEmployees();
         }
-        public Employee Authenticate(Guid id, string password)
+        public Employee Authenticate(string username, string password)
         {
-            return employeeRepository.Authenticate(id, password);
+            return employeeRepository.Authenticate(username, password);
         }
     }
 }

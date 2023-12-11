@@ -1,0 +1,32 @@
+﻿@page
+@model MediaBazaarWeb.Pages.ScheduleModel
+@{
+    ViewData["Title"] = "Schedule Page";
+}
+
+<div class="container">
+    <div class="row">
+        @if (Model.TwoWeeksSchedule != null)
+        {
+            foreach (var dayStatus in Model.TwoWeeksSchedule)
+            {
+                <div class="col-md-2 mb-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">@dayStatus.Date.ToString("ddd, MMM dd")</h5>
+                            <!-- Remove GetDayStatus usage -->
+                            <p class="card-text">Status: @dayStatus.GetShiftSummary()</p>
+                            <form method="post" asp-page-handler="SelectDay" asp-route-date="@dayStatus.Date.ToString("yyyy-MM-dd")">
+                                <button type="submit" class="btn btn-primary" disabled="@dayStatus.IsFull">Select</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>No schedule data available.</p>
+        }
+    </div>
+</div>
