@@ -51,21 +51,21 @@ namespace MediaBazaarWeb.Pages
                     int dayOfWeek = kvp.Key;
                     ShiftType shiftType = kvp.Value;
 
-                    // Get the user
+                    
                     var user = _administration.GetEmployeeById(userId);
 
-                    // Find the existing preference for the specified day
+                    
                     var existingPreference = user.Preferences.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
 
                     if (existingPreference != null)
                     {
-                        // Update existing preference
+                        
                         existingPreference.ShiftType = shiftType;
                         _administration.UpdatePreference(existingPreference);
                     }
                     else
                     {
-                        // Add new preference
+                        
                         var newPreference = new Preference
                         {
                             PreferenceId = Guid.NewGuid(),
