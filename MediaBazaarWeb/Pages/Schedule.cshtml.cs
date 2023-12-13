@@ -24,7 +24,7 @@ namespace MediaBazaarWeb.Pages
             _logger = logger;
         }
         public Employee CurrentEmployee { get; set; }
-        public void OnGet(string view)
+        public void OnGet(string view, string month)
         {
             var userIdClaim = HttpContext.User.FindFirst("id");
             if (userIdClaim != null)
@@ -43,7 +43,20 @@ namespace MediaBazaarWeb.Pages
             }
             int numberOfWeeks = view == "one-week" ? 1 : 2;
             InitializeSchedule(numberOfWeeks);
+
+            if (!string.IsNullOrEmpty(month))
+            {
+                AdjustMonth(month);
+            }
+
+
             PopulateShiftsForEmployee(CurrentEmployee.ID);
+        }
+        private void AdjustMonth(string direction)
+        {
+            int monthOffset = direction == "next" ? 1 : -1;
+            var startDate = FindNextMonday(DateTime.Today.AddMonths(monthOffset));
+            InitializeSchedule(startDate);
         }
 
         private void InitializeSchedule(int numberOfWeeks)
@@ -61,7 +74,6 @@ namespace MediaBazaarWeb.Pages
                 });
             }
         }
-
 
         private DateTime FindNextMonday(DateTime date)
         {
