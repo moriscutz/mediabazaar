@@ -8,6 +8,7 @@ namespace DataAccess
 {
     public static class ConnectionManager
     {
+        //return "Server=DESKTOP-54O2PH5\\SQLEXPRESS;Database=MediaBazaar;User Id=DESKTOP-54O2PH5\\ritov;Integrated Security=True;";
         public static string GetConnectionString()
         {
             return "Server=DESKTOP-54O2PH5\\SQLEXPRESS;Database=MediaBazaar;User Id=DESKTOP-54O2PH5\\ritov;Integrated Security=True;";
