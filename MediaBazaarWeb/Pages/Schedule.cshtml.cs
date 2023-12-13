@@ -13,7 +13,7 @@ namespace MediaBazaarWeb.Pages
     {
         private readonly Administration _administration;
         private readonly ILogger<ScheduleModel> _logger;    
-        //private readonly string _defaultEmployeeId = "1"; // Replace with logged-in user ID later
+        
 
         public List<DayStatus> TwoWeeksSchedule { get; set; }
 
@@ -24,7 +24,7 @@ namespace MediaBazaarWeb.Pages
             _logger = logger;
         }
         public Employee CurrentEmployee { get; set; }
-        public void OnGet()
+        public void OnGet(string view)
         {
             var userIdClaim = HttpContext.User.FindFirst("id");
             if (userIdClaim != null)
@@ -41,25 +41,27 @@ namespace MediaBazaarWeb.Pages
 
 
             }
-            InitializeTwoWeeksSchedule();
+            int numberOfWeeks = view == "one-week" ? 1 : 2;
+            InitializeSchedule(numberOfWeeks);
             PopulateShiftsForEmployee(CurrentEmployee.ID);
         }
 
-        private void InitializeTwoWeeksSchedule()
+        private void InitializeSchedule(int numberOfWeeks)
         {
             var startDate = FindNextMonday(DateTime.Today);
             TwoWeeksSchedule.Clear();
 
-            for (int i = 0; i < 14; i++) // 2 weeks
+            for (int i = 0; i < numberOfWeeks * 7; i++)
             {
                 var currentDate = startDate.AddDays(i);
                 TwoWeeksSchedule.Add(new DayStatus
                 {
                     Date = currentDate,
-                    Shifts = new List<Shift>() 
+                    Shifts = new List<Shift>()
                 });
             }
         }
+
 
         private DateTime FindNextMonday(DateTime date)
         {
