@@ -12,8 +12,8 @@ namespace MediaBazaarWeb.Pages
     public class ScheduleModel : PageModel
     {
         private readonly Administration _administration;
-        private readonly ILogger<ScheduleModel> _logger;    
-        
+        private readonly ILogger<ScheduleModel> _logger;
+
 
         public List<DayStatus> TwoWeeksSchedule { get; set; }
 
@@ -24,12 +24,12 @@ namespace MediaBazaarWeb.Pages
             _logger = logger;
         }
         public Employee CurrentEmployee { get; set; }
-        public void OnGet(string view, string month)
+        public void OnGet(string view)
         {
             var userIdClaim = HttpContext.User.FindFirst("id");
             if (userIdClaim != null)
             {
-                
+
                 Guid userId = new Guid(userIdClaim.Value);
                 CurrentEmployee = _administration.GetEmployeeById(userId);
                 _logger.LogInformation($"User authenticated. CurrentEmployee ID: {CurrentEmployee?.ID}");
@@ -43,37 +43,28 @@ namespace MediaBazaarWeb.Pages
             }
             int numberOfWeeks = view == "one-week" ? 1 : 2;
             InitializeSchedule(numberOfWeeks);
-
-            if (!string.IsNullOrEmpty(month))
-            {
-                AdjustMonth(month);
-            }
-
-
             PopulateShiftsForEmployee(CurrentEmployee.ID);
-        }
-        private void AdjustMonth(string direction)
-        {
-            int monthOffset = direction == "next" ? 1 : -1;
-            var startDate = FindNextMonday(DateTime.Today.AddMonths(monthOffset));
-            InitializeSchedule(startDate);
         }
 
         private void InitializeSchedule(int numberOfWeeks)
         {
-            var startDate = FindNextMonday(DateTime.Today);
+            var currentDate = DateTime.Today;
+            var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
+            var startDate = FindNextMonday(firstDayOfMonth);
             TwoWeeksSchedule.Clear();
 
             for (int i = 0; i < numberOfWeeks * 7; i++)
             {
-                var currentDate = startDate.AddDays(i);
+                var currentScheduleDate = startDate.AddDays(i);
                 TwoWeeksSchedule.Add(new DayStatus
                 {
-                    Date = currentDate,
+                    Date = currentScheduleDate,
                     Shifts = new List<Shift>()
                 });
             }
         }
+
+
 
         private DateTime FindNextMonday(DateTime date)
         {
@@ -85,7 +76,7 @@ namespace MediaBazaarWeb.Pages
         {
             _logger.LogInformation($"Populating shifts for employee ID: {employeeId}...");
 
-            // Use the new method to get shifts for the employee by ID
+            
             var employeeShifts = _administration.GetShiftsForEmployeeById(employeeId);
 
             foreach (var dayStatus in TwoWeeksSchedule)
@@ -118,4 +109,3 @@ namespace MediaBazaarWeb.Pages
 
     }
 }
-
