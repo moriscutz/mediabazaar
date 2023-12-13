@@ -16,27 +16,44 @@ namespace MediaBazaarWeb.Pages
         public Dictionary<int, ShiftType> SelectedPreferences { get; set; }
 
         public List<SelectListItem> ShiftTypes { get; } = new List<SelectListItem>
-        {
-            new SelectListItem { Value = "Morning", Text = "Morning" },
-            new SelectListItem { Value = "Afternoon", Text = "Afternoon" },
-            new SelectListItem { Value = "Night", Text = "Night" }
-        };
+    {
+        new SelectListItem { Value = "Morning", Text = "Morning" },
+        new SelectListItem { Value = "Afternoon", Text = "Afternoon" },
+        new SelectListItem { Value = "Night", Text = "Night" }
+    };
         public PreferencesModel(IEmployeeDB employeeDB, IShiftDB shiftDB)
         {
             _administration = new Administration(employeeDB, shiftDB);
         }
+
         public void OnGet()
         {
-            SelectedPreferences = new Dictionary<int, ShiftType>
+            var userIdClaim = HttpContext.User.FindFirst("id");
+            if (userIdClaim != null)
+            {
+                Guid userId = new Guid(userIdClaim.Value);
+
+                // Retrieve existing preferences for the user
+                var existingPreferences = _administration.GetPreferencesByEmployeeId(userId);
+
+                // Initialize SelectedPreferences dictionary and populate it with existing preferences
+                SelectedPreferences = new Dictionary<int, ShiftType>
+            {
+                { 1, GetShiftTypeForDay(existingPreferences, 1) },
+                { 2, GetShiftTypeForDay(existingPreferences, 2) },
+                { 3, GetShiftTypeForDay(existingPreferences, 3) },
+                { 4, GetShiftTypeForDay(existingPreferences, 4) },
+                { 5, GetShiftTypeForDay(existingPreferences, 5) },
+                { 6, GetShiftTypeForDay(existingPreferences, 6) },
+                { 7, GetShiftTypeForDay(existingPreferences, 7) }
+            };
+            }
+        }
+
+        private ShiftType GetShiftTypeForDay(List<Preference> existingPreferences, int dayOfWeek)
         {
-            { 1, ShiftType.Morning },  
-            { 2, ShiftType.Morning },  
-            { 3, ShiftType.Morning },  
-            { 4, ShiftType.Morning },  
-            { 5, ShiftType.Morning },  
-            { 6, ShiftType.Morning },  
-            { 7, ShiftType.Morning }   
-        };
+            var existingPreference = existingPreferences.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
+            return existingPreference?.ShiftType ?? ShiftType.Morning;
         }
 
         public IActionResult OnPost()
@@ -46,53 +63,42 @@ namespace MediaBazaarWeb.Pages
             {
                 Guid userId = new Guid(userIdClaim.Value);
 
-                foreach (var kvp in SelectedPreferences)
+                if (SelectedPreferences != null)
                 {
-                    int dayOfWeek = kvp.Key;
-                    ShiftType shiftType = kvp.Value;
-
-                    
                     var user = _administration.GetEmployeeById(userId);
+                    var existingPreferences = _administration.GetPreferencesByEmployeeId(userId);
 
-                    
-                    var existingPreference = user.Preferences.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
+                    foreach (var kvp in SelectedPreferences)
+                    {
+                        int dayOfWeek = kvp.Key;
+                        ShiftType shiftType = kvp.Value;
 
-                    if (existingPreference != null)
-                    {
-                        
-                        existingPreference.ShiftType = shiftType;
-                        _administration.UpdatePreference(existingPreference);
-                    }
-                    else
-                    {
-                        
-                        var newPreference = new Preference
+                        var existingPreference = existingPreferences.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
+
+                        if (existingPreference != null)
                         {
-                            PreferenceId = Guid.NewGuid(),
-                            DayOfWeek = dayOfWeek,
-                            ShiftType = shiftType,
-                            EmployeeId = userId
-                        };
-                        _administration.AddPreference(newPreference);
+                            existingPreference.ShiftType = shiftType;
+                            _administration.UpdatePreference(existingPreference);
+                        }
+                        else
+                        {
+                            var newPreference = new Preference
+                            {
+                                PreferenceId = Guid.NewGuid(),
+                                DayOfWeek = dayOfWeek,
+                                ShiftType = shiftType,
+                                EmployeeId = userId
+                            };
+                            _administration.AddPreference(newPreference);
+                        }
                     }
-                }
 
-                // Redirect to Schedule page after saving preferences
-                return RedirectToPage("/Schedule");
+                    return RedirectToPage("/Schedule");
+                }
             }
 
-            // Handle the case where the user is not authenticated
             return RedirectToPage("/Index");
         }
-
-
-
-
-
-        private DateTime FindNextDayOfWeek(DateTime date, DayOfWeek dayOfWeek)
-        {
-            int daysToAdd = ((int)dayOfWeek - (int)date.DayOfWeek + 7) % 7;
-            return daysToAdd == 0 ? date.AddDays(7) : date.AddDays(daysToAdd);
-        }
     }
+
 }

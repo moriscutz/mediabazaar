@@ -37,6 +37,10 @@ namespace BusinessLogic.Classes
             {
                 employee.Shifts = new List<Shift>();
             }
+            if (employee.Preferences == null)
+            {
+                employee.Preferences = new List<Preference>();
+            }
             return employee;
         }
         public List<Employee> GetAllEmployees()

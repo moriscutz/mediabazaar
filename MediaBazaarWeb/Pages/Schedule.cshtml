@@ -27,23 +27,20 @@
             @foreach (var dayStatus in Model.TwoWeeksSchedule)
             {
                 <tr>
-                    <th scope="row">@dayStatus.Date.ToString("ddd, MMM dd")</th>
-                    @foreach (var shift in dayStatus.Shifts)
+                    <th scope="row">@dayStatus.Date.ToString("dd MMM")</th>
+                    @for (int i = 0; i < 7; i++)
                     {
-                        <td style="background-color: @(GetShiftColor(shift, dayStatus.Date))">@ReturnShiftTypeByHours(shift)</td>
-                    }
-                    @for (var i = dayStatus.Shifts.Count; i < 3; i++)
-                    {
-                        <td></td>
+                        <td>
+                            @foreach (var shift in dayStatus.Shifts.Where(s => ((int)s.Date.DayOfWeek + 6) % 7 == i))
+                            {
+                                <div style="background-color: @(GetShiftColor(shift, dayStatus.Date))">@ReturnShiftTypeByHours(shift)</div>
+                            }
+                        </td>
                     }
                 </tr>
             }
         </tbody>
     </table>
-    <div class="btn-group" role="group" aria-label="Navigation Options">
-        <a class="btn btn-secondary" asp-page="/Schedule" asp-route-view="@ViewData["currentView"]" asp-route-month="prev">Previous Month</a>
-        <a class="btn btn-secondary" asp-page="/Schedule" asp-route-view="@ViewData["currentView"]" asp-route-month="next">Next Month</a>
-    </div>
     <div class="form-group">
         <a class="button" asp-page="/Preferences">Change Preferences</a>
     </div>
