@@ -554,19 +554,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ritov\\.nuget\\packages\\": {}
+    "C:\\Users\\flapj\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarApp\\MediaBazaarApp.csproj",
+      "projectUniqueName": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarApp\\MediaBazaarApp.csproj",
       "projectName": "MediaBazaarApp",
-      "projectPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarApp\\MediaBazaarApp.csproj",
-      "packagesPath": "C:\\Users\\ritov\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarApp\\obj\\",
+      "projectPath": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarApp\\MediaBazaarApp.csproj",
+      "packagesPath": "C:\\Users\\flapj\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarApp\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\ritov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\flapj\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -580,11 +585,11 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\BusinessLogic\\BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\BusinessLogic\\BusinessLogic.csproj"
+            "C:\\Users\\flapj\\Desktop\\New folder\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\flapj\\Desktop\\New folder\\BusinessLogic\\BusinessLogic.csproj"
             },
-            "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\flapj\\Desktop\\New folder\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\flapj\\Desktop\\New folder\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -623,7 +628,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }
