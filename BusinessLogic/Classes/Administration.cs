@@ -20,7 +20,10 @@ namespace BusinessLogic.Classes
 
         public void AddEmployee(Employee employee)
         {
-            employeeDB.AddEmployee(employee);
+            if (employee.Preferences == null)
+                employeeDB.AddEmployee(employee);
+            else
+                employeeDB.AddEmployeeWithPreferences(employee);
         }
         public void UpdateEmployee(Employee employee)
         {

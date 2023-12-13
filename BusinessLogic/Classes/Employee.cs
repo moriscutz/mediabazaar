@@ -13,7 +13,7 @@ namespace BusinessLogic.Classes
         public string LastName { get; set; }
         public Position JobPosition { get; set; } 
         public List<Shift> Shifts { get; set; }
-        public Department Department { get; set; } 
+        //public Department Department { get; set; } 
         public string Password { get; set; }
         public string Username { get; set; }
         public List<Preference> Preferences { get; set; }
@@ -24,7 +24,7 @@ namespace BusinessLogic.Classes
             this.LastName = lastName;
             this.JobPosition = jobPosition;
             this.Shifts = new List<Shift>();
-            this.Department = department;
+            //this.Department = department;
             Password = password;
             Username = username;
             this.Preferences = new List<Preference>();

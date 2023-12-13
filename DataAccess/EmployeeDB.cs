@@ -40,5 +40,9 @@ namespace DataAccess
         {
             return employeeRepository.Authenticate(username, password);
         }
+        public void AddEmployeeWithPreferences(Employee employee)
+        {
+            employeeRepository.AddEmployeeWithPreferences(employee);
+        }
     }
 }
