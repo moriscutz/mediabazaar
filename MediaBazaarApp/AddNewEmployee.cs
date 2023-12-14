@@ -56,7 +56,7 @@ namespace MediaBazaarApp
                 SetPreference(newEmployee, DayOfWeek.Thursday, ThursdayPreference.SelectedItem?.ToString());
                 SetPreference(newEmployee, DayOfWeek.Friday, FridayPreference.SelectedItem?.ToString());
                 SetPreference(newEmployee, DayOfWeek.Saturday, SaturdayPreference.SelectedItem?.ToString());
-                SetPreference(newEmployee, DayOfWeek.Sunday, SundayPreference.SelectedItem?.ToString());
+                SetPreference(newEmployee, DayOfWeek.Sunday + 7, SundayPreference.SelectedItem?.ToString());
 
                 administration.AddEmployee(newEmployee);
                 

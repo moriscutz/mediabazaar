@@ -30,5 +30,10 @@ namespace BusinessLogic.Classes
             this.Preferences = new List<Preference>();
         }
         public Employee() { }
+
+        public override string ToString()
+        {
+            return $"{FirstName} {LastName}";
+        }
     }
 }

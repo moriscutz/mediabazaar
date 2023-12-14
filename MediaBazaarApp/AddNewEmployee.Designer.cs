@@ -358,7 +358,7 @@
             this.Controls.Add(this.firstNameTextBox);
             this.Controls.Add(this.label1);
             this.Name = "AddNewEmployee";
-            this.Text = "AddNewEmployee";
+            this.Text = "Add New Employee";
             this.ResumeLayout(false);
             this.PerformLayout();
 

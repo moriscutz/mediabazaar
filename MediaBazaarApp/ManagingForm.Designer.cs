@@ -30,15 +30,18 @@
         {
             this.ManagementTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.deleteEmployeeButton = new System.Windows.Forms.Button();
+            this.updateEmployeeButton = new System.Windows.Forms.Button();
+            this.SearchFilterComboBox = new System.Windows.Forms.ComboBox();
+            this.searchEmployeeButton = new System.Windows.Forms.Button();
+            this.searchTextBox = new System.Windows.Forms.TextBox();
             this.seeEmployeeNoShiftButton = new System.Windows.Forms.Button();
             this.seeAssignedEmployeeButton = new System.Windows.Forms.Button();
             this.seeAllEmployeeButton = new System.Windows.Forms.Button();
             this.employeeListBox = new System.Windows.Forms.ListBox();
             this.addNewEmployeeButton = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.searchTextBox = new System.Windows.Forms.TextBox();
-            this.searchEmployeeButton = new System.Windows.Forms.Button();
-            this.SearchFilterComboBox = new System.Windows.Forms.ComboBox();
+            this.seeEmployeeShift = new System.Windows.Forms.Button();
             this.ManagementTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -56,6 +59,9 @@
             // tabPage1
             // 
             this.tabPage1.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.tabPage1.Controls.Add(this.seeEmployeeShift);
+            this.tabPage1.Controls.Add(this.deleteEmployeeButton);
+            this.tabPage1.Controls.Add(this.updateEmployeeButton);
             this.tabPage1.Controls.Add(this.SearchFilterComboBox);
             this.tabPage1.Controls.Add(this.searchEmployeeButton);
             this.tabPage1.Controls.Add(this.searchTextBox);
@@ -71,11 +77,61 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Employee Management";
             // 
+            // deleteEmployeeButton
+            // 
+            this.deleteEmployeeButton.Location = new System.Drawing.Point(196, 420);
+            this.deleteEmployeeButton.Name = "deleteEmployeeButton";
+            this.deleteEmployeeButton.Size = new System.Drawing.Size(171, 37);
+            this.deleteEmployeeButton.TabIndex = 8;
+            this.deleteEmployeeButton.Text = "Delete Employee";
+            this.deleteEmployeeButton.UseVisualStyleBackColor = true;
+            this.deleteEmployeeButton.Click += new System.EventHandler(this.deleteEmployeeButton_Click);
+            // 
+            // updateEmployeeButton
+            // 
+            this.updateEmployeeButton.Location = new System.Drawing.Point(19, 420);
+            this.updateEmployeeButton.Name = "updateEmployeeButton";
+            this.updateEmployeeButton.Size = new System.Drawing.Size(171, 37);
+            this.updateEmployeeButton.TabIndex = 7;
+            this.updateEmployeeButton.Text = "Update Employee\'s Data";
+            this.updateEmployeeButton.UseVisualStyleBackColor = true;
+            this.updateEmployeeButton.Click += new System.EventHandler(this.updateEmployeeButton_Click);
+            // 
+            // SearchFilterComboBox
+            // 
+            this.SearchFilterComboBox.FormattingEnabled = true;
+            this.SearchFilterComboBox.Items.AddRange(new object[] {
+            "By Username",
+            "By Last Name"});
+            this.SearchFilterComboBox.Location = new System.Drawing.Point(236, 59);
+            this.SearchFilterComboBox.Name = "SearchFilterComboBox";
+            this.SearchFilterComboBox.Size = new System.Drawing.Size(92, 23);
+            this.SearchFilterComboBox.TabIndex = 6;
+            this.SearchFilterComboBox.Text = "Filter";
+            // 
+            // searchEmployeeButton
+            // 
+            this.searchEmployeeButton.Location = new System.Drawing.Point(60, 88);
+            this.searchEmployeeButton.Name = "searchEmployeeButton";
+            this.searchEmployeeButton.Size = new System.Drawing.Size(170, 37);
+            this.searchEmployeeButton.TabIndex = 5;
+            this.searchEmployeeButton.Text = "Search for the Employee";
+            this.searchEmployeeButton.UseVisualStyleBackColor = true;
+            this.searchEmployeeButton.Click += new System.EventHandler(this.searchEmployeeButton_Click);
+            // 
+            // searchTextBox
+            // 
+            this.searchTextBox.Location = new System.Drawing.Point(41, 59);
+            this.searchTextBox.Name = "searchTextBox";
+            this.searchTextBox.PlaceholderText = "Search User";
+            this.searchTextBox.Size = new System.Drawing.Size(189, 23);
+            this.searchTextBox.TabIndex = 4;
+            // 
             // seeEmployeeNoShiftButton
             // 
-            this.seeEmployeeNoShiftButton.Location = new System.Drawing.Point(3, 419);
+            this.seeEmployeeNoShiftButton.Location = new System.Drawing.Point(19, 306);
             this.seeEmployeeNoShiftButton.Name = "seeEmployeeNoShiftButton";
-            this.seeEmployeeNoShiftButton.Size = new System.Drawing.Size(150, 62);
+            this.seeEmployeeNoShiftButton.Size = new System.Drawing.Size(171, 37);
             this.seeEmployeeNoShiftButton.TabIndex = 1;
             this.seeEmployeeNoShiftButton.Text = "See Employees without Shifts";
             this.seeEmployeeNoShiftButton.UseVisualStyleBackColor = true;
@@ -83,9 +139,9 @@
             // 
             // seeAssignedEmployeeButton
             // 
-            this.seeAssignedEmployeeButton.Location = new System.Drawing.Point(6, 351);
+            this.seeAssignedEmployeeButton.Location = new System.Drawing.Point(196, 263);
             this.seeAssignedEmployeeButton.Name = "seeAssignedEmployeeButton";
-            this.seeAssignedEmployeeButton.Size = new System.Drawing.Size(150, 62);
+            this.seeAssignedEmployeeButton.Size = new System.Drawing.Size(171, 37);
             this.seeAssignedEmployeeButton.TabIndex = 3;
             this.seeAssignedEmployeeButton.Text = "See assigned Employees";
             this.seeAssignedEmployeeButton.UseVisualStyleBackColor = true;
@@ -93,9 +149,9 @@
             // 
             // seeAllEmployeeButton
             // 
-            this.seeAllEmployeeButton.Location = new System.Drawing.Point(6, 283);
+            this.seeAllEmployeeButton.Location = new System.Drawing.Point(19, 263);
             this.seeAllEmployeeButton.Name = "seeAllEmployeeButton";
-            this.seeAllEmployeeButton.Size = new System.Drawing.Size(150, 62);
+            this.seeAllEmployeeButton.Size = new System.Drawing.Size(171, 37);
             this.seeAllEmployeeButton.TabIndex = 2;
             this.seeAllEmployeeButton.Text = "See all Employees";
             this.seeAllEmployeeButton.UseVisualStyleBackColor = true;
@@ -112,9 +168,9 @@
             // 
             // addNewEmployeeButton
             // 
-            this.addNewEmployeeButton.Location = new System.Drawing.Point(3, 487);
+            this.addNewEmployeeButton.Location = new System.Drawing.Point(20, 498);
             this.addNewEmployeeButton.Name = "addNewEmployeeButton";
-            this.addNewEmployeeButton.Size = new System.Drawing.Size(150, 62);
+            this.addNewEmployeeButton.Size = new System.Drawing.Size(170, 37);
             this.addNewEmployeeButton.TabIndex = 0;
             this.addNewEmployeeButton.Text = "Add New Employee";
             this.addNewEmployeeButton.UseVisualStyleBackColor = true;
@@ -130,35 +186,15 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Shift Management";
             // 
-            // searchTextBox
+            // seeEmployeeShift
             // 
-            this.searchTextBox.Location = new System.Drawing.Point(6, 111);
-            this.searchTextBox.Name = "searchTextBox";
-            this.searchTextBox.PlaceholderText = "Search User";
-            this.searchTextBox.Size = new System.Drawing.Size(189, 23);
-            this.searchTextBox.TabIndex = 4;
-            // 
-            // searchEmployeeButton
-            // 
-            this.searchEmployeeButton.Location = new System.Drawing.Point(25, 151);
-            this.searchEmployeeButton.Name = "searchEmployeeButton";
-            this.searchEmployeeButton.Size = new System.Drawing.Size(170, 23);
-            this.searchEmployeeButton.TabIndex = 5;
-            this.searchEmployeeButton.Text = "Search for the Employee";
-            this.searchEmployeeButton.UseVisualStyleBackColor = true;
-            this.searchEmployeeButton.Click += new System.EventHandler(this.searchEmployeeButton_Click);
-            // 
-            // SearchFilterComboBox
-            // 
-            this.SearchFilterComboBox.FormattingEnabled = true;
-            this.SearchFilterComboBox.Items.AddRange(new object[] {
-            "By Username",
-            "By Last Name"});
-            this.SearchFilterComboBox.Location = new System.Drawing.Point(201, 111);
-            this.SearchFilterComboBox.Name = "SearchFilterComboBox";
-            this.SearchFilterComboBox.Size = new System.Drawing.Size(92, 23);
-            this.SearchFilterComboBox.TabIndex = 6;
-            this.SearchFilterComboBox.Text = "Filter";
+            this.seeEmployeeShift.Location = new System.Drawing.Point(19, 177);
+            this.seeEmployeeShift.Name = "seeEmployeeShift";
+            this.seeEmployeeShift.Size = new System.Drawing.Size(171, 45);
+            this.seeEmployeeShift.TabIndex = 1;
+            this.seeEmployeeShift.Text = "See Selected Employee\'s Shift";
+            this.seeEmployeeShift.UseVisualStyleBackColor = true;
+            this.seeEmployeeShift.Click += new System.EventHandler(this.seeEmployeeShift_Click);
             // 
             // ManagingForm
             // 
@@ -168,7 +204,7 @@
             this.ClientSize = new System.Drawing.Size(1449, 646);
             this.Controls.Add(this.ManagementTabControl);
             this.Name = "ManagingForm";
-            this.Text = "ManagingForm";
+            this.Text = "Managing Form";
             this.ManagementTabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -189,5 +225,8 @@
         private ComboBox SearchFilterComboBox;
         private Button searchEmployeeButton;
         private TextBox searchTextBox;
+        private Button deleteEmployeeButton;
+        private Button updateEmployeeButton;
+        private Button seeEmployeeShift;
     }
 }

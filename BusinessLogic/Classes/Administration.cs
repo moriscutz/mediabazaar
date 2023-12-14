@@ -97,5 +97,26 @@ namespace BusinessLogic.Classes
         {
             shiftDB.UpdatePreference(preference);
         }
+
+        public List<Employee> SearchEmployeesByUsername(string username)
+        {
+            var employees = employeeDB.GetAllEmployees();
+            return employees.FindAll(emp => emp.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public List<Employee> SearchEmployeesByLastName(string lastName) 
+        {
+            var employees = employeeDB.GetAllEmployees();
+            return employees.FindAll(emp => emp.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+        }
+        public void UpdateEmployeeWithPreferences(Employee employee)
+        {
+            employeeDB.UpdateEmployeeWithPreferences(employee);
+        }
+
+        public void UpdatePreferencesForEmployee(Guid ID, List<Preference> updatedPreferences)
+        {
+            employeeDB.UpdatePreferencesForEmployee(ID, updatedPreferences);
+        }
     }
 }

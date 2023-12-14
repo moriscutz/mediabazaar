@@ -86,7 +86,7 @@ namespace DataAccess
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "UPDATE dbo.Employee SET FirstName = @FirstName, LastName = @LastName, JobPosition = @JobPosition, Password = @Password WHERE ID = @ID";
+                string query = "UPDATE dbo.Employee SET FirstName = @FirstName, LastName = @LastName, JobPosition = @JobPosition, Password = @Password, Username = @Username WHERE ID = @ID";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@ID", employee.ID);
@@ -94,7 +94,7 @@ namespace DataAccess
                     command.Parameters.AddWithValue("@LastName", employee.LastName);
                     command.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
                     command.Parameters.AddWithValue("@Password", employee.Password);
-                    
+                    command.Parameters.AddWithValue("@Username", employee.Username);
 
                     connection.Open();
                     command.ExecuteNonQuery();
@@ -106,15 +106,40 @@ namespace DataAccess
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                string query = "DELETE FROM dbo.Employee WHERE ID = @ID";
-                using (var command = new SqlCommand(query, connection))
+                connection.Open();
+
+                using (SqlTransaction transaction = connection.BeginTransaction())
                 {
-                    command.Parameters.AddWithValue("@ID", employee.ID);
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                    try
+                    {
+                        
+                        string deletePreferencesQuery = "DELETE FROM dbo.Preferences WHERE EmployeeId = @EmployeeId";
+                        using (var deletePreferencesCommand = new SqlCommand(deletePreferencesQuery, connection, transaction))
+                        {
+                            deletePreferencesCommand.Parameters.AddWithValue("@EmployeeId", employee.ID);
+                            deletePreferencesCommand.ExecuteNonQuery();
+                        }
+
+                        
+                        string deleteEmployeeQuery = "DELETE FROM dbo.Employee WHERE ID = @ID";
+                        using (var deleteEmployeeCommand = new SqlCommand(deleteEmployeeQuery, connection, transaction))
+                        {
+                            deleteEmployeeCommand.Parameters.AddWithValue("@ID", employee.ID);
+                            deleteEmployeeCommand.ExecuteNonQuery();
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+                        transaction.Rollback();
+                        throw;
+                    }
                 }
             }
         }
+
 
         public Employee GetEmployeeById(Guid id)
         {
@@ -207,5 +232,108 @@ namespace DataAccess
             }
             return null;
         }
+        public void UpdateEmployeeWithPreferences(Employee employee)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        
+                        string updateEmployeeQuery = "UPDATE dbo.Employee SET FirstName = @FirstName, LastName = @LastName, JobPosition = @JobPosition, Password = @Password, Username = @Username WHERE ID = @ID";
+                        using (var updateEmployeeCommand = new SqlCommand(updateEmployeeQuery, connection, transaction))
+                        {
+                            updateEmployeeCommand.Parameters.AddWithValue("@ID", employee.ID);
+                            updateEmployeeCommand.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                            updateEmployeeCommand.Parameters.AddWithValue("@LastName", employee.LastName);
+                            updateEmployeeCommand.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
+                            updateEmployeeCommand.Parameters.AddWithValue("@Password", employee.Password);
+                            updateEmployeeCommand.Parameters.AddWithValue("@Username", employee.Username);
+
+                            updateEmployeeCommand.ExecuteNonQuery();
+                        }
+
+                        
+                        string deletePreferencesQuery = "DELETE FROM dbo.Preferences WHERE EmployeeId = @EmployeeId";
+                        using (var deletePreferencesCommand = new SqlCommand(deletePreferencesQuery, connection, transaction))
+                        {
+                            deletePreferencesCommand.Parameters.AddWithValue("@EmployeeId", employee.ID);
+                            deletePreferencesCommand.ExecuteNonQuery();
+                        }
+
+                        
+                        string preferenceQuery = "INSERT INTO dbo.Preferences (PreferenceId, DayOfWeek, ShiftType, EmployeeId) VALUES (@PreferenceId, @DayOfWeek, @ShiftType, @EmployeeId)";
+                        foreach (var preference in employee.Preferences)
+                        {
+                            using (var preferenceCommand = new SqlCommand(preferenceQuery, connection, transaction))
+                            {
+                                preferenceCommand.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
+                                preferenceCommand.Parameters.AddWithValue("@DayOfWeek", preference.DayOfWeek);
+                                preferenceCommand.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
+                                preferenceCommand.Parameters.AddWithValue("@EmployeeId", preference.EmployeeId);
+
+                                preferenceCommand.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+        public void UpdatePreferencesForEmployee(Guid employeeId, List<Preference> updatedPreferences)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        
+                        string deletePreferencesQuery = "DELETE FROM dbo.Preferences WHERE EmployeeId = @EmployeeId";
+                        using (var deletePreferencesCommand = new SqlCommand(deletePreferencesQuery, connection, transaction))
+                        {
+                            deletePreferencesCommand.Parameters.AddWithValue("@EmployeeId", employeeId);
+                            deletePreferencesCommand.ExecuteNonQuery();
+                        }
+
+                        
+                        string preferenceQuery = "INSERT INTO dbo.Preferences (PreferenceId, DayOfWeek, ShiftType, EmployeeId) VALUES (@PreferenceId, @DayOfWeek, @ShiftType, @EmployeeId)";
+                        foreach (var preference in updatedPreferences)
+                        {
+                            using (var preferenceCommand = new SqlCommand(preferenceQuery, connection, transaction))
+                            {
+                                preferenceCommand.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
+                                preferenceCommand.Parameters.AddWithValue("@DayOfWeek", preference.DayOfWeek);
+                                preferenceCommand.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
+                                preferenceCommand.Parameters.AddWithValue("@EmployeeId", preference.EmployeeId);
+
+                                preferenceCommand.ExecuteNonQuery();
+                            }
+                        }
+
+                        transaction.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+                        transaction.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
     }
 }

@@ -30,3 +30,6 @@ C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarApp\obj\Debug\net6.0-windo
 C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarApp\bin\Debug\net6.0-windows\Microsoft.Extensions.DependencyInjection.dll
 C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarApp\obj\Debug\net6.0-windows\MediaBazaarApp.AddNewEmployee.resources
 C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarApp\obj\Debug\net6.0-windows\MediaBazaarApp.ManagingForm.resources
+C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarApp\obj\Debug\net6.0-windows\MediaBazaarApp.UpdateEmployee.resources
+C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarApp\obj\Debug\net6.0-windows\MediaBazaarApp.EmployeeShiftInfo.resources
+C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarApp\obj\Debug\net6.0-windows\MediaBazaarApp.ChangeShift.resources

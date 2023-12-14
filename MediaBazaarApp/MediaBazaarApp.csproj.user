@@ -4,10 +4,19 @@
     <Compile Update="AddNewEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="ChangeShift.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="EmployeeShiftInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="InitialForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="ManagingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="UpdateEmployee.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
