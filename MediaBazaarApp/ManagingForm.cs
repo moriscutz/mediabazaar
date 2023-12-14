@@ -22,7 +22,104 @@ namespace MediaBazaarApp
             
             InitializeComponent();
             SearchFilterComboBox.SelectedIndex = 0;
+            PopulateShiftBoxesAndLabel(administration);
         }
+
+        
+        private void PopulateShiftBoxesAndLabel(Administration administration)
+        {
+            // Assuming you have list boxes and labels for each shift type on your form
+            morningShiftsListBox.Items.Clear();
+            afternoonShiftsListBox.Items.Clear();
+            nightShiftsListBox.Items.Clear();
+
+            var shifts = administration.GetAllShifts();
+
+            foreach (Shift shift in shifts)
+            {
+                var employee = administration.GetEmployeeById(shift.EmployeeID);
+                string shiftDetails = $"ID: {shift.EmployeeID}, Date: {shift.Date.ToShortDateString()}, Type: {shift.Type}, Username: {employee.Username}, Name: {employee.FirstName} {employee.LastName}";
+                switch (shift.Type)
+                 {
+                        case BusinessLogic.Enums.ShiftType.Morning:
+                            morningShiftsListBox.Items.Add(shiftDetails);
+                            break;
+                        case BusinessLogic.Enums.ShiftType.Afternoon:
+                            afternoonShiftsListBox.Items.Add(shiftDetails);
+                            break;
+                        case BusinessLogic.Enums.ShiftType.Night:
+                            nightShiftsListBox.Items.Add(shiftDetails);
+                            break;
+                  }
+            }
+
+                
+                labelMorningShiftCount.Text = $"Morning Shifts: {morningShiftsListBox.Items.Count}";
+                labelAfternoonShiftCount.Text = $"Afternoon Shifts: {afternoonShiftsListBox.Items.Count}";
+                labelNightShiftCount.Text = $"Evening Shifts: {nightShiftsListBox.Items.Count}";
+
+                if (morningShiftsListBox.Items.Count == 0)
+                {
+                    morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+                }
+                if (afternoonShiftsListBox.Items.Count == 0)
+                {
+                    afternoonShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+                }
+                if (nightShiftsListBox.Items.Count == 0)
+                {
+                    nightShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+                }
+        }
+
+        private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            DateTime selectedDate = e.Start; 
+
+            morningShiftsListBox.Items.Clear();
+            afternoonShiftsListBox.Items.Clear();
+            nightShiftsListBox.Items.Clear();
+
+            var shifts = administration.GetAllShifts().Where(shift => shift.Date.Date == selectedDate.Date);
+
+            foreach (Shift shift in shifts)
+            {
+                var employee = administration.GetEmployeeById(shift.EmployeeID);
+                string shiftDetails = $"ID: {shift.EmployeeID}, Date: {shift.Date.ToShortDateString()}, Type: {shift.Type}, Username: {employee.Username}, Name: {employee.FirstName} {employee.LastName}";
+                
+                switch (shift.Type)
+                {
+                    case BusinessLogic.Enums.ShiftType.Morning:
+                        morningShiftsListBox.Items.Add(shiftDetails);
+                        break;
+                    case BusinessLogic.Enums.ShiftType.Afternoon:
+                        afternoonShiftsListBox.Items.Add(shiftDetails);
+                        break;
+                    case BusinessLogic.Enums.ShiftType.Night:
+                        nightShiftsListBox.Items.Add(shiftDetails);
+                        break;
+                }
+            }
+
+            
+            labelMorningShiftCount.Text = $"Morning Shifts: {morningShiftsListBox.Items.Count}";
+            labelAfternoonShiftCount.Text = $"Afternoon Shifts: {afternoonShiftsListBox.Items.Count}";
+            labelNightShiftCount.Text = $"Night Shifts: {nightShiftsListBox.Items.Count}";
+
+            if(morningShiftsListBox.Items.Count==0)
+            {
+                morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+            }
+            if(afternoonShiftsListBox.Items.Count==0)
+            {
+                morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+            }
+            if(nightShiftsListBox.Items.Count==0)
+            {
+                morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+            }
+        }
+        
 
         private void addNewEmployeeButton_Click(object sender, EventArgs e)
         {

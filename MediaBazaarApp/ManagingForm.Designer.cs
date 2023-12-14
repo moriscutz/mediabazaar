@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.ManagementTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.seeEmployeeShift = new System.Windows.Forms.Button();
             this.deleteEmployeeButton = new System.Windows.Forms.Button();
             this.updateEmployeeButton = new System.Windows.Forms.Button();
             this.SearchFilterComboBox = new System.Windows.Forms.ComboBox();
@@ -41,9 +43,18 @@
             this.employeeListBox = new System.Windows.Forms.ListBox();
             this.addNewEmployeeButton = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.seeEmployeeShift = new System.Windows.Forms.Button();
+            this.labelNightShiftCount = new System.Windows.Forms.Label();
+            this.labelAfternoonShiftCount = new System.Windows.Forms.Label();
+            this.labelMorningShiftCount = new System.Windows.Forms.Label();
+            this.nightShiftsListBox = new System.Windows.Forms.ListBox();
+            this.afternoonShiftsListBox = new System.Windows.Forms.ListBox();
+            this.morningShiftsListBox = new System.Windows.Forms.ListBox();
+            this.monthCalendar = new System.Windows.Forms.MonthCalendar();
+            this.shiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.ManagementTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // ManagementTabControl
@@ -76,6 +87,16 @@
             this.tabPage1.Size = new System.Drawing.Size(1417, 601);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Employee Management";
+            // 
+            // seeEmployeeShift
+            // 
+            this.seeEmployeeShift.Location = new System.Drawing.Point(19, 177);
+            this.seeEmployeeShift.Name = "seeEmployeeShift";
+            this.seeEmployeeShift.Size = new System.Drawing.Size(171, 45);
+            this.seeEmployeeShift.TabIndex = 1;
+            this.seeEmployeeShift.Text = "See Selected Employee\'s Shift";
+            this.seeEmployeeShift.UseVisualStyleBackColor = true;
+            this.seeEmployeeShift.Click += new System.EventHandler(this.seeEmployeeShift_Click);
             // 
             // deleteEmployeeButton
             // 
@@ -179,6 +200,13 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.tabPage2.Controls.Add(this.labelNightShiftCount);
+            this.tabPage2.Controls.Add(this.labelAfternoonShiftCount);
+            this.tabPage2.Controls.Add(this.labelMorningShiftCount);
+            this.tabPage2.Controls.Add(this.nightShiftsListBox);
+            this.tabPage2.Controls.Add(this.afternoonShiftsListBox);
+            this.tabPage2.Controls.Add(this.morningShiftsListBox);
+            this.tabPage2.Controls.Add(this.monthCalendar);
             this.tabPage2.Location = new System.Drawing.Point(4, 24);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -186,15 +214,71 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Shift Management";
             // 
-            // seeEmployeeShift
+            // labelNightShiftCount
             // 
-            this.seeEmployeeShift.Location = new System.Drawing.Point(19, 177);
-            this.seeEmployeeShift.Name = "seeEmployeeShift";
-            this.seeEmployeeShift.Size = new System.Drawing.Size(171, 45);
-            this.seeEmployeeShift.TabIndex = 1;
-            this.seeEmployeeShift.Text = "See Selected Employee\'s Shift";
-            this.seeEmployeeShift.UseVisualStyleBackColor = true;
-            this.seeEmployeeShift.Click += new System.EventHandler(this.seeEmployeeShift_Click);
+            this.labelNightShiftCount.AutoSize = true;
+            this.labelNightShiftCount.Location = new System.Drawing.Point(470, 352);
+            this.labelNightShiftCount.Name = "labelNightShiftCount";
+            this.labelNightShiftCount.Size = new System.Drawing.Size(38, 15);
+            this.labelNightShiftCount.TabIndex = 8;
+            this.labelNightShiftCount.Text = "label3";
+            // 
+            // labelAfternoonShiftCount
+            // 
+            this.labelAfternoonShiftCount.AutoSize = true;
+            this.labelAfternoonShiftCount.Location = new System.Drawing.Point(470, 178);
+            this.labelAfternoonShiftCount.Name = "labelAfternoonShiftCount";
+            this.labelAfternoonShiftCount.Size = new System.Drawing.Size(38, 15);
+            this.labelAfternoonShiftCount.TabIndex = 7;
+            this.labelAfternoonShiftCount.Text = "label2";
+            // 
+            // labelMorningShiftCount
+            // 
+            this.labelMorningShiftCount.AutoSize = true;
+            this.labelMorningShiftCount.Location = new System.Drawing.Point(473, 6);
+            this.labelMorningShiftCount.Name = "labelMorningShiftCount";
+            this.labelMorningShiftCount.Size = new System.Drawing.Size(38, 15);
+            this.labelMorningShiftCount.TabIndex = 6;
+            this.labelMorningShiftCount.Text = "label2";
+            // 
+            // nightShiftsListBox
+            // 
+            this.nightShiftsListBox.FormattingEnabled = true;
+            this.nightShiftsListBox.ItemHeight = 15;
+            this.nightShiftsListBox.Location = new System.Drawing.Point(470, 370);
+            this.nightShiftsListBox.Name = "nightShiftsListBox";
+            this.nightShiftsListBox.Size = new System.Drawing.Size(839, 139);
+            this.nightShiftsListBox.TabIndex = 3;
+            // 
+            // afternoonShiftsListBox
+            // 
+            this.afternoonShiftsListBox.FormattingEnabled = true;
+            this.afternoonShiftsListBox.ItemHeight = 15;
+            this.afternoonShiftsListBox.Location = new System.Drawing.Point(473, 196);
+            this.afternoonShiftsListBox.Name = "afternoonShiftsListBox";
+            this.afternoonShiftsListBox.Size = new System.Drawing.Size(839, 139);
+            this.afternoonShiftsListBox.TabIndex = 2;
+            // 
+            // morningShiftsListBox
+            // 
+            this.morningShiftsListBox.FormattingEnabled = true;
+            this.morningShiftsListBox.ItemHeight = 15;
+            this.morningShiftsListBox.Location = new System.Drawing.Point(470, 24);
+            this.morningShiftsListBox.Name = "morningShiftsListBox";
+            this.morningShiftsListBox.Size = new System.Drawing.Size(839, 139);
+            this.morningShiftsListBox.TabIndex = 1;
+            // 
+            // monthCalendar
+            // 
+            this.monthCalendar.CalendarDimensions = new System.Drawing.Size(2, 2);
+            this.monthCalendar.Location = new System.Drawing.Point(0, 0);
+            this.monthCalendar.Name = "monthCalendar";
+            this.monthCalendar.TabIndex = 0;
+            this.monthCalendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_DateChanged);
+            // 
+            // shiftBindingSource
+            // 
+            this.shiftBindingSource.DataSource = typeof(BusinessLogic.Classes.Shift);
             // 
             // ManagingForm
             // 
@@ -208,6 +292,9 @@
             this.ManagementTabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -228,5 +315,13 @@
         private Button deleteEmployeeButton;
         private Button updateEmployeeButton;
         private Button seeEmployeeShift;
+        private BindingSource shiftBindingSource;
+        private MonthCalendar monthCalendar;
+        private ListBox nightShiftsListBox;
+        private ListBox afternoonShiftsListBox;
+        private ListBox morningShiftsListBox;
+        private Label labelMorningShiftCount;
+        private Label labelNightShiftCount;
+        private Label labelAfternoonShiftCount;
     }
 }
