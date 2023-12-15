@@ -40,17 +40,9 @@ C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarWeb\obj\Debug\net6.0\refin
 C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.pdb
 C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.genruntimeconfig.cache
 C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarWeb\obj\Debug\net6.0\ref\MediaBazaarWeb.dll
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.csproj.AssemblyReference.cache
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.AssemblyInfoInputs.cache
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.AssemblyInfo.cs
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.csproj.CoreCompileInputs.cache
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.RazorAssemblyInfo.cache
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.RazorAssemblyInfo.cs
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.dll
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\refint\MediaBazaarWeb.dll
-C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.pdb
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\Microsoft.TestPlatform.AdapterUtilities.dll
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\appsettings.json
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\MediaBazaarWeb.staticwebassets.runtime.json
@@ -59,7 +51,21 @@ C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\MediaBazaarWeb
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\MediaBazaarWeb.runtimeconfig.json
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\MediaBazaarWeb.dll
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\MediaBazaarWeb.pdb
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.dll
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\System.Data.SqlClient.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\cs\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\de\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\es\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\fr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\it\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\ja\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\ko\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\pl\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\pt-BR\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\ru\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\tr\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\zh-Hans\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\zh-Hant\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\runtimes\win-arm64\native\sni.dll
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\runtimes\win-x64\native\sni.dll
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\runtimes\win-x86\native\sni.dll
@@ -69,6 +75,14 @@ C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\BusinessLogic.
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\DataAccess.dll
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\BusinessLogic.pdb
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\bin\Debug\net6.0\DataAccess.pdb
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.csproj.AssemblyReference.cache
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.AssemblyInfoInputs.cache
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.AssemblyInfo.cs
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.csproj.CoreCompileInputs.cache
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.RazorAssemblyInfo.cache
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.RazorAssemblyInfo.cs
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\staticwebassets\msbuild.MediaBazaarWeb.Microsoft.AspNetCore.StaticWebAssets.props
@@ -80,5 +94,8 @@ C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\scopedcss\Page
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\scopedcss\bundle\MediaBazaarWeb.styles.css
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\scopedcss\projectbundle\MediaBazaarWeb.bundle.scp.css
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.csproj.CopyComplete
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\refint\MediaBazaarWeb.dll
+C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.pdb
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\MediaBazaarWeb.genruntimeconfig.cache
 C:\Users\flapj\Desktop\New folder\MediaBazaarWeb\obj\Debug\net6.0\ref\MediaBazaarWeb.dll

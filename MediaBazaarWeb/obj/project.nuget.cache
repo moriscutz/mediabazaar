@@ -1,11 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "U/hWCxLc2fjunXsye9SPD7F3w4ZOhvH2/CRCh0pKyqL5I0uwJmrWCUdyfedI4U5T8TnvHD7ueKnjD2rXdIXhkg==",
+  "dgSpecHash": "Q/1gUZsDmGD4zP7vKUawJKKtpY4u9L5CEmHY58SDtssdzX9NBducANH0pAkQJCFwYPSMK+PsvgazkmShXfPvHw==",
   "success": true,
   "projectFilePath": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarWeb\\MediaBazaarWeb.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\flapj\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\flapj\\.nuget\\packages\\microsoft.testplatform\\17.9.0-preview-23577-04\\microsoft.testplatform.17.9.0-preview-23577-04.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\flapj\\.nuget\\packages\\mstest.testadapter\\3.1.1\\mstest.testadapter.3.1.1.nupkg.sha512",
+    "C:\\Users\\flapj\\.nuget\\packages\\mstest.testframework\\3.1.1\\mstest.testframework.3.1.1.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",

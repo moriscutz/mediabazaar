@@ -1,12 +1,15 @@
 {
   "version": 2,
-  "dgSpecHash": "YDsjZW1LNU5hzQeCxqoDjUW+Tk8XKEU82wj0zX5V5Urte8qJM42nV4Z+AHbpcw8qDJnp5UrHU4pPLqY3bF9qHg==",
+  "dgSpecHash": "7LIOHuMuaEYaG3BlmR9pxltgwg8+0XAeJoWry95rQ32MBepAUCOtjIwVIPS2NpG+1uXl9fGHez8kZ00vbbLMHw==",
   "success": true,
   "projectFilePath": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarApp\\MediaBazaarApp.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\flapj\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
+    "C:\\Users\\flapj\\.nuget\\packages\\microsoft.testplatform\\17.9.0-preview-23577-04\\microsoft.testplatform.17.9.0-preview-23577-04.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
+    "C:\\Users\\flapj\\.nuget\\packages\\mstest.testadapter\\3.1.1\\mstest.testadapter.3.1.1.nupkg.sha512",
+    "C:\\Users\\flapj\\.nuget\\packages\\mstest.testframework\\3.1.1\\mstest.testframework.3.1.1.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\runtime.native.system.data.sqlclient.sni\\4.7.0\\runtime.native.system.data.sqlclient.sni.4.7.0.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-arm64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
     "C:\\Users\\flapj\\.nuget\\packages\\runtime.win-x64.runtime.native.system.data.sqlclient.sni\\4.4.0\\runtime.win-x64.runtime.native.system.data.sqlclient.sni.4.4.0.nupkg.sha512",
