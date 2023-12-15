@@ -15,6 +15,8 @@ namespace BusinessLogic.Interfaces
         public Employee GetEmployeeById(Guid id);
         public List<Employee> GetAllEmployees();
         public Employee Authenticate(string username, string password);
-
+        public void AddEmployeeWithPreferences(Employee employee);
+        public void UpdateEmployeeWithPreferences(Employee employee);
+        public void UpdatePreferencesForEmployee(Guid ID, List<Preference> updatedPreferences);
     }
 }

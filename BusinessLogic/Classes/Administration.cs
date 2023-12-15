@@ -69,7 +69,10 @@ namespace BusinessLogic.Classes
 
         public void AddEmployee(Employee employee)
         {
-            employeeDB.AddEmployee(employee);
+            if (employee.Preferences == null)
+                employeeDB.AddEmployee(employee);
+            else
+                employeeDB.AddEmployeeWithPreferences(employee);
         }
         public void UpdateEmployee(Employee employee)
         {
@@ -142,6 +145,27 @@ namespace BusinessLogic.Classes
         public void UpdatePreference(Preference preference)
         {
             shiftDB.UpdatePreference(preference);
+        }
+
+        public List<Employee> SearchEmployeesByUsername(string username)
+        {
+            var employees = employeeDB.GetAllEmployees();
+            return employees.FindAll(emp => emp.Username.Equals(username, StringComparison.OrdinalIgnoreCase));
+        }
+
+        public List<Employee> SearchEmployeesByLastName(string lastName) 
+        {
+            var employees = employeeDB.GetAllEmployees();
+            return employees.FindAll(emp => emp.LastName.Equals(lastName, StringComparison.OrdinalIgnoreCase));
+        }
+        public void UpdateEmployeeWithPreferences(Employee employee)
+        {
+            employeeDB.UpdateEmployeeWithPreferences(employee);
+        }
+
+        public void UpdatePreferencesForEmployee(Guid ID, List<Preference> updatedPreferences)
+        {
+            employeeDB.UpdatePreferencesForEmployee(ID, updatedPreferences);
         }
     }
 }

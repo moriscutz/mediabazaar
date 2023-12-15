@@ -2,6 +2,25 @@
   "version": 3,
   "targets": {
     "net6.0-windows7.0": {
+      "Microsoft.Extensions.DependencyInjection/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
       "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
         "type": "package",
         "compile": {
@@ -261,6 +280,38 @@
     }
   },
   "libraries": {
+    "Microsoft.Extensions.DependencyInjection/8.0.0": {
+      "sha512": "V8S3bsm50ig6JSyrbcJJ8bW2b9QLGouz+G1miK3UTaOWmMtFwNNNzUf4AleyDWUmTrWMLNnFSLEQtxmxgNQnNQ==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.targets",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml",
+        "microsoft.extensions.dependencyinjection.8.0.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
     "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.0": {
       "sha512": "cjWrLkJXK0rs4zofsK4bSdg+jhDLTaxrkXu4gS6Y7MAlCvRyNNgwY/lJi5RDlQOnSZweHqoyvgvbdvQsRIW+hg==",
       "type": "package",
@@ -1453,28 +1504,24 @@
     "net6.0-windows7.0": [
       "BusinessLogic >= 1.0.0",
       "DataAccess >= 1.0.0",
+      "Microsoft.Extensions.DependencyInjection >= 8.0.0",
       "Microsoft.Extensions.DependencyInjection.Abstractions >= 8.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\flapj\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\ritov\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarApp\\MediaBazaarApp.csproj",
+      "projectUniqueName": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarApp\\MediaBazaarApp.csproj",
       "projectName": "MediaBazaarApp",
-      "projectPath": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarApp\\MediaBazaarApp.csproj",
-      "packagesPath": "C:\\Users\\flapj\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\flapj\\Desktop\\New folder\\MediaBazaarApp\\obj\\",
+      "projectPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarApp\\MediaBazaarApp.csproj",
+      "packagesPath": "C:\\Users\\ritov\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarApp\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\flapj\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\ritov\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1488,11 +1535,11 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\flapj\\Desktop\\New folder\\BusinessLogic\\BusinessLogic.csproj": {
-              "projectPath": "C:\\Users\\flapj\\Desktop\\New folder\\BusinessLogic\\BusinessLogic.csproj"
+            "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\BusinessLogic\\BusinessLogic.csproj": {
+              "projectPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\BusinessLogic\\BusinessLogic.csproj"
             },
-            "C:\\Users\\flapj\\Desktop\\New folder\\DataAccess\\DataAccess.csproj": {
-              "projectPath": "C:\\Users\\flapj\\Desktop\\New folder\\DataAccess\\DataAccess.csproj"
+            "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\DataAccess\\DataAccess.csproj": {
+              "projectPath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\DataAccess\\DataAccess.csproj"
             }
           }
         }
@@ -1507,6 +1554,10 @@
       "net6.0-windows7.0": {
         "targetAlias": "net6.0-windows",
         "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[8.0.0, )"
+          },
           "Microsoft.Extensions.DependencyInjection.Abstractions": {
             "target": "Package",
             "version": "[8.0.0, )"
@@ -1531,7 +1582,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

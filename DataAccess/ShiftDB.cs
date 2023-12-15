@@ -58,5 +58,7 @@ namespace DataAccess
         {
             shiftRepository.UpdatePreference(preference);
         }
+
+        
     }
 }
