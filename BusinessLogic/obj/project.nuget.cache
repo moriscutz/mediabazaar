@@ -1,8 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "vGBIXV2MdOgBGLEfgbqg8eQTFhJb5jYn7wbdo0PJ81BsR0WZOunI15pMC/50kaG6F05BPWgRbxiwl1R6r4mvcQ==",
+  "dgSpecHash": "NZ6KRFi7O5kWkbYb7cP8t680f4m1qNrlieBfNesxhF5Cb5O2b2Nh3kgodGB6ln8CLauE0XWjoMUJdJMLcTEmRQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\BusinessLogic\\BusinessLogic.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\ritov\\.nuget\\packages\\microsoft.testplatform\\17.9.0-preview-23577-04\\microsoft.testplatform.17.9.0-preview-23577-04.nupkg.sha512",
+    "C:\\Users\\ritov\\.nuget\\packages\\mstest.testadapter\\3.1.1\\mstest.testadapter.3.1.1.nupkg.sha512",
+    "C:\\Users\\ritov\\.nuget\\packages\\mstest.testframework\\3.1.1\\mstest.testframework.3.1.1.nupkg.sha512"
+  ],
   "logs": []
 }
