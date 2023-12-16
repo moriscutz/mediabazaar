@@ -11,11 +11,60 @@ namespace BusinessLogic.Classes
     {
         private readonly IEmployeeDB employeeDB;
         private readonly IShiftDB shiftDB;
+        private readonly IDateService dateService; // Optional for testing
 
         public Administration(IEmployeeDB employeeDB, IShiftDB shiftDB)
         {
             this.employeeDB = employeeDB;
             this.shiftDB = shiftDB;
+        }
+        // Overloaded constructor for testing
+
+        public Administration(IEmployeeDB employeeDB, IShiftDB shiftDB, IDateService dateService) : this(employeeDB, shiftDB)
+        {
+            this.dateService = dateService;
+        }
+
+        public void ScheduleShiftsBasedOnPreferences()
+        {
+            var schedulingPeriod = DetermineSchedulingPeriod();
+            var allEmployees = GetAllEmployees();
+
+            foreach (var employee in allEmployees)
+            {
+                var preferences = GetPreferencesByEmployeeId(employee.ID);
+
+                for (DateTime date = schedulingPeriod.startDate; date <= schedulingPeriod.endDate; date = date.AddDays(1))
+                {
+                    var dayOfWeek = (int)date.DayOfWeek;
+                    var preference = preferences.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
+
+                    if (preference != null)
+                    {
+                        var existingShift = GetShiftsForEmployeeById(employee.ID)
+                                                   .FirstOrDefault(s => s.Date.Date == date.Date);
+
+                        if (existingShift == null)
+                        {
+                            var newShift = new Shift(Guid.NewGuid(), date, preference.ShiftType, employee.ID);
+                            AddShift(newShift);
+                        }
+                    }
+                }
+            }
+        }
+
+        // New method to determine the scheduling period, in our case 1 week scheduling period starting 2 weeks from current day
+        private (DateTime startDate, DateTime endDate) DetermineSchedulingPeriod()
+        {
+            DateTime today = DateTime.Today;
+            int daysUntilNextNextMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 14) % 7;
+            daysUntilNextNextMonday = daysUntilNextNextMonday == 0 ? 7 : daysUntilNextNextMonday; // Ensure it's not zero
+
+            DateTime startDate = today.AddDays(daysUntilNextNextMonday);
+            DateTime endDate = startDate.AddDays(6); // One week later
+
+            return (startDate, endDate);
         }
 
         public void AddEmployee(Employee employee)

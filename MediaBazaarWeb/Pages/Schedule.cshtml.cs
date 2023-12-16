@@ -49,8 +49,13 @@ namespace MediaBazaarWeb.Pages
         private void InitializeSchedule(int numberOfWeeks)
         {
             var currentDate = DateTime.Today;
-            var firstDayOfMonth = new DateTime(currentDate.Year, currentDate.Month, 1);
-            var startDate = FindNextMonday(firstDayOfMonth);
+            // Find the previous Monday or today if today is Monday
+            var startDate = currentDate.AddDays(-(int)currentDate.DayOfWeek + (int)DayOfWeek.Monday);
+            if (startDate > currentDate)
+            {
+                startDate = startDate.AddDays(-7); 
+            }
+
             TwoWeeksSchedule.Clear();
 
             for (int i = 0; i < numberOfWeeks * 7; i++)
@@ -63,6 +68,7 @@ namespace MediaBazaarWeb.Pages
                 });
             }
         }
+
 
 
 
