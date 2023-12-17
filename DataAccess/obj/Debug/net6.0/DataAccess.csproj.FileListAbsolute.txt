@@ -31,3 +31,6 @@ C:\Users\flapj\Desktop\New folder\DataAccess\obj\Debug\net6.0\DataAccess.dll
 C:\Users\flapj\Desktop\New folder\DataAccess\obj\Debug\net6.0\refint\DataAccess.dll
 C:\Users\flapj\Desktop\New folder\DataAccess\obj\Debug\net6.0\DataAccess.pdb
 C:\Users\flapj\Desktop\New folder\DataAccess\obj\Debug\net6.0\ref\DataAccess.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\DataAccess\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\DataAccess\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\DataAccess\bin\Debug\net6.0\Microsoft.TestPlatform.AdapterUtilities.dll

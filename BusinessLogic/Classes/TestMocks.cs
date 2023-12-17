@@ -12,6 +12,19 @@ namespace BusinessLogic.Classes
     {
         private List<Employee> mockEmployees = new List<Employee>();
 
+        public void AddEmployeeWithPreferences(Employee employee)
+        {
+
+        }
+        public void UpdateEmployeeWithPreferences(Employee employee)
+        {
+
+        }
+        public void UpdatePreferencesForEmployee(Guid ID, List<Preference> updatedPreferences)
+        {
+             
+            
+        }
         public void AddEmployee(Employee employee)
         {
             mockEmployees.Add(employee);
