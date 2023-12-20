@@ -30,6 +30,23 @@ namespace DataAccess
                 }
             }
         }
+        public int CountShiftsOnDateAndType(DateTime date, ShiftType shiftType)
+        {
+            int count = 0;
+            using (var connection = new SqlConnection(connectionString)) // connectionString should be defined in your class
+            {
+                string query = "SELECT COUNT(*) FROM Shifts WHERE Date = @Date AND Type = @Type";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Date", date.Date);
+                    command.Parameters.AddWithValue("@Type", shiftType.ToString());
+
+                    connection.Open();
+                    count = (int)command.ExecuteScalar();
+                }
+            }
+            return count;
+        }
 
         public void UpdateShift(Shift shift)
         {

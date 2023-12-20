@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Interfaces;
+﻿using BusinessLogic.Enums;
+using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -167,5 +168,11 @@ namespace BusinessLogic.Classes
         {
             employeeDB.UpdatePreferencesForEmployee(ID, updatedPreferences);
         }
+        public bool IsShiftAvailable(DateTime date, ShiftType shiftType)
+        {
+            return shiftDB.CountShiftsOnDateAndType(date, shiftType) < 3; // Example threshold
+        }
+
+
     }
 }

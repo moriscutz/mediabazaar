@@ -70,6 +70,10 @@ namespace BusinessLogic.Classes
         {
             mockShifts.Add(shift);
         }
+        public int CountShiftsOnDateAndType(DateTime date, Enums.ShiftType shiftType)
+        {
+            return mockShifts.Count(s => s.Date.Date == date.Date && s.Type == shiftType);
+        }
 
         public void UpdateShift(Shift shift)
         {
