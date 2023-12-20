@@ -112,11 +112,11 @@ namespace MediaBazaarApp
             }
             if(afternoonShiftsListBox.Items.Count==0)
             {
-                morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+                afternoonShiftsListBox.Items.Add("No shifts assigned for this timeslot");
             }
             if(nightShiftsListBox.Items.Count==0)
             {
-                morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
+                nightShiftsListBox.Items.Add("No shifts assigned for this timeslot");
             }
         }
         
@@ -276,6 +276,11 @@ namespace MediaBazaarApp
                 }
             }
             else MessageBox.Show("Please select one employee to see the shifts for.");
+        }
+
+        private void editSelectedShiftButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
