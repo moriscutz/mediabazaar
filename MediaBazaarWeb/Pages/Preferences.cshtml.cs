@@ -59,46 +59,89 @@ namespace MediaBazaarWeb.Pages
         public IActionResult OnPost()
         {
             var userIdClaim = HttpContext.User.FindFirst("id");
-            if (userIdClaim != null)
+            if (userIdClaim == null)
             {
-                Guid userId = new Guid(userIdClaim.Value);
+                return RedirectToPage("/Index");
+            }
 
-                if (SelectedPreferences != null)
+            Guid userId = new Guid(userIdClaim.Value);
+
+            if (SelectedPreferences == null)
+            {
+                return Page();
+            }
+
+            bool hasError = false;
+            var user = _administration.GetEmployeeById(userId);
+            var existingPreferences = _administration.GetPreferencesByEmployeeId(userId);
+
+            foreach (var kvp in SelectedPreferences)
+            {
+                //kvp-keyvaluepair
+                int dayOfWeek = kvp.Key;
+                ShiftType shiftType = kvp.Value;
+
+                // Convert day of week to date
+                DateTime shiftDate = ConvertDayOfWeekToDate(dayOfWeek);
+
+                // Check if the shift is available
+                if (!_administration.IsShiftAvailable(shiftDate, shiftType))
                 {
-                    var user = _administration.GetEmployeeById(userId);
-                    var existingPreferences = _administration.GetPreferencesByEmployeeId(userId);
+                    ModelState.AddModelError("", $"Cannot add shift on {shiftDate:yyyy-MM-dd} for {shiftType} as the shift limit has been reached.");
+                    hasError = true;
+                    continue;
+                }
 
-                    foreach (var kvp in SelectedPreferences)
+                var existingPreference = existingPreferences.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
+
+                if (existingPreference != null)
+                {
+                    existingPreference.ShiftType = shiftType;
+                    _administration.UpdatePreference(existingPreference);
+                }
+                else
+                {
+                    var newPreference = new Preference
                     {
-                        int dayOfWeek = kvp.Key;
-                        ShiftType shiftType = kvp.Value;
-
-                        var existingPreference = existingPreferences.FirstOrDefault(p => p.DayOfWeek == dayOfWeek);
-
-                        if (existingPreference != null)
-                        {
-                            existingPreference.ShiftType = shiftType;
-                            _administration.UpdatePreference(existingPreference);
-                        }
-                        else
-                        {
-                            var newPreference = new Preference
-                            {
-                                PreferenceId = Guid.NewGuid(),
-                                DayOfWeek = dayOfWeek,
-                                ShiftType = shiftType,
-                                EmployeeId = userId
-                            };
-                            _administration.AddPreference(newPreference);
-                        }
-                    }
-
-                    return RedirectToPage("/Schedule");
+                        PreferenceId = Guid.NewGuid(),
+                        DayOfWeek = dayOfWeek,
+                        ShiftType = shiftType,
+                        EmployeeId = userId
+                    };
+                    _administration.AddPreference(newPreference);
                 }
             }
 
-            return RedirectToPage("/Index");
+            if (!hasError)
+            {
+                // Trigger the scheduling process
+                _administration.ScheduleShiftsBasedOnPreferences();
+                return RedirectToPage("/Schedule");
+            }
+
+            return Page();
+
         }
+        private DateTime ConvertDayOfWeekToDate(int dayOfWeek)
+        {
+            // Assuming dayOfWeek is 1 for Monday, 2 for Tuesday, ..., 7 for Sunday
+            DateTime today = DateTime.Today;
+            int currentDayOfWeek = (int)today.DayOfWeek;
+
+            // Adjust for Sunday being 0 in DayOfWeek
+            currentDayOfWeek = currentDayOfWeek == 0 ? 7 : currentDayOfWeek;
+
+            int daysUntilNextDayOfWeek = dayOfWeek - currentDayOfWeek;
+            if (daysUntilNextDayOfWeek < 0)
+            {
+                // If the day has already passed in the current week, find the next occurrence in the next week
+                daysUntilNextDayOfWeek += 7;
+            }
+
+            DateTime nextDayOfWeek = today.AddDays(daysUntilNextDayOfWeek);
+            return nextDayOfWeek;
+        }
+
     }
 
 }

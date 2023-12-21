@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Classes;
+using BusinessLogic.Enums;
 using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,10 @@ namespace DataAccess
         public ShiftDB(IShiftRepository shiftRepository)
         {
             this.shiftRepository = shiftRepository;
+        }
+        public int CountShiftsOnDateAndType(DateTime date, ShiftType shiftType)
+        {
+            return shiftRepository.CountShiftsOnDateAndType(date, shiftType);
         }
 
         public void AddShift(Shift shift)

@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Classes;
+using BusinessLogic.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace BusinessLogic.Interfaces
 {
     public interface IShiftRepository
     {
+        int CountShiftsOnDateAndType(DateTime date, ShiftType shiftType);
         public void AddShift(Shift shift);
         public void UpdateShift(Shift shift);
         public void DeleteShift(Shift shift);
