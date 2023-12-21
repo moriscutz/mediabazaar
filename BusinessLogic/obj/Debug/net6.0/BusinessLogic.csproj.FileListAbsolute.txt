@@ -28,3 +28,9 @@ C:\Users\flapj\Desktop\New folder\BusinessLogic\obj\Debug\net6.0\BusinessLogic.d
 C:\Users\flapj\Desktop\New folder\BusinessLogic\obj\Debug\net6.0\refint\BusinessLogic.dll
 C:\Users\flapj\Desktop\New folder\BusinessLogic\obj\Debug\net6.0\BusinessLogic.pdb
 C:\Users\flapj\Desktop\New folder\BusinessLogic\obj\Debug\net6.0\ref\BusinessLogic.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\BusinessLogic\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\BusinessLogic\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\BusinessLogic\bin\Debug\net6.0\Microsoft.TestPlatform.AdapterUtilities.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\BusinessLogic\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.dll
+C:\Users\ritov\Desktop\MediaBazaar de la 0\BusinessLogic\bin\Debug\net6.0\Microsoft.VisualStudio.TestPlatform.TestFramework.Extensions.xml
+C:\Users\ritov\Desktop\MediaBazaar de la 0\BusinessLogic\obj\Debug\net6.0\BusinessLogic.csproj.CopyComplete
