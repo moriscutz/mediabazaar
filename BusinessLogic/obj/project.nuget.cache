@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "NTWkJHvf2dajezIajfH2i/+BkkGqpvAHkc1BPmf3VCydupIUxxH/eqksylJHM/jUjjJ/SNyQROG+wH9f8/auMg==",
+  "dgSpecHash": "NZ6KRFi7O5kWkbYb7cP8t680f4m1qNrlieBfNesxhF5Cb5O2b2Nh3kgodGB6ln8CLauE0XWjoMUJdJMLcTEmRQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\flapj\\Desktop\\New folder\\BusinessLogic\\BusinessLogic.csproj",
+  "projectFilePath": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\BusinessLogic\\BusinessLogic.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\flapj\\.nuget\\packages\\microsoft.testplatform\\17.9.0-preview-23577-04\\microsoft.testplatform.17.9.0-preview-23577-04.nupkg.sha512",
-    "C:\\Users\\flapj\\.nuget\\packages\\mstest.testadapter\\3.1.1\\mstest.testadapter.3.1.1.nupkg.sha512",
-    "C:\\Users\\flapj\\.nuget\\packages\\mstest.testframework\\3.1.1\\mstest.testframework.3.1.1.nupkg.sha512"
+    "C:\\Users\\ritov\\.nuget\\packages\\microsoft.testplatform\\17.9.0-preview-23577-04\\microsoft.testplatform.17.9.0-preview-23577-04.nupkg.sha512",
+    "C:\\Users\\ritov\\.nuget\\packages\\mstest.testadapter\\3.1.1\\mstest.testadapter.3.1.1.nupkg.sha512",
+    "C:\\Users\\ritov\\.nuget\\packages\\mstest.testframework\\3.1.1\\mstest.testframework.3.1.1.nupkg.sha512"
   ],
   "logs": []
 }

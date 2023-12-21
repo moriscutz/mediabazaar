@@ -43,6 +43,7 @@
             this.employeeListBox = new System.Windows.Forms.ListBox();
             this.addNewEmployeeButton = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.editSelectedShiftButton = new System.Windows.Forms.Button();
             this.labelNightShiftCount = new System.Windows.Forms.Label();
             this.labelAfternoonShiftCount = new System.Windows.Forms.Label();
             this.labelMorningShiftCount = new System.Windows.Forms.Label();
@@ -51,7 +52,7 @@
             this.morningShiftsListBox = new System.Windows.Forms.ListBox();
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.shiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.editSelectedShiftButton = new System.Windows.Forms.Button();
+            this.automaticShiftsButton = new System.Windows.Forms.Button();
             this.ManagementTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -201,6 +202,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.tabPage2.Controls.Add(this.automaticShiftsButton);
             this.tabPage2.Controls.Add(this.editSelectedShiftButton);
             this.tabPage2.Controls.Add(this.labelNightShiftCount);
             this.tabPage2.Controls.Add(this.labelAfternoonShiftCount);
@@ -215,6 +217,16 @@
             this.tabPage2.Size = new System.Drawing.Size(1417, 601);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Shift Management";
+            // 
+            // editSelectedShiftButton
+            // 
+            this.editSelectedShiftButton.Location = new System.Drawing.Point(6, 348);
+            this.editSelectedShiftButton.Name = "editSelectedShiftButton";
+            this.editSelectedShiftButton.Size = new System.Drawing.Size(167, 60);
+            this.editSelectedShiftButton.TabIndex = 9;
+            this.editSelectedShiftButton.Text = "Edit Selected Shift";
+            this.editSelectedShiftButton.UseVisualStyleBackColor = true;
+            this.editSelectedShiftButton.Click += new System.EventHandler(this.editSelectedShiftButton_Click);
             // 
             // labelNightShiftCount
             // 
@@ -282,15 +294,15 @@
             // 
             this.shiftBindingSource.DataSource = typeof(BusinessLogic.Classes.Shift);
             // 
-            // editSelectedShiftButton
+            // automaticShiftsButton
             // 
-            this.editSelectedShiftButton.Location = new System.Drawing.Point(6, 348);
-            this.editSelectedShiftButton.Name = "editSelectedShiftButton";
-            this.editSelectedShiftButton.Size = new System.Drawing.Size(167, 60);
-            this.editSelectedShiftButton.TabIndex = 9;
-            this.editSelectedShiftButton.Text = "Edit Selected Shift";
-            this.editSelectedShiftButton.UseVisualStyleBackColor = true;
-            this.editSelectedShiftButton.Click += new System.EventHandler(this.editSelectedShiftButton_Click);
+            this.automaticShiftsButton.Location = new System.Drawing.Point(6, 444);
+            this.automaticShiftsButton.Name = "automaticShiftsButton";
+            this.automaticShiftsButton.Size = new System.Drawing.Size(167, 48);
+            this.automaticShiftsButton.TabIndex = 10;
+            this.automaticShiftsButton.Text = "Automatic Shifts";
+            this.automaticShiftsButton.UseVisualStyleBackColor = true;
+            this.automaticShiftsButton.Click += new System.EventHandler(this.automaticShiftsButton_Click);
             // 
             // ManagingForm
             // 
@@ -336,5 +348,6 @@
         private Label labelNightShiftCount;
         private Label labelAfternoonShiftCount;
         private Button editSelectedShiftButton;
+        private Button automaticShiftsButton;
     }
 }

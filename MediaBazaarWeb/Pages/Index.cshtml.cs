@@ -43,7 +43,7 @@ namespace MediaBazaarWeb.Pages
                 {
                     _logger.LogInformation("User was null");
                     ModelState.AddModelError("", "The user was not found");
-                    TempData["CredentialsWrong"]="The id or the password is wrong";
+                    TempData["CredentialsWrong"]="The username or the password do not match the credentials in our database.";
                     return Page();
                 }
                 else

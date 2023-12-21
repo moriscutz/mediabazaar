@@ -27,7 +27,7 @@ namespace MediaBazaarWeb
                 {
                     options.LoginPath = new PathString("/Index");
                     options.AccessDeniedPath = new PathString("/AccessDenied");
-                    //options.LogoutPath = new PathString("/Logout");
+                    options.LogoutPath = new PathString("/Logout");
                 });
             var app = builder.Build();
 

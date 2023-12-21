@@ -1,4 +1,5 @@
-﻿using BusinessLogic.Classes;
+﻿using BusinessLogic.Algorithm;
+using BusinessLogic.Classes;
 using DataAccess;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
@@ -16,10 +17,11 @@ namespace MediaBazaarApp
     public partial class ManagingForm : Form
     {
         private readonly Administration administration;
-        public ManagingForm(Administration administration)
+        private readonly AutomaticScheduling automaticScheduling;
+        public ManagingForm(Administration _administration)
         {
-            this.administration = administration;
-            
+            this.administration = _administration;
+            automaticScheduling = new AutomaticScheduling(administration);
             InitializeComponent();
             SearchFilterComboBox.SelectedIndex = 0;
             PopulateShiftBoxesAndLabel(administration);
@@ -280,7 +282,16 @@ namespace MediaBazaarApp
 
         private void editSelectedShiftButton_Click(object sender, EventArgs e)
         {
+            // HAS TO BE IMPLEMENTED
+            MessageBox.Show("Has to be implemented.");
+        }
 
+        private void automaticShiftsButton_Click(object sender, EventArgs e)
+        {
+            List<Shift> shifts = automaticScheduling.ScheduleShifts();
+            System.Diagnostics.Debug.WriteLine($"{shifts.Count()}");
+            administration.UpdateDatabaseWithNewSchedule(shifts);
+            MessageBox.Show("Schedule generated and updated in database.");
         }
     }
 }

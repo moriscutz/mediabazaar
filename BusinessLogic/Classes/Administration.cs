@@ -173,6 +173,24 @@ namespace BusinessLogic.Classes
             return shiftDB.CountShiftsOnDateAndType(date, shiftType) < 3; // Example threshold
         }
 
-
+        public void UpdateDatabaseWithNewSchedule(List<Shift> shifts)
+        {
+            
+            foreach (var shift in shifts)
+            {
+                if (shift.EmployeeID != Guid.Empty) // Check if shift is assigned
+                {
+                    var alreadyExistingShift = GetShiftById(shift.ShiftId);
+                    if (alreadyExistingShift != null)
+                        shiftDB.UpdateShift(shift);
+                    else
+                        shiftDB.AddShift(shift);
+                }
+                else
+                {
+                    System.Diagnostics.Debug.WriteLine("******");
+                }
+            }
+        }
     }
 }
