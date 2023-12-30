@@ -17,6 +17,7 @@ namespace DataAccess
         {
             using (var connection = new SqlConnection(connectionString))
             {
+                //yordan's database uses Shift, Valentin probably Uses Shifts (s) so thats with the error
                 string query = "INSERT INTO dbo.Shift (ShiftId, Date, Type, EmployeeID) VALUES (@ShiftId, @Date, @Type, @EmployeeID)";
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -35,7 +36,7 @@ namespace DataAccess
             int count = 0;
             using (var connection = new SqlConnection(connectionString)) // connectionString should be defined in your class
             {
-                string query = "SELECT COUNT(*) FROM Shifts WHERE Date = @Date AND Type = @Type";
+                string query = "SELECT COUNT(*) FROM Shift WHERE Date = @Date AND Type = @Type";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Date", date.Date);

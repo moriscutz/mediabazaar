@@ -25,7 +25,14 @@ namespace BusinessLogic.Classes
         {
             this.dateService = dateService;
         }
-
+        public interface IDateService
+        {
+            DateTime Today { get; }
+        }
+        public class DateService : IDateService
+        {
+            public DateTime Today => DateTime.Today;
+        }
         public void ScheduleShiftsBasedOnPreferences()
         {
             var schedulingPeriod = DetermineSchedulingPeriod();
