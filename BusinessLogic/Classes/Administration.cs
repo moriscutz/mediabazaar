@@ -175,9 +175,10 @@ namespace BusinessLogic.Classes
 
         public void UpdateDatabaseWithNewSchedule(List<Shift> shifts)
         {
-            
+            int count=0;
             foreach (var shift in shifts)
             {
+
                 if (shift.EmployeeID != Guid.Empty) // Check if shift is assigned
                 {
                     var alreadyExistingShift = GetShiftById(shift.ShiftId);
@@ -188,8 +189,9 @@ namespace BusinessLogic.Classes
                 }
                 else
                 {
-                    System.Diagnostics.Debug.WriteLine("******");
+                    count++;
                 }
+                System.Diagnostics.Debug.WriteLine($"{count}");
             }
         }
     }
