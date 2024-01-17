@@ -21,6 +21,7 @@ namespace BusinessLogic.Algorithm
         {
             administration = _administration;
         }
+
         private const int MaxShiftsPerDay = 2;
         private const int MaxShiftsPerWeek = 5;
         private const int EmployeesNeededPerShift = 3;
@@ -38,7 +39,7 @@ namespace BusinessLogic.Algorithm
             }
 
             
-            foreach (var employee in allEmployees)
+            foreach (var employee in allEmployees)  
             {
                 TryToAccommodatePreferences(employee, shifts);
             }
@@ -65,7 +66,7 @@ namespace BusinessLogic.Algorithm
         {
             DateTime today = DateTime.Today;
             int daysUntilNextNextMonday = ((int)DayOfWeek.Monday - (int)today.DayOfWeek + 14) % 7;
-            daysUntilNextNextMonday = daysUntilNextNextMonday == 0 ? 7 : daysUntilNextNextMonday; // Ensure it's not zero
+                daysUntilNextNextMonday = daysUntilNextNextMonday == 0 ? 7 : daysUntilNextNextMonday; // Ensure it's not zero
 
             DateTime startDate = today.AddDays(daysUntilNextNextMonday);
             DateTime endDate = startDate.AddDays(6); // One week later
