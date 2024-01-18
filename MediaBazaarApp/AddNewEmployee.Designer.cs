@@ -291,9 +291,9 @@
             this.label10.Font = new System.Drawing.Font("SimSun", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label10.Location = new System.Drawing.Point(29, 212);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(166, 27);
+            this.label10.Size = new System.Drawing.Size(180, 27);
             this.label10.TabIndex = 24;
-            this.label10.Text = "Preferences";
+            this.label10.Text = "Availability";
             // 
             // label11
             // 

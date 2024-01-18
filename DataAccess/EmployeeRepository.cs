@@ -33,54 +33,56 @@ namespace DataAccess
                 }
             }
         }
-        public void AddEmployeeWithPreferences(Employee employee)
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
+        //public void AddEmployeeWithAvailability(Employee employee)
+        //{
+        //    using (var connection = new SqlConnection(connectionString))
+        //    {
+        //        connection.Open();
 
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        
-                        string employeeQuery = "INSERT INTO dbo.Employee (ID, FirstName, LastName, JobPosition, Password, Username) VALUES (@ID, @FirstName, @LastName, @JobPosition, @Password, @Username)";
-                        using (var employeeCommand = new SqlCommand(employeeQuery, connection, transaction))
-                        {
-                            employeeCommand.Parameters.AddWithValue("@ID", employee.ID);
-                            employeeCommand.Parameters.AddWithValue("@FirstName", employee.FirstName);
-                            employeeCommand.Parameters.AddWithValue("@LastName", employee.LastName);
-                            employeeCommand.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
-                            employeeCommand.Parameters.AddWithValue("@Password", employee.Password);
-                            employeeCommand.Parameters.AddWithValue("@Username", employee.Username);
+        //        using (SqlTransaction transaction = connection.BeginTransaction())
+        //        {
+        //            try
+        //            {
+        //                string employeeQuery = "INSERT INTO dbo.Employee (ID, FirstName, LastName, JobPosition, Password, Username) VALUES (@ID, @FirstName, @LastName, @JobPosition, @Password, @Username)";
+        //                using (var employeeCommand = new SqlCommand(employeeQuery, connection, transaction))
+        //                {
+        //                    employeeCommand.Parameters.AddWithValue("@ID", employee.ID);
+        //                    employeeCommand.Parameters.AddWithValue("@FirstName", employee.FirstName);
+        //                    employeeCommand.Parameters.AddWithValue("@LastName", employee.LastName);
+        //                    employeeCommand.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
+        //                    employeeCommand.Parameters.AddWithValue("@Password", employee.Password);
+        //                    employeeCommand.Parameters.AddWithValue("@Username", employee.Username);
 
-                            employeeCommand.ExecuteNonQuery();
-                        }
+        //                    connection.Open();
+        //                    employeeCommand.ExecuteNonQuery();
+        //                }
 
-                        string preferenceQuery = "INSERT INTO dbo.Preferences (PreferenceId, DayOfWeek, ShiftType, EmployeeId) VALUES (@PreferenceId, @DayOfWeek, @ShiftType, @EmployeeId)";
-                        foreach (var preference in employee.Preferences)
-                        {
-                            using (var preferenceCommand = new SqlCommand(preferenceQuery, connection, transaction))
-                            {
-                                preferenceCommand.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
-                                preferenceCommand.Parameters.AddWithValue("@DayOfWeek", preference.DayOfWeek);
-                                preferenceCommand.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
-                                preferenceCommand.Parameters.AddWithValue("@EmployeeId", preference.EmployeeId);
+                       
+        //                string availabilityQuery = "INSERT INTO dbo.Availability (EmployeeID, DayOfWeek, ShiftTime, IsAvailable) VALUES (@EmployeeID, @DayOfWeek, @ShiftTime, @IsAvailable)";
+        //                foreach (var availability in employee.Availabilities) 
+        //                {
+        //                    using (var availabilityCommand = new SqlCommand(availabilityQuery, connection, transaction))
+        //                    {
+        //                        availabilityCommand.Parameters.AddWithValue("@EmployeeID", employee.ID);
+        //                        availabilityCommand.Parameters.AddWithValue("@DayOfWeek", availability.DayOfWeek);
+        //                        availabilityCommand.Parameters.AddWithValue("@ShiftTime", availability.ShiftTime);
+        //                        availabilityCommand.Parameters.AddWithValue("@IsAvailable", availability.IsAvailable);
 
-                                preferenceCommand.ExecuteNonQuery();
-                            }
-                        }
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
+        //                        availabilityCommand.ExecuteNonQuery();
+        //                    }
+        //                }
+
+        //                transaction.Commit();
+        //            }
+        //            catch (Exception ex)
+        //            {
+        //                System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
+        //                transaction.Rollback();
+        //                throw;
+        //            }
+        //        }
+        //    }
+        //}
 
         public void UpdateEmployee(Employee employee)
         {
@@ -112,12 +114,13 @@ namespace DataAccess
                 {
                     try
                     {
+
                         
-                        string deletePreferencesQuery = "DELETE FROM dbo.Preferences WHERE EmployeeId = @EmployeeId";
-                        using (var deletePreferencesCommand = new SqlCommand(deletePreferencesQuery, connection, transaction))
+                        string deleteAvailabilityQuery = "DELETE FROM dbo.Availability WHERE EmployeeId = @EmployeeId";
+                        using (var deleteAvailabilityCommand = new SqlCommand(deleteAvailabilityQuery, connection, transaction))
                         {
-                            deletePreferencesCommand.Parameters.AddWithValue("@EmployeeId", employee.ID);
-                            deletePreferencesCommand.ExecuteNonQuery();
+                            deleteAvailabilityCommand.Parameters.AddWithValue("@EmployeeId", employee.ID);
+                            deleteAvailabilityCommand.ExecuteNonQuery();
                         }
 
                         
@@ -232,108 +235,5 @@ namespace DataAccess
             }
             return null;
         }
-        public void UpdateEmployeeWithPreferences(Employee employee)
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        
-                        string updateEmployeeQuery = "UPDATE dbo.Employee SET FirstName = @FirstName, LastName = @LastName, JobPosition = @JobPosition, Password = @Password, Username = @Username WHERE ID = @ID";
-                        using (var updateEmployeeCommand = new SqlCommand(updateEmployeeQuery, connection, transaction))
-                        {
-                            updateEmployeeCommand.Parameters.AddWithValue("@ID", employee.ID);
-                            updateEmployeeCommand.Parameters.AddWithValue("@FirstName", employee.FirstName);
-                            updateEmployeeCommand.Parameters.AddWithValue("@LastName", employee.LastName);
-                            updateEmployeeCommand.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
-                            updateEmployeeCommand.Parameters.AddWithValue("@Password", employee.Password);
-                            updateEmployeeCommand.Parameters.AddWithValue("@Username", employee.Username);
-
-                            updateEmployeeCommand.ExecuteNonQuery();
-                        }
-
-                        
-                        string deletePreferencesQuery = "DELETE FROM dbo.Preferences WHERE EmployeeId = @EmployeeId";
-                        using (var deletePreferencesCommand = new SqlCommand(deletePreferencesQuery, connection, transaction))
-                        {
-                            deletePreferencesCommand.Parameters.AddWithValue("@EmployeeId", employee.ID);
-                            deletePreferencesCommand.ExecuteNonQuery();
-                        }
-
-                        
-                        string preferenceQuery = "INSERT INTO dbo.Preferences (PreferenceId, DayOfWeek, ShiftType, EmployeeId) VALUES (@PreferenceId, @DayOfWeek, @ShiftType, @EmployeeId)";
-                        foreach (var preference in employee.Preferences)
-                        {
-                            using (var preferenceCommand = new SqlCommand(preferenceQuery, connection, transaction))
-                            {
-                                preferenceCommand.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
-                                preferenceCommand.Parameters.AddWithValue("@DayOfWeek", preference.DayOfWeek);
-                                preferenceCommand.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
-                                preferenceCommand.Parameters.AddWithValue("@EmployeeId", preference.EmployeeId);
-
-                                preferenceCommand.ExecuteNonQuery();
-                            }
-                        }
-
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
-        public void UpdatePreferencesForEmployee(Guid employeeId, List<Preference> updatedPreferences)
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                connection.Open();
-
-                using (SqlTransaction transaction = connection.BeginTransaction())
-                {
-                    try
-                    {
-                        
-                        string deletePreferencesQuery = "DELETE FROM dbo.Preferences WHERE EmployeeId = @EmployeeId";
-                        using (var deletePreferencesCommand = new SqlCommand(deletePreferencesQuery, connection, transaction))
-                        {
-                            deletePreferencesCommand.Parameters.AddWithValue("@EmployeeId", employeeId);
-                            deletePreferencesCommand.ExecuteNonQuery();
-                        }
-
-                        
-                        string preferenceQuery = "INSERT INTO dbo.Preferences (PreferenceId, DayOfWeek, ShiftType, EmployeeId) VALUES (@PreferenceId, @DayOfWeek, @ShiftType, @EmployeeId)";
-                        foreach (var preference in updatedPreferences)
-                        {
-                            using (var preferenceCommand = new SqlCommand(preferenceQuery, connection, transaction))
-                            {
-                                preferenceCommand.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
-                                preferenceCommand.Parameters.AddWithValue("@DayOfWeek", preference.DayOfWeek);
-                                preferenceCommand.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
-                                preferenceCommand.Parameters.AddWithValue("@EmployeeId", preference.EmployeeId);
-
-                                preferenceCommand.ExecuteNonQuery();
-                            }
-                        }
-
-                        transaction.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
-                        transaction.Rollback();
-                        throw;
-                    }
-                }
-            }
-        }
-
     }
 }

@@ -48,15 +48,15 @@ namespace MediaBazaarApp
                     }
                 }
 
-                newEmployee.Preferences = new List<Preference>();
+                //newEmployee.Preferences = new List<Preference>();
 
-                SetPreference(newEmployee, DayOfWeek.Monday, MondayPreference.SelectedItem?.ToString());
-                SetPreference(newEmployee, DayOfWeek.Tuesday, TuesdayPreference.SelectedItem?.ToString());
-                SetPreference(newEmployee, DayOfWeek.Wednesday, WednesdayPreference.SelectedItem?.ToString());
-                SetPreference(newEmployee, DayOfWeek.Thursday, ThursdayPreference.SelectedItem?.ToString());
-                SetPreference(newEmployee, DayOfWeek.Friday, FridayPreference.SelectedItem?.ToString());
-                SetPreference(newEmployee, DayOfWeek.Saturday, SaturdayPreference.SelectedItem?.ToString());
-                SetPreference(newEmployee, DayOfWeek.Sunday + 7, SundayPreference.SelectedItem?.ToString());
+                //SetPreference(newEmployee, DayOfWeek.Monday, MondayPreference.SelectedItem?.ToString());
+                //SetPreference(newEmployee, DayOfWeek.Tuesday, TuesdayPreference.SelectedItem?.ToString());
+                //SetPreference(newEmployee, DayOfWeek.Wednesday, WednesdayPreference.SelectedItem?.ToString());
+                //SetPreference(newEmployee, DayOfWeek.Thursday, ThursdayPreference.SelectedItem?.ToString());
+                //SetPreference(newEmployee, DayOfWeek.Friday, FridayPreference.SelectedItem?.ToString());
+                //SetPreference(newEmployee, DayOfWeek.Saturday, SaturdayPreference.SelectedItem?.ToString());
+                //SetPreference(newEmployee, DayOfWeek.Sunday + 7, SundayPreference.SelectedItem?.ToString());
 
                 administration.AddEmployee(newEmployee);
                 
@@ -66,27 +66,27 @@ namespace MediaBazaarApp
             }
             else { MessageBox.Show("Please fill each box in the form!"); }
         }
-        private void SetPreference(Employee employee, DayOfWeek dayOfWeek, string selectedShiftType)
-        {
-            if (!string.IsNullOrEmpty(selectedShiftType))
-            {
-                if (Enum.TryParse(selectedShiftType, out shiftTypeEnum))
-                {
-                    var preference = new Preference
-                    {
-                        PreferenceId = Guid.NewGuid(),
-                        DayOfWeek = (int)dayOfWeek,
-                        ShiftType = shiftTypeEnum,
-                        EmployeeId = employee.ID
-                    };
+        //private void SetPreference(Employee employee, DayOfWeek dayOfWeek, string selectedShiftType)
+        //{
+        //    if (!string.IsNullOrEmpty(selectedShiftType))
+        //    {
+        //        if (Enum.TryParse(selectedShiftType, out shiftTypeEnum))
+        //        {
+        //            var preference = new Preference
+        //            {
+        //                PreferenceId = Guid.NewGuid(),
+        //                DayOfWeek = (int)dayOfWeek,
+        //                ShiftType = shiftTypeEnum,
+        //                EmployeeId = employee.ID
+        //            };
 
-                    employee.Preferences.Add(preference);
-                }
-                else
-                {
-                    MessageBox.Show($"Invalid selection for {dayOfWeek} preference");
-                }
-            }
-        }
+        //            employee.Preferences.Add(preference);
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show($"Invalid selection for {dayOfWeek} preference");
+        //        }
+        //    }
+        //}
     }
 }

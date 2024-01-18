@@ -10,9 +10,7 @@ namespace BusinessLogic.Enums
     {
         Picker,
         OrderAssistant,
-        Forklifter,
         Manager,
-        Technician,
         Supervisor
     }
 }

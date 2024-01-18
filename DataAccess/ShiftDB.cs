@@ -47,23 +47,5 @@ namespace DataAccess
         {
             return shiftRepository.GetShiftsForEmployeeById(employeeId);
         }
-        public List<Preference> GetPreferencesByEmployeeId(Guid employeeId)
-        {
-            return shiftRepository.GetPreferencesByEmployeeId(employeeId);
-        }
-        public List<Preference> GetPreferencesByDayOfWeek(int dayOfWeek)
-        {
-            return shiftRepository.GetPreferencesByDayOfWeek(dayOfWeek);
-        }
-        public void AddPreference(Preference preference)
-        {
-            shiftRepository.AddPreference(preference);
-        }
-        public void UpdatePreference(Preference preference)
-        {
-            shiftRepository.UpdatePreference(preference);
-        }
-
-        
     }
 }

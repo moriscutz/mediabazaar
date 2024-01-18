@@ -12,9 +12,8 @@
       }
     ],
     "additionalProbingPaths": [
-      "C:\\Users\\flapj\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\flapj\\.nuget\\packages",
-      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      "C:\\Users\\ritov\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\ritov\\.nuget\\packages"
     ],
     "configProperties": {
       "Microsoft.NETCore.DotNetHostPolicy.SetAppPaths": true

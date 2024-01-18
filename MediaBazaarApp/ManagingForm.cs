@@ -1,4 +1,4 @@
-﻿using BusinessLogic.Algorithm;
+﻿//using BusinessLogic.Algorithm;
 using BusinessLogic.Classes;
 using DataAccess;
 using Microsoft.VisualBasic.ApplicationServices;
@@ -17,109 +17,41 @@ namespace MediaBazaarApp
     public partial class ManagingForm : Form
     {
         private readonly Administration administration;
-        private readonly AutomaticScheduling automaticScheduling;
+        //private readonly AutomaticScheduling automaticScheduling;
+        private List<Employee> employees = new List<Employee>();
+        private List<Shift> shifts = new List<Shift>();
         public ManagingForm(Administration _administration)
         {
             this.administration = _administration;
-            automaticScheduling = new AutomaticScheduling(administration);
+            //automaticScheduling = new AutomaticScheduling(administration);
+
             InitializeComponent();
+
             SearchFilterComboBox.SelectedIndex = 0;
-            PopulateShiftBoxesAndLabel(administration);
+
+            RefreshEmployees(administration);
+            RefreshShifts(administration);
+
+            //PopulateShiftBoxesAndLabel(administration);
         }
 
-        
-        private void PopulateShiftBoxesAndLabel(Administration administration)
+        private void RefreshEmployees(Administration administration)
         {
-            // Assuming you have list boxes and labels for each shift type on your form
-            morningShiftsListBox.Items.Clear();
-            afternoonShiftsListBox.Items.Clear();
-            nightShiftsListBox.Items.Clear();
-
-            var shifts = administration.GetAllShifts();
-
-            foreach (Shift shift in shifts)
-            {
-                var employee = administration.GetEmployeeById(shift.EmployeeID);
-                string shiftDetails = $"ID: {shift.EmployeeID}, Date: {shift.Date.ToShortDateString()}, Type: {shift.Type}, Username: {employee.Username}, Name: {employee.FirstName} {employee.LastName}";
-                switch (shift.Type)
-                 {
-                        case BusinessLogic.Enums.ShiftType.Morning:
-                            morningShiftsListBox.Items.Add(shiftDetails);
-                            break;
-                        case BusinessLogic.Enums.ShiftType.Afternoon:
-                            afternoonShiftsListBox.Items.Add(shiftDetails);
-                            break;
-                        case BusinessLogic.Enums.ShiftType.Night:
-                            nightShiftsListBox.Items.Add(shiftDetails);
-                            break;
-                  }
-            }
-
-                
-                labelMorningShiftCount.Text = $"Morning Shifts: {morningShiftsListBox.Items.Count}";
-                labelAfternoonShiftCount.Text = $"Afternoon Shifts: {afternoonShiftsListBox.Items.Count}";
-                labelNightShiftCount.Text = $"Evening Shifts: {nightShiftsListBox.Items.Count}";
-
-                if (morningShiftsListBox.Items.Count == 0)
-                {
-                    morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
-                }
-                if (afternoonShiftsListBox.Items.Count == 0)
-                {
-                    afternoonShiftsListBox.Items.Add("No shifts assigned for this timeslot");
-                }
-                if (nightShiftsListBox.Items.Count == 0)
-                {
-                    nightShiftsListBox.Items.Add("No shifts assigned for this timeslot");
-                }
+            employees.Clear();
+            employees = administration.GetAllEmployees();
+            dataGridViewEmployees.DataSource = employees;
         }
+        private void RefreshShifts(Administration administration)
+        {
+            shifts.Clear();
+            shifts = administration.GetAllShifts();
+            dataGridViewShifts.DataSource = shifts;
+        }
+       
 
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            DateTime selectedDate = e.Start; 
-
-            morningShiftsListBox.Items.Clear();
-            afternoonShiftsListBox.Items.Clear();
-            nightShiftsListBox.Items.Clear();
-
-            var shifts = administration.GetAllShifts().Where(shift => shift.Date.Date == selectedDate.Date);
-
-            foreach (Shift shift in shifts)
-            {
-                var employee = administration.GetEmployeeById(shift.EmployeeID);
-                string shiftDetails = $"ID: {shift.EmployeeID}, Date: {shift.Date.ToShortDateString()}, Type: {shift.Type}, Username: {employee.Username}, Name: {employee.FirstName} {employee.LastName}";
-                
-                switch (shift.Type)
-                {
-                    case BusinessLogic.Enums.ShiftType.Morning:
-                        morningShiftsListBox.Items.Add(shiftDetails);
-                        break;
-                    case BusinessLogic.Enums.ShiftType.Afternoon:
-                        afternoonShiftsListBox.Items.Add(shiftDetails);
-                        break;
-                    case BusinessLogic.Enums.ShiftType.Night:
-                        nightShiftsListBox.Items.Add(shiftDetails);
-                        break;
-                }
-            }
-
-            
-            labelMorningShiftCount.Text = $"Morning Shifts: {morningShiftsListBox.Items.Count}";
-            labelAfternoonShiftCount.Text = $"Afternoon Shifts: {afternoonShiftsListBox.Items.Count}";
-            labelNightShiftCount.Text = $"Night Shifts: {nightShiftsListBox.Items.Count}";
-
-            if(morningShiftsListBox.Items.Count==0)
-            {
-                morningShiftsListBox.Items.Add("No shifts assigned for this timeslot");
-            }
-            if(afternoonShiftsListBox.Items.Count==0)
-            {
-                afternoonShiftsListBox.Items.Add("No shifts assigned for this timeslot");
-            }
-            if(nightShiftsListBox.Items.Count==0)
-            {
-                nightShiftsListBox.Items.Add("No shifts assigned for this timeslot");
-            }
+           
         }
         
 
@@ -132,145 +64,103 @@ namespace MediaBazaarApp
 
         private void seeAllEmployeeButton_Click(object sender, EventArgs e)
         {
-            employeeListBox.Items.Clear();
             var employees = administration.GetAllEmployees();
-            
-            foreach (Employee employee in employees ) 
-            {
-                var shifts = administration.GetShiftsForEmployeeById(employee.ID);
-                int count = shifts.Count;
-                EmployeeListItem listItem = new EmployeeListItem
-                {
-                    Employee = employee,
-                    DisplayText = $"First Name: {employee.FirstName}, Last Name: {employee.LastName}, Position: {employee.JobPosition}, Username: {employee.Username}, Shifts: {count}"
-                };
-                employeeListBox.Items.Add(listItem);
-            }
+            dataGridViewEmployees.DataSource = employees;
         }
+
 
         private void seeAssignedEmployeeButton_Click(object sender, EventArgs e)
         {
-            employeeListBox.Items.Clear();
-            var employees = administration.GetAllEmployees();
+            var assignedEmployees = administration.GetAllEmployees()
+                .Where(emp => administration.GetShiftsForEmployeeById(emp.ID).Count > 0)
+                .ToList();
 
-            foreach (Employee employee in employees)
-            {
-                var shifts = administration.GetShiftsForEmployeeById(employee.ID);
-                int count = shifts.Count;
-                if (count > 0)
-                {
-                    EmployeeListItem listItem = new EmployeeListItem
-                    {
-                        Employee = employee,
-                        DisplayText = $"First Name: {employee.FirstName}, Last Name: {employee.LastName}, Position: {employee.JobPosition}, Username: {employee.Username}, Shifts: {count}"
-                    };
-                    employeeListBox.Items.Add(listItem);
-                }
-            }
-
+            dataGridViewEmployees.DataSource = assignedEmployees;
         }
+
 
         private void seeEmployeeNoShiftButton_Click(object sender, EventArgs e)
         {
-            employeeListBox.Items.Clear();
-            var employees = administration.GetAllEmployees();
+            var noShiftEmployees = administration.GetAllEmployees()
+                .Where(emp => administration.GetShiftsForEmployeeById(emp.ID).Count == 0)
+                .ToList();
 
-            foreach (Employee employee in employees)
-            {
-                var shifts = administration.GetShiftsForEmployeeById(employee.ID);
-                int count = shifts.Count;
-                if (count == 0)
-                {
-                    EmployeeListItem listItem = new EmployeeListItem
-                    {
-                        Employee = employee,
-                        DisplayText = $"First Name: {employee.FirstName}, Last Name: {employee.LastName}, Position: {employee.JobPosition}, Username: {employee.Username}, Shifts: {count}"
-                    };
-                    employeeListBox.Items.Add(listItem);
-                }
-            }
+            dataGridViewEmployees.DataSource = noShiftEmployees;
         }
+
 
         private void searchEmployeeButton_Click(object sender, EventArgs e)
         {
             string toSearch = searchTextBox.Text;
-            if (searchTextBox.Text != string.Empty)
+            if (!string.IsNullOrEmpty(toSearch))
             {
-                employeeListBox.Items.Clear();
+                List<Employee> searchedEmployees = null;
                 if (SearchFilterComboBox.SelectedItem.ToString() == "By Username")
                 {
-                    var searchedUsers = administration.SearchEmployeesByUsername(toSearch);
-                    foreach(Employee employee in searchedUsers)
-                    {
-                        var shifts = administration.GetShiftsForEmployeeById(employee.ID);
-                        int count = shifts.Count;
-                        EmployeeListItem listItem = new EmployeeListItem
-                        {
-                            Employee = employee,
-                            DisplayText = $"First Name: {employee.FirstName}, Last Name: {employee.LastName}, Position: {employee.JobPosition}, Username: {employee.Username}, Shifts: {count}"
-                        };
-                        employeeListBox.Items.Add(listItem);
-                    }
+                    searchedEmployees = administration.SearchEmployeesByUsername(toSearch);
                 }
                 else if (SearchFilterComboBox.SelectedItem.ToString() == "By Last Name")
                 {
-                    var searchedUsers = administration.SearchEmployeesByLastName(toSearch);
-                    foreach (Employee employee in searchedUsers)
-                    {
-                        var shifts = administration.GetShiftsForEmployeeById(employee.ID);
-                        int count = shifts.Count;
-                        EmployeeListItem listItem = new EmployeeListItem
-                        {
-                            Employee = employee,
-                            DisplayText = $"First Name: {employee.FirstName}, Last Name: {employee.LastName}, Position: {employee.JobPosition}, Username: {employee.Username}, Shifts: {count}"
-                        };
-                        employeeListBox.Items.Add(listItem);
-                    }
+                    searchedEmployees = administration.SearchEmployeesByLastName(toSearch);
                 }
-                else MessageBox.Show("Please select a filter first!");
+                else
+                {
+                    MessageBox.Show("Please select a filter first!");
+                    return;
+                }
+
+                dataGridViewEmployees.DataSource = searchedEmployees;
             }
             else
+            {
                 MessageBox.Show("Please input the text first!");
+            }
         }
+
 
         private void deleteEmployeeButton_Click(object sender, EventArgs e)
         {
-            if (employeeListBox.SelectedItems.Count == 1)
+            if (dataGridViewEmployees.SelectedRows.Count == 1)
             {
                 DialogResult result = MessageBox.Show("Are you sure you want to delete the user from the database?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-               
-                        Employee selectedEmployee = ((EmployeeListItem)employeeListBox.SelectedItem).Employee;
-                        administration.DeleteEmployee(selectedEmployee);
-                        MessageBox.Show("User has been deleted succesfully");
-                        employeeListBox.SelectedItems.Clear();
+                    int index = dataGridViewEmployees.SelectedRows[0].Index;
+                    Employee selectedEmployee = employees[index];
+                    administration.DeleteEmployee(selectedEmployee);
+                    MessageBox.Show("User has been deleted successfully");
+                    RefreshEmployees(administration); // To refresh the DataGridView list
                 }
             }
             else MessageBox.Show("Please select one employee to delete.");
         }
 
+
         private void updateEmployeeButton_Click(object sender, EventArgs e)
         {
-            if (employeeListBox.SelectedItems.Count == 1)
+            if (dataGridViewEmployees.SelectedRows.Count == 1)
             {
-                Employee selectedEmployee = ((EmployeeListItem)employeeListBox.SelectedItem).Employee;
+                int index = dataGridViewEmployees.SelectedRows[0].Index;
+                Employee selectedEmployee = employees[index];
                 UpdateEmployee updateEmployee = new UpdateEmployee(administration, selectedEmployee);
                 updateEmployee.Show();
             }
             else MessageBox.Show("Please select one employee to update.");
         }
 
+
         private void seeEmployeeShift_Click(object sender, EventArgs e)
         {
-            if (employeeListBox.SelectedItems.Count == 1)
+            if (dataGridViewEmployees.SelectedRows.Count == 1)
             {
-                Employee selectedEmployee = ((EmployeeListItem)employeeListBox.SelectedItem).Employee;
+                int index = dataGridViewEmployees.SelectedRows[0].Index;
+                Employee selectedEmployee = employees[index];
                 var shifts = administration.GetShiftsForEmployeeById(selectedEmployee.ID);
 
-                int count = shifts.Count;
-
-                if(count == 0) { MessageBox.Show("Employee has no shifts."); }
+                if (shifts.Count == 0)
+                {
+                    MessageBox.Show("Employee has no shifts.");
+                }
                 else
                 {
                     EmployeeShiftInfo employeeShiftInfo = new EmployeeShiftInfo(administration, selectedEmployee);
@@ -280,6 +170,7 @@ namespace MediaBazaarApp
             else MessageBox.Show("Please select one employee to see the shifts for.");
         }
 
+
         private void editSelectedShiftButton_Click(object sender, EventArgs e)
         {
             // HAS TO BE IMPLEMENTED
@@ -288,10 +179,10 @@ namespace MediaBazaarApp
 
         private void automaticShiftsButton_Click(object sender, EventArgs e)
         {
-            List<Shift> shifts = automaticScheduling.ScheduleShifts();
-            System.Diagnostics.Debug.WriteLine($"{shifts.Count()}");
-            administration.UpdateDatabaseWithNewSchedule(shifts);
-            MessageBox.Show("Schedule generated and updated in database.");
+            //List<Shift> shifts = automaticScheduling.ScheduleShifts();
+            //System.Diagnostics.Debug.WriteLine($"{shifts.Count()}");
+            //administration.UpdateDatabaseWithNewSchedule(shifts);
+            //MessageBox.Show("Schedule generated and updated in database.");
         }
     }
 }

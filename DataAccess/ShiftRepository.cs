@@ -17,7 +17,7 @@ namespace DataAccess
         {
             using (var connection = new SqlConnection(connectionString))
             {
-                //yordan's database uses Shift, Valentin probably Uses Shifts (s) so thats with the error
+                
                 string query = "INSERT INTO dbo.Shift (ShiftId, Date, Type, EmployeeID) VALUES (@ShiftId, @Date, @Type, @EmployeeID)";
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -34,7 +34,7 @@ namespace DataAccess
         public int CountShiftsOnDateAndType(DateTime date, ShiftType shiftType)
         {
             int count = 0;
-            using (var connection = new SqlConnection(connectionString)) // connectionString should be defined in your class
+            using (var connection = new SqlConnection(connectionString)) 
             {
                 string query = "SELECT COUNT(*) FROM Shift WHERE Date = @Date AND Type = @Type";
                 using (var command = new SqlCommand(query, connection))
@@ -161,98 +161,5 @@ namespace DataAccess
             }
             return shifts;
         }
-        public List<Preference> GetPreferencesByEmployeeId(Guid employeeId)
-        {
-            var preferences = new List<Preference>();
-            using (var connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT * FROM Preferences WHERE EmployeeId = @EmployeeId";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@EmployeeId", employeeId);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var preference = new Preference
-                            {
-                                PreferenceId = (Guid)reader["PreferenceId"],
-                                DayOfWeek = (int)reader["DayOfWeek"],
-                                ShiftType = (ShiftType)(int)reader["ShiftType"],
-                                EmployeeId = (Guid)reader["EmployeeId"]
-                            };
-                            preferences.Add(preference);
-                        }
-                    }
-                }
-            }
-            return preferences;
-        }
-
-        public List<Preference> GetPreferencesByDayOfWeek(int dayOfWeek)
-        {
-            var preferences = new List<Preference>();
-            using (var connection = new SqlConnection(connectionString))
-            {
-                string query = "SELECT * FROM Preferences WHERE DayOfWeek = @DayOfWeek";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@DayOfWeek", dayOfWeek);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            var preference = new Preference
-                            {
-                                PreferenceId = (Guid)reader["PreferenceId"],
-                                DayOfWeek = (int)reader["DayOfWeek"],
-                                ShiftType = (ShiftType)(int)reader["ShiftType"],
-                                EmployeeId = (Guid)reader["EmployeeId"]
-                            };
-                            preferences.Add(preference);
-                        }
-                    }
-                }
-            }
-            return preferences;
-        }
-
-        public void UpdatePreference(Preference preference)
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                string query = "UPDATE dbo.Preferences SET ShiftType = @ShiftType WHERE PreferenceId = @PreferenceId";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
-                    command.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
-        public void AddPreference(Preference preference)
-        {
-            using (var connection = new SqlConnection(connectionString))
-            {
-                string query = "INSERT INTO dbo.Preferences (PreferenceId, DayOfWeek, ShiftType, EmployeeId) " +
-                               "VALUES (@PreferenceId, @DayOfWeek, @ShiftType, @EmployeeId)";
-                using (var command = new SqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@PreferenceId", preference.PreferenceId);
-                    command.Parameters.AddWithValue("@DayOfWeek", preference.DayOfWeek);
-                    command.Parameters.AddWithValue("@ShiftType", (int)preference.ShiftType);
-                    command.Parameters.AddWithValue("@EmployeeId", preference.EmployeeId);
-
-                    connection.Open();
-                    command.ExecuteNonQuery();
-                }
-            }
-        }
-
     }
 }

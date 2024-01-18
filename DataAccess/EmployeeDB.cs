@@ -40,17 +40,5 @@ namespace DataAccess
         {
             return employeeRepository.Authenticate(username, password);
         }
-        public void AddEmployeeWithPreferences(Employee employee)
-        {
-            employeeRepository.AddEmployeeWithPreferences(employee);
-        }
-        public void UpdateEmployeeWithPreferences(Employee employee)
-        {
-            employeeRepository.UpdateEmployeeWithPreferences(employee);
-        }
-        public void UpdatePreferencesForEmployee(Guid ID, List<Preference> updatedPreferences)
-        {
-            employeeRepository.UpdatePreferencesForEmployee(ID, updatedPreferences);
-        }
     }
 }

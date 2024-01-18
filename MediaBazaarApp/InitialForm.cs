@@ -16,9 +16,9 @@ namespace MediaBazaarApp
     public partial class InitialForm : Form
     {
         private readonly Administration administration;
-        public InitialForm(IEmployeeDB employeeDB, IShiftDB shiftDB)
+        public InitialForm(IEmployeeDB employeeDB, IShiftDB shiftDB, IAvailabilityDB availabilityDB)
         {
-            administration = new Administration(employeeDB, shiftDB);
+            administration = new Administration(employeeDB, shiftDB, availabilityDB);
             InitializeComponent();
         }
 
@@ -29,8 +29,7 @@ namespace MediaBazaarApp
                 MessageBox.Show("Please enter your username and password first!");
             else
             {
-                //var user = administration.Authenticate(usernameTextBox.Text, passwordTextBox.Text);
-                var user = administration.Authenticate("supervisor.username", "supervisorpassword");
+                var user = administration.Authenticate(usernameTextBox.Text, passwordTextBox.Text);
                 ManagingForm managingForm;
                 if (user != null)
                 {

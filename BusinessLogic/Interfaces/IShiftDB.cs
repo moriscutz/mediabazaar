@@ -18,10 +18,5 @@ namespace BusinessLogic.Interfaces
         public Shift GetShiftById(Guid shiftId);
         public List<Shift> GetAllShifts();
         public List<Shift> GetShiftsForEmployeeById(Guid employeeId);
-        public List<Preference> GetPreferencesByEmployeeId(Guid employeeId);
-        public List<Preference> GetPreferencesByDayOfWeek(int dayOfWeek);
-
-        public void AddPreference(Preference preference);
-        public void UpdatePreference(Preference preference);
     }
 }

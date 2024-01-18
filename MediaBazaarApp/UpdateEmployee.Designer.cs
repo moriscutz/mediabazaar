@@ -34,12 +34,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.firstNameTextBox = new System.Windows.Forms.TextBox();
             this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.usernameTextBox = new System.Windows.Forms.TextBox();
-            this.emailTextBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -119,25 +117,15 @@
             this.label6.TabIndex = 5;
             this.label6.Text = "Position:";
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("SimSun", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.label7.Location = new System.Drawing.Point(71, 204);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(82, 21);
-            this.label7.TabIndex = 6;
-            this.label7.Text = "Email:";
-            // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("SimSun", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.label8.Location = new System.Drawing.Point(12, 270);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(177, 27);
+            this.label8.Size = new System.Drawing.Size(222, 27);
             this.label8.TabIndex = 7;
-            this.label8.Text = "Preferences";
+            this.label8.Text = "Availabilities";
             // 
             // firstNameTextBox
             // 
@@ -159,13 +147,6 @@
             this.usernameTextBox.Name = "usernameTextBox";
             this.usernameTextBox.Size = new System.Drawing.Size(215, 23);
             this.usernameTextBox.TabIndex = 10;
-            // 
-            // emailTextBox
-            // 
-            this.emailTextBox.Location = new System.Drawing.Point(159, 204);
-            this.emailTextBox.Name = "emailTextBox";
-            this.emailTextBox.Size = new System.Drawing.Size(215, 23);
-            this.emailTextBox.TabIndex = 12;
             // 
             // label2
             // 
@@ -253,9 +234,7 @@
             this.positionComboBox.Items.AddRange(new object[] {
             "Picker",
             "OrderAssistant",
-            "Forklifter",
             "Manager",
-            "Technician",
             "Supervisor"});
             this.positionComboBox.Location = new System.Drawing.Point(159, 175);
             this.positionComboBox.Name = "positionComboBox";
@@ -266,9 +245,8 @@
             // 
             this.SundayComboBox.FormattingEnabled = true;
             this.SundayComboBox.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.SundayComboBox.Location = new System.Drawing.Point(434, 430);
             this.SundayComboBox.Name = "SundayComboBox";
             this.SundayComboBox.Size = new System.Drawing.Size(119, 23);
@@ -278,9 +256,8 @@
             // 
             this.SaturdayComboBox.FormattingEnabled = true;
             this.SaturdayComboBox.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.SaturdayComboBox.Location = new System.Drawing.Point(434, 385);
             this.SaturdayComboBox.Name = "SaturdayComboBox";
             this.SaturdayComboBox.Size = new System.Drawing.Size(119, 23);
@@ -290,9 +267,8 @@
             // 
             this.FridayComboBox.FormattingEnabled = true;
             this.FridayComboBox.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.FridayComboBox.Location = new System.Drawing.Point(434, 341);
             this.FridayComboBox.Name = "FridayComboBox";
             this.FridayComboBox.Size = new System.Drawing.Size(119, 23);
@@ -302,9 +278,8 @@
             // 
             this.MondayComboBox.FormattingEnabled = true;
             this.MondayComboBox.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.MondayComboBox.Location = new System.Drawing.Point(175, 336);
             this.MondayComboBox.Name = "MondayComboBox";
             this.MondayComboBox.Size = new System.Drawing.Size(119, 23);
@@ -314,9 +289,8 @@
             // 
             this.TuesdayComboBox.FormattingEnabled = true;
             this.TuesdayComboBox.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.TuesdayComboBox.Location = new System.Drawing.Point(175, 371);
             this.TuesdayComboBox.Name = "TuesdayComboBox";
             this.TuesdayComboBox.Size = new System.Drawing.Size(119, 23);
@@ -326,9 +300,8 @@
             // 
             this.WednesdayComboBox.FormattingEnabled = true;
             this.WednesdayComboBox.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.WednesdayComboBox.Location = new System.Drawing.Point(175, 402);
             this.WednesdayComboBox.Name = "WednesdayComboBox";
             this.WednesdayComboBox.Size = new System.Drawing.Size(119, 23);
@@ -338,9 +311,8 @@
             // 
             this.ThursdayComboBox.FormattingEnabled = true;
             this.ThursdayComboBox.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.ThursdayComboBox.Location = new System.Drawing.Point(175, 435);
             this.ThursdayComboBox.Name = "ThursdayComboBox";
             this.ThursdayComboBox.Size = new System.Drawing.Size(119, 23);
@@ -379,12 +351,10 @@
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.usernameTextBox);
             this.Controls.Add(this.lastNameTextBox);
             this.Controls.Add(this.firstNameTextBox);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -406,12 +376,10 @@
         private Label label4;
         private Label label5;
         private Label label6;
-        private Label label7;
         private Label label8;
         private TextBox firstNameTextBox;
         private TextBox lastNameTextBox;
         private TextBox usernameTextBox;
-        private TextBox emailTextBox;
         private Label label2;
         private Label label9;
         private Label label10;

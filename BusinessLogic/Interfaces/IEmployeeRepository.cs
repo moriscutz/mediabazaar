@@ -9,14 +9,11 @@ namespace BusinessLogic.Interfaces
 {
     public interface IEmployeeRepository
     {
-        public void AddEmployee(Employee employee);
-        public void UpdateEmployee(Employee employee);
-        public void DeleteEmployee(Employee employee);
-        public Employee GetEmployeeById(Guid id);
-        public List<Employee> GetAllEmployees();
-        public Employee Authenticate(string username, string password);
-        public void AddEmployeeWithPreferences(Employee employee);
-        public void UpdateEmployeeWithPreferences(Employee employee);
-        public void UpdatePreferencesForEmployee(Guid ID, List<Preference> updatedPreferences);
+        void AddEmployee(Employee employee);
+        void UpdateEmployee(Employee employee);
+        void DeleteEmployee(Employee employee);
+        Employee GetEmployeeById(Guid id);
+        List<Employee> GetAllEmployees();
+        Employee Authenticate(string username, string password);
     }
 }

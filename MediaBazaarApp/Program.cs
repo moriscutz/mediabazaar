@@ -20,6 +20,8 @@ namespace MediaBazaarApp
             service.AddTransient<IEmployeeRepository, EmployeeRepository>();
             service.AddTransient<IShiftDB, ShiftDB>();
             service.AddTransient<IShiftRepository, ShiftRepository>();
+            service.AddTransient<IAvailabilityDB, AvailabilityDB>();
+            service.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
             service.AddTransient<InitialForm>();
             var serviceProvider = service.BuildServiceProvider();
             Application.Run(serviceProvider.GetService<InitialForm>());
