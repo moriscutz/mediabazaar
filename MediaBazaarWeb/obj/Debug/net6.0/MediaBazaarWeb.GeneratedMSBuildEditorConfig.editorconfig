@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\ritov\Desktop\MediaBazaar de la 0\MediaBazaarWeb
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/ritov/Desktop/MediaBazaar de la 0/MediaBazaarWeb/Pages/Availabilities.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQXZhaWxhYmlsaXRpZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/ritov/Desktop/MediaBazaar de la 0/MediaBazaarWeb/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXJyb3IuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -26,10 +30,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/ritov/Desktop/MediaBazaar de la 0/MediaBazaarWeb/Pages/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LmNzaHRtbA==
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/ritov/Desktop/MediaBazaar de la 0/MediaBazaarWeb/Pages/Preferences.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUHJlZmVyZW5jZXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/ritov/Desktop/MediaBazaar de la 0/MediaBazaarWeb/Pages/Privacy.cshtml]

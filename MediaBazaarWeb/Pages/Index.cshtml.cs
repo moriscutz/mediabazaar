@@ -12,18 +12,20 @@ namespace MediaBazaarWeb.Pages
 {
     public class IndexModel : PageModel
     {
+        
         private readonly ILogger<IndexModel> _logger;
         private readonly Administration administration;
-        public IndexModel(ILogger<IndexModel> logger, IEmployeeDB employeeDB, IShiftDB shiftDB)
+        public IndexModel(ILogger<IndexModel> logger, IEmployeeDB employeeDB, IShiftDB shiftDB, IAvailabilityDB availabilityDB)
         {
             _logger = logger;
-            administration = new Administration(employeeDB, shiftDB);
+            administration = new Administration(employeeDB, shiftDB, availabilityDB);
         }
         [BindProperty]
         public LoginDTO loginDto { get; set; }
         public Employee CurrentEmployee { get; set; }
         public IActionResult OnGet()
         {
+            _logger.LogInformation("ONGET WAS CALLED");
             if (User.Identity.IsAuthenticated)
             {
                 _logger.LogInformation("User was not authenticated");
@@ -33,6 +35,7 @@ namespace MediaBazaarWeb.Pages
         }
         public IActionResult OnPost()
         {
+            _logger.LogInformation("ONPOST WAS CALLED");
             if (ModelState.IsValid)
             {
                 _logger.LogInformation("ModelState is Valid");

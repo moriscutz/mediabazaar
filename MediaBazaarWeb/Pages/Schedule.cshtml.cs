@@ -17,9 +17,9 @@ namespace MediaBazaarWeb.Pages
 
         public List<DayStatus> TwoWeeksSchedule { get; set; }
 
-        public ScheduleModel(IEmployeeDB employeeDB, IShiftDB shiftDB, ILogger<ScheduleModel> logger)
+        public ScheduleModel(IEmployeeDB employeeDB, IShiftDB shiftDB, ILogger<ScheduleModel> logger, IAvailabilityDB availabilityDB)
         {
-            _administration = new Administration(employeeDB, shiftDB);
+            _administration = new Administration(employeeDB, shiftDB, availabilityDB);
             TwoWeeksSchedule = new List<DayStatus>();
             _logger = logger;
         }

@@ -53,14 +53,16 @@ namespace MediaBazaarApp
         {
            
         }
-        
+
 
         private void addNewEmployeeButton_Click(object sender, EventArgs e)
         {
             AddNewEmployee addNewEmployeeForm = new AddNewEmployee(administration);
-            addNewEmployeeForm.Show();
-            
+            addNewEmployeeForm.ShowDialog(); 
+
+            RefreshEmployees(administration); 
         }
+
 
         private void seeAllEmployeeButton_Click(object sender, EventArgs e)
         {
@@ -129,7 +131,7 @@ namespace MediaBazaarApp
                     Employee selectedEmployee = employees[index];
                     administration.DeleteEmployee(selectedEmployee);
                     MessageBox.Show("User has been deleted successfully");
-                    RefreshEmployees(administration); // To refresh the DataGridView list
+                    RefreshEmployees(administration); 
                 }
             }
             else MessageBox.Show("Please select one employee to delete.");

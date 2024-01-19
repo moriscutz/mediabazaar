@@ -1,0 +1,19 @@
+﻿@page
+@model MediaBazaarWeb.Pages.AvailabilitiesModel
+@{
+    ViewData["Title"] = "Availabilities";
+}
+
+<h2>Set Your Availabilities</h2>
+
+<form method="post">
+    @for (int day = 1; day <= 7; day++)
+    {
+        <div>
+            <label>Availabilities for Day @day:</label>
+            <select asp-for="SelectedAvailabilities[day]" asp-items="Model.ShiftTypes"></select>
+        </div>
+    }
+
+    <button type="submit">Save Availabilities</button>
+</form>

@@ -33,7 +33,6 @@
             this.lastNameTextBox = new System.Windows.Forms.TextBox();
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
-            this.emailTextBox = new System.Windows.Forms.TextBox();
             this.RoleComboBox = new System.Windows.Forms.ComboBox();
             this.createEmployeeButton = new System.Windows.Forms.Button();
             this.MondayPreference = new System.Windows.Forms.ComboBox();
@@ -97,25 +96,15 @@
             this.passwordTextBox.Size = new System.Drawing.Size(197, 23);
             this.passwordTextBox.TabIndex = 5;
             // 
-            // emailTextBox
-            // 
-            this.emailTextBox.Location = new System.Drawing.Point(29, 141);
-            this.emailTextBox.Name = "emailTextBox";
-            this.emailTextBox.PlaceholderText = "Email";
-            this.emailTextBox.Size = new System.Drawing.Size(197, 23);
-            this.emailTextBox.TabIndex = 6;
-            // 
             // RoleComboBox
             // 
             this.RoleComboBox.FormattingEnabled = true;
             this.RoleComboBox.Items.AddRange(new object[] {
             "Picker",
             "OrderAssistant",
-            "Forklifter",
             "Manager",
-            "Technician",
             "Supervisor"});
-            this.RoleComboBox.Location = new System.Drawing.Point(245, 141);
+            this.RoleComboBox.Location = new System.Drawing.Point(29, 140);
             this.RoleComboBox.Name = "RoleComboBox";
             this.RoleComboBox.Size = new System.Drawing.Size(197, 23);
             this.RoleComboBox.TabIndex = 7;
@@ -134,9 +123,8 @@
             // 
             this.MondayPreference.FormattingEnabled = true;
             this.MondayPreference.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.MondayPreference.Location = new System.Drawing.Point(117, 256);
             this.MondayPreference.Name = "MondayPreference";
             this.MondayPreference.Size = new System.Drawing.Size(109, 23);
@@ -217,9 +205,8 @@
             // 
             this.TuesdayPreference.FormattingEnabled = true;
             this.TuesdayPreference.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.TuesdayPreference.Location = new System.Drawing.Point(117, 284);
             this.TuesdayPreference.Name = "TuesdayPreference";
             this.TuesdayPreference.Size = new System.Drawing.Size(109, 23);
@@ -229,9 +216,8 @@
             // 
             this.WednesdayPreference.FormattingEnabled = true;
             this.WednesdayPreference.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.WednesdayPreference.Location = new System.Drawing.Point(117, 312);
             this.WednesdayPreference.Name = "WednesdayPreference";
             this.WednesdayPreference.Size = new System.Drawing.Size(109, 23);
@@ -241,9 +227,8 @@
             // 
             this.ThursdayPreference.FormattingEnabled = true;
             this.ThursdayPreference.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.ThursdayPreference.Location = new System.Drawing.Point(117, 341);
             this.ThursdayPreference.Name = "ThursdayPreference";
             this.ThursdayPreference.Size = new System.Drawing.Size(109, 23);
@@ -253,9 +238,8 @@
             // 
             this.FridayPreference.FormattingEnabled = true;
             this.FridayPreference.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.FridayPreference.Location = new System.Drawing.Point(325, 256);
             this.FridayPreference.Name = "FridayPreference";
             this.FridayPreference.Size = new System.Drawing.Size(109, 23);
@@ -265,9 +249,8 @@
             // 
             this.SaturdayPreference.FormattingEnabled = true;
             this.SaturdayPreference.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.SaturdayPreference.Location = new System.Drawing.Point(325, 284);
             this.SaturdayPreference.Name = "SaturdayPreference";
             this.SaturdayPreference.Size = new System.Drawing.Size(109, 23);
@@ -277,9 +260,8 @@
             // 
             this.SundayPreference.FormattingEnabled = true;
             this.SundayPreference.Items.AddRange(new object[] {
-            "Morning",
-            "Afternoon",
-            "Night"});
+            "Available",
+            "Not Available"});
             this.SundayPreference.Location = new System.Drawing.Point(325, 313);
             this.SundayPreference.Name = "SundayPreference";
             this.SundayPreference.Size = new System.Drawing.Size(109, 23);
@@ -351,7 +333,6 @@
             this.Controls.Add(this.MondayPreference);
             this.Controls.Add(this.createEmployeeButton);
             this.Controls.Add(this.RoleComboBox);
-            this.Controls.Add(this.emailTextBox);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.usernameTextBox);
             this.Controls.Add(this.lastNameTextBox);
@@ -371,7 +352,6 @@
         private TextBox lastNameTextBox;
         private TextBox usernameTextBox;
         private TextBox passwordTextBox;
-        private TextBox emailTextBox;
         private ComboBox RoleComboBox;
         private Button createEmployeeButton;
         private ComboBox MondayPreference;

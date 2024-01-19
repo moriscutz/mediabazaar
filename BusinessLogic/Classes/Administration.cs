@@ -43,16 +43,22 @@ namespace BusinessLogic.Classes
         public Employee GetEmployeeById(Guid id)
         {
             var employee = employeeDB.GetEmployeeById(id);
-            if (employee != null && employee.Shifts == null) ;
+
+            if (employee != null)
             {
-                employee.Shifts = new List<Shift>();
+                if (employee.Shifts == null)
+                {
+                    employee.Shifts = new List<Shift>();
+                }
+                if (employee.Availabilities == null)
+                {
+                    employee.Availabilities = new List<Availability>();
+                }
             }
-            if (employee.Availabilities == null)
-            {
-                employee.Availabilities = new List<Availability>();
-            }
+
             return employee;
         }
+
         public List<Employee> GetAllEmployees()
         {
             return employeeDB.GetAllEmployees();

@@ -16,6 +16,8 @@ namespace MediaBazaarWeb
             builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
             builder.Services.AddTransient<IShiftDB, ShiftDB>();
             builder.Services.AddTransient<IShiftRepository , ShiftRepository>();
+            builder.Services.AddTransient<IAvailabilityDB, AvailabilityDB>();
+            builder.Services.AddTransient<IAvailabilityRepository, AvailabilityRepository>();
             builder.Services.AddLogging(loggingBuilder =>
             {
                 loggingBuilder.SetMinimumLevel(LogLevel.Information);

@@ -120,5 +120,6 @@ namespace DataAccess
             }
             return availabilities;
         }
+
     }
 }
