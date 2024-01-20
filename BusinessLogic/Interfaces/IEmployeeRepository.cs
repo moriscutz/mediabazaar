@@ -15,5 +15,6 @@ namespace BusinessLogic.Interfaces
         Employee GetEmployeeById(Guid id);
         List<Employee> GetAllEmployees();
         Employee Authenticate(string username, string password);
+        public Employee GetEmployeeByUsername(string username);
     }
 }

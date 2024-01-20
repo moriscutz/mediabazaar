@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Classes;
+using BusinessLogic.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace BusinessLogic.Interfaces
         void UpdateAvailabilitiesForEmployee(Employee employee);
         void UpdateAvailabilitiesForEmployeeById(Guid id);
         public List<Availability> GetAvailabilitiesByEmployeeId(Guid id);
+        List<Employee> GetAvailableEmployeesByDayAndShift(int dayOfWeek, ShiftType shiftType);
     }
 }

@@ -40,5 +40,9 @@ namespace DataAccess
         {
             return employeeRepository.Authenticate(username, password);
         }
+        public Employee GetEmployeeByUsername(string username)
+        {
+            return employeeRepository.GetEmployeeByUsername(username);
+        }
     }
 }

@@ -47,5 +47,17 @@ namespace DataAccess
         {
             return shiftRepository.GetShiftsForEmployeeById(employeeId);
         }
+        public void DeleteAllShifts()
+        {
+            shiftRepository.DeleteAllShifts();
+        }
+        public Shift GetShiftByDateAndType(DateTime date, ShiftType shiftType)
+        {
+            return shiftRepository.GetShiftByDateAndType(date, shiftType);
+        }
+        public List<Shift> GetShiftsByDateAndType(DateTime date, ShiftType shiftType)
+        {
+            return shiftRepository.GetShiftsByDateAndType(date, shiftType);
+        }
     }
 }

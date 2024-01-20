@@ -29,6 +29,13 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            this.dataGridViewShifts = new System.Windows.Forms.DataGridView();
+            this.shiftIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.employeeFirstAndLastName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.shiftBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.ManagementTabControl = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.dataGridViewEmployees = new System.Windows.Forms.DataGridView();
@@ -49,25 +56,85 @@
             this.seeAllEmployeeButton = new System.Windows.Forms.Button();
             this.addNewEmployeeButton = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.addNewShiftButton = new System.Windows.Forms.Button();
+            this.seeAllShifts = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.automaticShiftsButton = new System.Windows.Forms.Button();
             this.editSelectedShiftButton = new System.Windows.Forms.Button();
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.shiftBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.dataGridViewShifts = new System.Windows.Forms.DataGridView();
-            this.shiftBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.shiftIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.typeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.employeeIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShifts)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource1)).BeginInit();
             this.ManagementTabControl.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewEmployees)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).BeginInit();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShifts)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // dataGridViewShifts
+            // 
+            this.dataGridViewShifts.AllowUserToAddRows = false;
+            this.dataGridViewShifts.AllowUserToDeleteRows = false;
+            this.dataGridViewShifts.AutoGenerateColumns = false;
+            this.dataGridViewShifts.BackgroundColor = System.Drawing.Color.GhostWhite;
+            this.dataGridViewShifts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewShifts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.shiftIdDataGridViewTextBoxColumn,
+            this.dateDataGridViewTextBoxColumn,
+            this.typeDataGridViewTextBoxColumn,
+            this.employeeIDDataGridViewTextBoxColumn,
+            this.employeeFirstAndLastName});
+            this.dataGridViewShifts.DataSource = this.shiftBindingSource1;
+            this.dataGridViewShifts.Location = new System.Drawing.Point(470, 6);
+            this.dataGridViewShifts.MultiSelect = false;
+            this.dataGridViewShifts.Name = "dataGridViewShifts";
+            this.dataGridViewShifts.ReadOnly = true;
+            this.dataGridViewShifts.RowHeadersWidth = 40;
+            this.dataGridViewShifts.RowTemplate.Height = 25;
+            this.dataGridViewShifts.Size = new System.Drawing.Size(944, 552);
+            this.dataGridViewShifts.TabIndex = 1;
+            // 
+            // shiftIdDataGridViewTextBoxColumn
+            // 
+            this.shiftIdDataGridViewTextBoxColumn.DataPropertyName = "ShiftId";
+            this.shiftIdDataGridViewTextBoxColumn.HeaderText = "ShiftId";
+            this.shiftIdDataGridViewTextBoxColumn.Name = "shiftIdDataGridViewTextBoxColumn";
+            this.shiftIdDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // dateDataGridViewTextBoxColumn
+            // 
+            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
+            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
+            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
+            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // typeDataGridViewTextBoxColumn
+            // 
+            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
+            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
+            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
+            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // employeeIDDataGridViewTextBoxColumn
+            // 
+            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "EmployeeID";
+            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "Employee\'s ID";
+            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
+            this.employeeIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // employeeFirstAndLastName
+            // 
+            this.employeeFirstAndLastName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.ColumnHeader;
+            this.employeeFirstAndLastName.HeaderText = "Employee\'s First Name and Last Name";
+            this.employeeFirstAndLastName.Name = "employeeFirstAndLastName";
+            this.employeeFirstAndLastName.ReadOnly = true;
+            this.employeeFirstAndLastName.Width = 162;
+            // 
+            // shiftBindingSource1
+            // 
+            this.shiftBindingSource1.DataSource = typeof(BusinessLogic.Classes.Shift);
             // 
             // ManagementTabControl
             // 
@@ -132,21 +199,21 @@
             // firstNameDataGridViewTextBoxColumn
             // 
             this.firstNameDataGridViewTextBoxColumn.DataPropertyName = "FirstName";
-            this.firstNameDataGridViewTextBoxColumn.HeaderText = "FirstName";
+            this.firstNameDataGridViewTextBoxColumn.HeaderText = "First Name";
             this.firstNameDataGridViewTextBoxColumn.Name = "firstNameDataGridViewTextBoxColumn";
             this.firstNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // lastNameDataGridViewTextBoxColumn
             // 
             this.lastNameDataGridViewTextBoxColumn.DataPropertyName = "LastName";
-            this.lastNameDataGridViewTextBoxColumn.HeaderText = "LastName";
+            this.lastNameDataGridViewTextBoxColumn.HeaderText = "Last Name";
             this.lastNameDataGridViewTextBoxColumn.Name = "lastNameDataGridViewTextBoxColumn";
             this.lastNameDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // jobPositionDataGridViewTextBoxColumn
             // 
             this.jobPositionDataGridViewTextBoxColumn.DataPropertyName = "JobPosition";
-            this.jobPositionDataGridViewTextBoxColumn.HeaderText = "JobPosition";
+            this.jobPositionDataGridViewTextBoxColumn.HeaderText = "Job Position";
             this.jobPositionDataGridViewTextBoxColumn.Name = "jobPositionDataGridViewTextBoxColumn";
             this.jobPositionDataGridViewTextBoxColumn.ReadOnly = true;
             // 
@@ -264,6 +331,9 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.tabPage2.Controls.Add(this.addNewShiftButton);
+            this.tabPage2.Controls.Add(this.seeAllShifts);
+            this.tabPage2.Controls.Add(this.button1);
             this.tabPage2.Controls.Add(this.dataGridViewShifts);
             this.tabPage2.Controls.Add(this.automaticShiftsButton);
             this.tabPage2.Controls.Add(this.editSelectedShiftButton);
@@ -275,11 +345,41 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Shift Management";
             // 
+            // addNewShiftButton
+            // 
+            this.addNewShiftButton.Location = new System.Drawing.Point(0, 338);
+            this.addNewShiftButton.Name = "addNewShiftButton";
+            this.addNewShiftButton.Size = new System.Drawing.Size(167, 51);
+            this.addNewShiftButton.TabIndex = 13;
+            this.addNewShiftButton.Text = "Add a new Shift";
+            this.addNewShiftButton.UseVisualStyleBackColor = true;
+            this.addNewShiftButton.Click += new System.EventHandler(this.addNewShiftButton_Click);
+            // 
+            // seeAllShifts
+            // 
+            this.seeAllShifts.Location = new System.Drawing.Point(200, 407);
+            this.seeAllShifts.Name = "seeAllShifts";
+            this.seeAllShifts.Size = new System.Drawing.Size(167, 52);
+            this.seeAllShifts.TabIndex = 12;
+            this.seeAllShifts.Text = "See All Shifts";
+            this.seeAllShifts.UseVisualStyleBackColor = true;
+            this.seeAllShifts.Click += new System.EventHandler(this.seeAllShifts_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(3, 493);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(167, 52);
+            this.button1.TabIndex = 11;
+            this.button1.Text = "Delete All Shifts";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // automaticShiftsButton
             // 
-            this.automaticShiftsButton.Location = new System.Drawing.Point(6, 444);
+            this.automaticShiftsButton.Location = new System.Drawing.Point(200, 493);
             this.automaticShiftsButton.Name = "automaticShiftsButton";
-            this.automaticShiftsButton.Size = new System.Drawing.Size(167, 48);
+            this.automaticShiftsButton.Size = new System.Drawing.Size(167, 52);
             this.automaticShiftsButton.TabIndex = 10;
             this.automaticShiftsButton.Text = "Automatic Shifts";
             this.automaticShiftsButton.UseVisualStyleBackColor = true;
@@ -287,9 +387,9 @@
             // 
             // editSelectedShiftButton
             // 
-            this.editSelectedShiftButton.Location = new System.Drawing.Point(6, 348);
+            this.editSelectedShiftButton.Location = new System.Drawing.Point(0, 407);
             this.editSelectedShiftButton.Name = "editSelectedShiftButton";
-            this.editSelectedShiftButton.Size = new System.Drawing.Size(167, 60);
+            this.editSelectedShiftButton.Size = new System.Drawing.Size(167, 52);
             this.editSelectedShiftButton.TabIndex = 9;
             this.editSelectedShiftButton.Text = "Edit Selected Shift";
             this.editSelectedShiftButton.UseVisualStyleBackColor = true;
@@ -307,59 +407,6 @@
             // 
             this.shiftBindingSource.DataSource = typeof(BusinessLogic.Classes.Shift);
             // 
-            // dataGridViewShifts
-            // 
-            this.dataGridViewShifts.AllowUserToAddRows = false;
-            this.dataGridViewShifts.AllowUserToDeleteRows = false;
-            this.dataGridViewShifts.AutoGenerateColumns = false;
-            this.dataGridViewShifts.BackgroundColor = System.Drawing.Color.GhostWhite;
-            this.dataGridViewShifts.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewShifts.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.shiftIdDataGridViewTextBoxColumn,
-            this.dateDataGridViewTextBoxColumn,
-            this.typeDataGridViewTextBoxColumn,
-            this.employeeIDDataGridViewTextBoxColumn});
-            this.dataGridViewShifts.DataSource = this.shiftBindingSource1;
-            this.dataGridViewShifts.Location = new System.Drawing.Point(470, 6);
-            this.dataGridViewShifts.MultiSelect = false;
-            this.dataGridViewShifts.Name = "dataGridViewShifts";
-            this.dataGridViewShifts.ReadOnly = true;
-            this.dataGridViewShifts.RowTemplate.Height = 25;
-            this.dataGridViewShifts.Size = new System.Drawing.Size(944, 552);
-            this.dataGridViewShifts.TabIndex = 1;
-            // 
-            // shiftBindingSource1
-            // 
-            this.shiftBindingSource1.DataSource = typeof(BusinessLogic.Classes.Shift);
-            // 
-            // shiftIdDataGridViewTextBoxColumn
-            // 
-            this.shiftIdDataGridViewTextBoxColumn.DataPropertyName = "ShiftId";
-            this.shiftIdDataGridViewTextBoxColumn.HeaderText = "ShiftId";
-            this.shiftIdDataGridViewTextBoxColumn.Name = "shiftIdDataGridViewTextBoxColumn";
-            this.shiftIdDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // dateDataGridViewTextBoxColumn
-            // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "Date";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // typeDataGridViewTextBoxColumn
-            // 
-            this.typeDataGridViewTextBoxColumn.DataPropertyName = "Type";
-            this.typeDataGridViewTextBoxColumn.HeaderText = "Type";
-            this.typeDataGridViewTextBoxColumn.Name = "typeDataGridViewTextBoxColumn";
-            this.typeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // employeeIDDataGridViewTextBoxColumn
-            // 
-            this.employeeIDDataGridViewTextBoxColumn.DataPropertyName = "EmployeeID";
-            this.employeeIDDataGridViewTextBoxColumn.HeaderText = "EmployeeID";
-            this.employeeIDDataGridViewTextBoxColumn.Name = "employeeIDDataGridViewTextBoxColumn";
-            this.employeeIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
             // ManagingForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -369,6 +416,8 @@
             this.Controls.Add(this.ManagementTabControl);
             this.Name = "ManagingForm";
             this.Text = "Managing Form";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShifts)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource1)).EndInit();
             this.ManagementTabControl.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -376,8 +425,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.employeeBindingSource)).EndInit();
             this.tabPage2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewShifts)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.shiftBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -402,17 +449,21 @@
         private Button editSelectedShiftButton;
         private Button automaticShiftsButton;
         private DataGridView dataGridViewEmployees;
+        private BindingSource employeeBindingSource;
+        private DataGridView dataGridViewShifts;
+        private BindingSource shiftBindingSource1;
+        private Button button1;
         private DataGridViewTextBoxColumn iDDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn firstNameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn lastNameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn jobPositionDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn usernameDataGridViewTextBoxColumn;
-        private BindingSource employeeBindingSource;
-        private DataGridView dataGridViewShifts;
+        private Button seeAllShifts;
         private DataGridViewTextBoxColumn shiftIdDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn typeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn employeeIDDataGridViewTextBoxColumn;
-        private BindingSource shiftBindingSource1;
+        private DataGridViewTextBoxColumn employeeFirstAndLastName;
+        private Button addNewShiftButton;
     }
 }

@@ -161,5 +161,81 @@ namespace DataAccess
             }
             return shifts;
         }
+        public void DeleteAllShifts()
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "delete from Shift";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+        public Shift GetShiftByDateAndType(DateTime date, ShiftType shiftType)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT ShiftId, Date, Type, EmployeeID 
+            FROM dbo.Shift 
+            WHERE Date = @Date AND Type = @Type";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Date", date.Date);
+                    command.Parameters.AddWithValue("@Type", shiftType.ToString());
+
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            Guid shiftId = (Guid)reader["ShiftId"];
+                            DateTime shiftDate = (DateTime)reader["Date"];
+                            ShiftType foundShiftType = (ShiftType)Enum.Parse(typeof(ShiftType), reader["Type"].ToString());
+                            Guid employeeId = (Guid)reader["EmployeeID"];
+
+                            return new Shift(shiftId, shiftDate, foundShiftType, employeeId);
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+        public List<Shift> GetShiftsByDateAndType(DateTime date, ShiftType shiftType)
+        {
+            var shifts = new List<Shift>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+            SELECT ShiftId, Date, Type, EmployeeID 
+            FROM dbo.Shift 
+            WHERE Date = @Date AND Type = @Type";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Date", date.Date);
+                    command.Parameters.AddWithValue("@Type", shiftType.ToString());
+
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Guid shiftId = (Guid)reader["ShiftId"];
+                            DateTime shiftDate = (DateTime)reader["Date"];
+                            ShiftType foundShiftType = (ShiftType)Enum.Parse(typeof(ShiftType), reader["Type"].ToString());
+                            Guid employeeId = (Guid)reader["EmployeeID"];
+
+                            shifts.Add(new Shift(shiftId, shiftDate, foundShiftType, employeeId));
+                        }
+                    }
+                }
+            }
+            return shifts;
+        }
+
     }
 }

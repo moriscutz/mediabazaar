@@ -18,5 +18,8 @@ namespace BusinessLogic.Interfaces
         public Shift GetShiftById(Guid shiftId);
         public List<Shift> GetAllShifts();
         public List<Shift> GetShiftsForEmployeeById(Guid employeeId);
+        public void DeleteAllShifts();
+        public Shift GetShiftByDateAndType(DateTime date, ShiftType shiftType);
+        public List<Shift> GetShiftsByDateAndType(DateTime date, ShiftType shiftType);
     }
 }

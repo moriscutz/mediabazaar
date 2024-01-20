@@ -147,5 +147,33 @@ namespace BusinessLogic.Classes
         {
             return availabilityDB.GetAvailabilitiesByEmployeeId(id);
         }
+        public List<Employee> GetAvailableEmployees(DateTime date, ShiftType shiftType)
+        {
+            
+            int dayOfWeek = (int)date.DayOfWeek;
+            dayOfWeek = dayOfWeek == 0 ? 6 : dayOfWeek - 1; 
+
+            return availabilityDB.GetAvailableEmployeesByDayAndShift(dayOfWeek, shiftType);
+        }
+
+        public void DeleteAllShifts()
+        {
+            shiftDB.DeleteAllShifts();
+        }
+
+        public Shift GetShiftByDateAndType(DateTime date,ShiftType shiftType)
+        {
+            return shiftDB.GetShiftByDateAndType(date, shiftType);
+        }
+
+        public List<Shift> GetShiftsByDateAndType(DateTime date, ShiftType shiftType)
+        {
+            return shiftDB.GetShiftsByDateAndType(date, shiftType);
+        }
+
+        public Employee GetEmployeeByUsername(string username)
+        {
+            return employeeDB.GetEmployeeByUsername(username);
+        }
     }
 }

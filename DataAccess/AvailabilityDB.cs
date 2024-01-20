@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BusinessLogic.Classes;
+using BusinessLogic.Enums;
 using BusinessLogic.Interfaces;
 
 namespace DataAccess
@@ -33,6 +34,13 @@ namespace DataAccess
              List<Availability> availabilities = new List<Availability>();
             availabilities = availabilityRepository.GetAvailabilitiesByEmployeeId(id);
             return availabilities;
+        }
+        public List<Employee> GetAvailableEmployeesByDayAndShift(int dayOfWeek, ShiftType shiftType)
+        {
+            List<Employee> list = new List<Employee>();
+
+            list = availabilityRepository.GetAvailableEmployeesByDayAndShift(dayOfWeek,shiftType);
+            return list;
         }
     }
 }

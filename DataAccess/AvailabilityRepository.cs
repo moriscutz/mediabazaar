@@ -120,6 +120,46 @@ namespace DataAccess
             }
             return availabilities;
         }
+        public List<Employee> GetAvailableEmployeesByDayAndShift(int dayOfWeek, ShiftType shiftType)
+        {
+            List<Employee> availableEmployees = new List<Employee>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT e.* FROM Employee e " +
+                               "JOIN Availability a ON e.ID = a.EmployeeID " +
+                               "WHERE a.DayOfWeek = @DayOfWeek AND a.IsAvailable = 1";
 
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@DayOfWeek", dayOfWeek);
+                    command.Parameters.AddWithValue("@ShiftTime", (int)shiftType);
+
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+
+                            var employee = new Employee
+                            {
+                                ID = (Guid)reader["ID"],
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
+                                JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
+                                Password = reader["Password"].ToString(),
+                                Username = reader["Username"].ToString()
+                            };
+
+                            employee.Shifts = new List<Shift>();
+                            employee.Availabilities = GetAvailabilitiesByEmployeeId(employee.ID);
+                            availableEmployees.Add(employee);
+                        }
+                    }
+                }
+            }
+            return availableEmployees;
+        }
+
+        
     }
 }

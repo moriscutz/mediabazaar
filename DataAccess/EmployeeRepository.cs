@@ -33,57 +33,7 @@ namespace DataAccess
                 }
             }
         }
-        //public void AddEmployeeWithAvailability(Employee employee)
-        //{
-        //    using (var connection = new SqlConnection(connectionString))
-        //    {
-        //        connection.Open();
-
-        //        using (SqlTransaction transaction = connection.BeginTransaction())
-        //        {
-        //            try
-        //            {
-        //                string employeeQuery = "INSERT INTO dbo.Employee (ID, FirstName, LastName, JobPosition, Password, Username) VALUES (@ID, @FirstName, @LastName, @JobPosition, @Password, @Username)";
-        //                using (var employeeCommand = new SqlCommand(employeeQuery, connection, transaction))
-        //                {
-        //                    employeeCommand.Parameters.AddWithValue("@ID", employee.ID);
-        //                    employeeCommand.Parameters.AddWithValue("@FirstName", employee.FirstName);
-        //                    employeeCommand.Parameters.AddWithValue("@LastName", employee.LastName);
-        //                    employeeCommand.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
-        //                    employeeCommand.Parameters.AddWithValue("@Password", employee.Password);
-        //                    employeeCommand.Parameters.AddWithValue("@Username", employee.Username);
-
-        //                    connection.Open();
-        //                    employeeCommand.ExecuteNonQuery();
-        //                }
-
-                       
-        //                string availabilityQuery = "INSERT INTO dbo.Availability (EmployeeID, DayOfWeek, ShiftTime, IsAvailable) VALUES (@EmployeeID, @DayOfWeek, @ShiftTime, @IsAvailable)";
-        //                foreach (var availability in employee.Availabilities) 
-        //                {
-        //                    using (var availabilityCommand = new SqlCommand(availabilityQuery, connection, transaction))
-        //                    {
-        //                        availabilityCommand.Parameters.AddWithValue("@EmployeeID", employee.ID);
-        //                        availabilityCommand.Parameters.AddWithValue("@DayOfWeek", availability.DayOfWeek);
-        //                        availabilityCommand.Parameters.AddWithValue("@ShiftTime", availability.ShiftTime);
-        //                        availabilityCommand.Parameters.AddWithValue("@IsAvailable", availability.IsAvailable);
-
-        //                        availabilityCommand.ExecuteNonQuery();
-        //                    }
-        //                }
-
-        //                transaction.Commit();
-        //            }
-        //            catch (Exception ex)
-        //            {
-        //                System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
-        //                transaction.Rollback();
-        //                throw;
-        //            }
-        //        }
-        //    }
-        //}
-
+        
         public void UpdateEmployee(Employee employee)
         {
             using (var connection = new SqlConnection(connectionString))
@@ -235,5 +185,36 @@ namespace DataAccess
             }
             return null;
         }
+        public Employee GetEmployeeByUsername(string username)
+        {
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM dbo.Employee WHERE Username = @Username";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            var employee = new Employee
+                            {
+                                ID = (Guid)reader["ID"],
+                                FirstName = reader["FirstName"].ToString(),
+                                LastName = reader["LastName"].ToString(),
+                                JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
+                                Password = reader["Password"].ToString(),
+                                Username = reader["Username"].ToString()
+                            };
+
+                            return employee;
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
     }
 }

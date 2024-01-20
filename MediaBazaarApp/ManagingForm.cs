@@ -1,5 +1,7 @@
 ﻿//using BusinessLogic.Algorithm;
+using BusinessLogic.Algorithm;
 using BusinessLogic.Classes;
+using BusinessLogic.Enums;
 using DataAccess;
 using Microsoft.VisualBasic.ApplicationServices;
 using System;
@@ -17,24 +19,37 @@ namespace MediaBazaarApp
     public partial class ManagingForm : Form
     {
         private readonly Administration administration;
-        //private readonly AutomaticScheduling automaticScheduling;
         private List<Employee> employees = new List<Employee>();
         private List<Shift> shifts = new List<Shift>();
         public ManagingForm(Administration _administration)
         {
             this.administration = _administration;
-            //automaticScheduling = new AutomaticScheduling(administration);
-
             InitializeComponent();
 
             SearchFilterComboBox.SelectedIndex = 0;
 
             RefreshEmployees(administration);
-            RefreshShifts(administration);
+            ShowShiftsForCurrentDate(administration);
 
-            //PopulateShiftBoxesAndLabel(administration);
         }
 
+        private void ShowShiftsForCurrentDate(Administration administration)
+        {
+            DateTime currentDate = DateTime.Today;
+
+            shifts.Clear();
+
+            foreach (ShiftType shiftType in Enum.GetValues(typeof(ShiftType)))
+            {
+                var shiftsForType = administration.GetShiftsByDateAndType(currentDate, shiftType);
+                if (shiftsForType != null)
+                {
+                    shifts.AddRange(shiftsForType);
+                }
+            }
+
+            RefreshShifts(administration, shifts);
+        }
         private void RefreshEmployees(Administration administration)
         {
             employees.Clear();
@@ -46,14 +61,48 @@ namespace MediaBazaarApp
             shifts.Clear();
             shifts = administration.GetAllShifts();
             dataGridViewShifts.DataSource = shifts;
+            PopulateEmployeeNames();
         }
-       
+        private void PopulateEmployeeNames()
+        {
+            foreach (DataGridViewRow row in dataGridViewShifts.Rows)
+            {
+                if (row.DataBoundItem is Shift shift)
+                {
+                    var employee = administration.GetEmployeeById(shift.EmployeeID);
+                    if (employee != null)
+                    {
+                        row.Cells["employeeFirstAndLastName"].Value = $"{employee.FirstName} {employee.LastName}";
+                    }
+                }
+            }
+        }
 
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
-           
+            DateTime selectedDate = monthCalendar.SelectionStart;
+
+            shifts.Clear();
+
+            foreach (ShiftType shiftType in Enum.GetValues(typeof(ShiftType)))
+            {
+                var shiftsForType = administration.GetShiftsByDateAndType(selectedDate, shiftType);
+                if (shiftsForType != null)
+                {
+                    shifts.AddRange(shiftsForType);
+                }
+            }
+
+            RefreshShifts(administration, shifts);
         }
 
+        private void RefreshShifts(Administration administration, List<Shift> shifts)
+        {
+            var bindingList = new BindingList<Shift>(shifts);
+            var source = new BindingSource(bindingList, null);
+            dataGridViewShifts.DataSource = source;
+            PopulateEmployeeNames();
+        }
 
         private void addNewEmployeeButton_Click(object sender, EventArgs e)
         {
@@ -181,10 +230,34 @@ namespace MediaBazaarApp
 
         private void automaticShiftsButton_Click(object sender, EventArgs e)
         {
-            //List<Shift> shifts = automaticScheduling.ScheduleShifts();
-            //System.Diagnostics.Debug.WriteLine($"{shifts.Count()}");
-            //administration.UpdateDatabaseWithNewSchedule(shifts);
-            //MessageBox.Show("Schedule generated and updated in database.");
+            GenerateScheduleWindow scheduleForm = new GenerateScheduleWindow(administration);
+            scheduleForm.ShowDialog();
+
+            RefreshShifts(administration);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DialogResult dialogResult = MessageBox.Show("Are you sure you want to delete all of the shifts from the database? This action cannot be undone.", "Deleting shifts", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if(dialogResult == DialogResult.Yes)
+            {
+                administration.DeleteAllShifts();
+                RefreshShifts(administration);
+            }
+
+        }
+
+        private void seeAllShifts_Click(object sender, EventArgs e)
+        {
+            RefreshShifts(administration);
+        }
+
+        private void addNewShiftButton_Click(object sender, EventArgs e)
+        {
+            AddNewShiftForm addNewShiftForm = new AddNewShiftForm(administration);
+            addNewShiftForm.ShowDialog();
+
+            RefreshShifts(administration);
         }
     }
 }
