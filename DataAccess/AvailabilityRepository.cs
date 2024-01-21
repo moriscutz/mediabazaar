@@ -159,7 +159,5 @@ namespace DataAccess
             }
             return availableEmployees;
         }
-
-        
     }
 }
