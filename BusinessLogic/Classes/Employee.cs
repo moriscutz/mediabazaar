@@ -32,5 +32,9 @@ namespace BusinessLogic.Classes
         {
             return $"{FirstName} {LastName}";
         }
+        public  string ToStringFLUsername()
+        {
+            return $"{FirstName} {LastName} {Username}";
+        }
     }
 }

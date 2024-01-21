@@ -4,7 +4,10 @@
     @{
         ViewData["Title"] = "Schedule Page";
     }
-
+    <head>
+        <link rel="stylesheet" href="~/css/PageStyleSheet.css" asp-append-version="true" />
+    </head>
+    <body>
     <div class="container">
         <div class="btn-group" role="group" aria-label="View Options">
             <a class="btn btn-primary" asp-page="/Schedule" asp-route-view="two-week">Two Week View</a>
@@ -72,16 +75,17 @@
             string str;
             if( shift.Type == BusinessLogic.Enums.ShiftType.Morning)
             {
-                str = "Morning 08:00 - 15:00";
+                str = "08:00-16:00";
             }
             else if (shift.Type == BusinessLogic.Enums.ShiftType.Afternoon)
             {
-                str = "Afternoon 15:00 - 22:00";
+                str = "16:00-24:00";
             }
             else
             {
-                str = "Night 22:00 - 05:00";
+                str = "24:00-08:00";
             }
             return str;
         }
     }
+    </body>

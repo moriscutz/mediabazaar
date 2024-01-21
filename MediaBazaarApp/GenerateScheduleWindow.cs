@@ -26,26 +26,38 @@ namespace MediaBazaarApp
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
             DateTime selectedDate = monthCalendar.SelectionStart;
-
-            while (selectedDate.DayOfWeek != DayOfWeek.Monday)
+            DateTime todayDate = DateTime.Today;
+            if(selectedDate < todayDate)
             {
-                selectedDate = selectedDate.AddDays(1);
+                MessageBox.Show("You cannot schedule shifts in the past.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-
-            int shiftsGenerated = algorithm.GenerateSchedule(selectedDate);
-
-            if(algorithm.daysNotScheduled.Count>0)
+            else if (selectedDate == todayDate)
             {
-                foreach (DateTime date in algorithm.daysNotScheduled)
+                MessageBox.Show("You cannot schedule shifts for today, please do it manually.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                while (selectedDate.DayOfWeek != DayOfWeek.Monday)
                 {
-                    
-                        MessageBox.Show($"There are not enough available employees for the date {date.DayOfWeek}, {date.Day}:{date.Month}:{date.Year}. Please create schedules manually.", "Schedule Not Generated", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                       
+                    selectedDate = selectedDate.AddDays(1);
                 }
-                    
+
+                int shiftsGenerated = algorithm.GenerateSchedule(selectedDate);
+
+                if (algorithm.daysNotScheduled.Count > 0)
+                {
+                    foreach (DateTime date in algorithm.daysNotScheduled)
+                    {
+
+                        MessageBox.Show($"There are not enough available employees for the date {date.DayOfWeek}, {date.Day}:{date.Month}:{date.Year}. Please create schedules manually.", "Schedule Not Generated", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                    }
+
+                }
+                MessageBox.Show($"{shiftsGenerated} shifts have been scheduled starting from {selectedDate.DayOfWeek}, {selectedDate.ToShortDateString()}, until the end of the week. {algorithm.shiftsAlreadyScheduled} shifts were already scheduled.", "Schedule Generated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
             }
-            MessageBox.Show($"{shiftsGenerated} shifts have been scheduled starting from {selectedDate.DayOfWeek}, {selectedDate.ToShortDateString()}, until the end of the week. {algorithm.shiftsAlreadyScheduled} shifts were already scheduled.", "Schedule Generated", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Close();
+            
         }
     }
 }

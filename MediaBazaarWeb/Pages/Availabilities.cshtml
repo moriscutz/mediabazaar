@@ -3,17 +3,22 @@
 @{
     ViewData["Title"] = "Availabilities";
 }
+<head>
+    <link rel="stylesheet" href="~/css/PageStyleSheet.css" asp-append-version="true" />
+</head>
+<body>
+    <h2>Set Your Availabilities</h2>
 
-<h2>Set Your Availabilities</h2>
+    <form method="post">
+        @for (int day = 1; day <= 7; day++)
+        {
+            <div>
+                <label>Availabilities for Day @day:</label>
+                <select asp-for="SelectedAvailabilities[day]" asp-items="Model.ShiftTypes"></select>
+            </div>
+        }
 
-<form method="post">
-    @for (int day = 1; day <= 7; day++)
-    {
-        <div>
-            <label>Availabilities for Day @day:</label>
-            <select asp-for="SelectedAvailabilities[day]" asp-items="Model.ShiftTypes"></select>
-        </div>
-    }
+        <button type="submit">Save Availabilities</button>
+    </form>
+</body>
 
-    <button type="submit">Save Availabilities</button>
-</form>

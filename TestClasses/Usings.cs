@@ -1,0 +1,10 @@
+global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using Microsoft.VisualStudio.TestTools.UnitTesting;
+global using Moq;
+global using BusinessLogic.Classes;
+global using BusinessLogic.Enums;
+global using BusinessLogic.Interfaces;
+global using BusinessLogic.Algorithm;
+global using System;
+global using System.Collections.Generic;
+global using BusinessLogic.Interfaces_For_Unit_Tests;

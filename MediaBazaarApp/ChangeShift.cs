@@ -41,21 +41,31 @@ namespace MediaBazaarApp
 
         private void monthCalendar_DateChanged(object sender, DateRangeEventArgs e)
         {
-            DialogResult result = MessageBox.Show("Are you sure you want to change the shift's date?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
+            DateTime selectedDate = monthCalendar.SelectionRange.Start;
+            if(selectedDate < DateTime.Today)
             {
-                
-                DateTime newDate = monthCalendar.SelectionRange.Start;
-
-               
-                shift.Date = newDate;
-
-                
-                monthCalendar.RemoveAllBoldedDates();
-                monthCalendar.AddBoldedDate(shift.Date);
-                monthCalendar.UpdateBoldedDates();
-                administration.UpdateShift(shift);
+                MessageBox.Show("You cannot add a shift in the past", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            else
+            {
+                var existingShifts = administration.GetShiftsByDateAndType(selectedDate, shift.Type);
+                if (existingShifts.Any(s => s.EmployeeID == shift.EmployeeID))
+                {
+                    MessageBox.Show("This employee already has a shift on the selected date for this shift type.", "Shift Conflict", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show("Are you sure you want to change the shift's date?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (result == DialogResult.Yes)
+                    {
+                        shift.Date = selectedDate;
+                        monthCalendar.RemoveAllBoldedDates();
+                        monthCalendar.AddBoldedDate(shift.Date);
+                        monthCalendar.UpdateBoldedDates();
+                        administration.UpdateShift(shift);
+                    }
+                }
+            } 
         }
 
         private void updateTypeButton_Click(object sender, EventArgs e)

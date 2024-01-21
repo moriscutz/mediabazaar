@@ -59,5 +59,9 @@ namespace DataAccess
         {
             return shiftRepository.GetShiftsByDateAndType(date, shiftType);
         }
+        public List<Shift> GetShiftsByDate(DateTime date)
+        {
+            return shiftRepository.GetShiftsByDate(date);
+        }
     }
 }

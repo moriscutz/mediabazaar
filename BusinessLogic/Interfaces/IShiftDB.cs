@@ -21,5 +21,6 @@ namespace BusinessLogic.Interfaces
         public void DeleteAllShifts();
         public Shift GetShiftByDateAndType(DateTime date, ShiftType shiftType);
         public List<Shift> GetShiftsByDateAndType(DateTime date, ShiftType shiftType);
+        public List<Shift> GetShiftsByDate(DateTime date);
     }
 }

@@ -15,5 +15,6 @@ namespace BusinessLogic.Interfaces
         void UpdateAvailabilitiesForEmployeeById(Guid id);
         public List<Availability> GetAvailabilitiesByEmployeeId(Guid id);
         List<Employee> GetAvailableEmployeesByDayAndShift(int dayOfWeek, ShiftType shiftType);
+        public List<Employee> GetAvailableEmployeesByDay(int dayOfWeek);
     }
 }

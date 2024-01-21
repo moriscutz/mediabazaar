@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "r9zH2u9q92Mz5UCiCQEzg6C32VHAZteJFcCTLg/7vbE=",
+  "Hash": "hP4xpQsANgVsArbDEYwb1oegP+6dF2Peuy6XI2T3doA=",
   "Source": "MediaBazaarWeb",
   "BasePath": "_content/MediaBazaarWeb",
   "Mode": "Default",
@@ -49,6 +49,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarWeb\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\MediaBazaarWeb.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarWeb\\wwwroot\\css\\PageStyleSheet.css",
+      "SourceId": "MediaBazaarWeb",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarWeb\\wwwroot\\",
+      "BasePath": "_content/MediaBazaarWeb",
+      "RelativePath": "css/PageStyleSheet.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\PageStyleSheet.css"
     },
     {
       "Identity": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarWeb\\wwwroot\\css\\site.css",

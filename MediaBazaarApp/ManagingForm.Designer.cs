@@ -102,6 +102,7 @@
             this.shiftIdDataGridViewTextBoxColumn.HeaderText = "ShiftId";
             this.shiftIdDataGridViewTextBoxColumn.Name = "shiftIdDataGridViewTextBoxColumn";
             this.shiftIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.shiftIdDataGridViewTextBoxColumn.Visible = false;
             // 
             // dateDataGridViewTextBoxColumn
             // 

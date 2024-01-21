@@ -34,7 +34,7 @@
             // 
             // monthCalendar
             // 
-            this.monthCalendar.Location = new System.Drawing.Point(239, 73);
+            this.monthCalendar.Location = new System.Drawing.Point(43, 45);
             this.monthCalendar.Name = "monthCalendar";
             this.monthCalendar.TabIndex = 0;
             this.monthCalendar.DateChanged += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_DateChanged);
@@ -43,21 +43,21 @@
             // 
             this.startingDateLabel.AutoSize = true;
             this.startingDateLabel.Font = new System.Drawing.Font("SimSun", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.startingDateLabel.Location = new System.Drawing.Point(208, 37);
+            this.startingDateLabel.Location = new System.Drawing.Point(12, 9);
             this.startingDateLabel.Name = "startingDateLabel";
             this.startingDateLabel.Size = new System.Drawing.Size(292, 27);
             this.startingDateLabel.TabIndex = 1;
             this.startingDateLabel.Text = "Choose starting date";
             // 
-            // Form1
+            // GenerateScheduleWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.MediumSlateBlue;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(323, 247);
             this.Controls.Add(this.startingDateLabel);
             this.Controls.Add(this.monthCalendar);
-            this.Name = "Form1";
+            this.Name = "GenerateScheduleWindow";
             this.Text = "Form1";
             this.ResumeLayout(false);
             this.PerformLayout();

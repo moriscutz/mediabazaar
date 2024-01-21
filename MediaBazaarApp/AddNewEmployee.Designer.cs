@@ -301,10 +301,9 @@
             this.label13.Font = new System.Drawing.Font("SimSun", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.label13.Location = new System.Drawing.Point(21, 438);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(299, 95);
+            this.label13.Size = new System.Drawing.Size(229, 95);
             this.label13.TabIndex = 27;
-            this.label13.Text = "Shift Times:\r\n\r\nMorning shifts: 08:00 - 15:00\r\nAfternoon shifts: 15:00-22:00\r\nNig" +
-    "ht shifts: 22:00-05:00";
+            this.label13.Text = "Shift Times:\r\n\r\nMorning: 08:00-16:00\r\nAfternoon: 16:00-24:00\r\nNight: 24:00-08:00";
             // 
             // AddNewEmployee
             // 

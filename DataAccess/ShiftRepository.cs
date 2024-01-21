@@ -236,6 +236,36 @@ namespace DataAccess
             }
             return shifts;
         }
+        public List<Shift> GetShiftsByDate(DateTime date)
+        {
+            var shifts = new List<Shift>();
+            using (var connection = new SqlConnection(connectionString))
+            {
+                string query = @"
+                SELECT ShiftId, Date, Type, EmployeeID 
+                FROM dbo.Shift 
+                WHERE Date = @Date";
 
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Date", date.Date);
+
+                    connection.Open();
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Guid shiftId = (Guid)reader["ShiftId"];
+                            DateTime shiftDate = (DateTime)reader["Date"];
+                            ShiftType foundShiftType = (ShiftType)Enum.Parse(typeof(ShiftType), reader["Type"].ToString());
+                            Guid employeeId = (Guid)reader["EmployeeID"];
+
+                            shifts.Add(new Shift(shiftId, shiftDate, foundShiftType, employeeId));
+                        }
+                    }
+                }
+            }
+            return shifts;
+        }
     }
 }

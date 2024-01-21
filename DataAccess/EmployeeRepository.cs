@@ -1,12 +1,9 @@
 ﻿using BusinessLogic.Classes;
 using BusinessLogic.Enums;
+using BusinessLogic.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SqlClient;
-using BusinessLogic.Interfaces;
 
 namespace DataAccess
 {
@@ -16,56 +13,69 @@ namespace DataAccess
 
         public void AddEmployee(Employee employee)
         {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "INSERT INTO dbo.Employee (ID, FirstName, LastName, JobPosition, Password, Username) VALUES (@ID, @FirstName, @LastName, @JobPosition, @Password, @Username)";
-                using (var command = new SqlCommand(query, connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@ID", employee.ID);
-                    command.Parameters.AddWithValue("@FirstName", employee.FirstName);
-                    command.Parameters.AddWithValue("@LastName", employee.LastName);
-                    command.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
-                    command.Parameters.AddWithValue("@Password", employee.Password);
-                    command.Parameters.AddWithValue("@Username", employee.Username);
+                    string query = "INSERT INTO dbo.Employee (ID, FirstName, LastName, JobPosition, Password, Username) VALUES (@ID, @FirstName, @LastName, @JobPosition, @Password, @Username)";
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ID", employee.ID);
+                        command.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                        command.Parameters.AddWithValue("@LastName", employee.LastName);
+                        command.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
+                        command.Parameters.AddWithValue("@Password", employee.Password);
+                        command.Parameters.AddWithValue("@Username", employee.Username);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in AddEmployee: " + ex.Message);
+                throw;
+            }
         }
-        
+
         public void UpdateEmployee(Employee employee)
         {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "UPDATE dbo.Employee SET FirstName = @FirstName, LastName = @LastName, JobPosition = @JobPosition, Password = @Password, Username = @Username WHERE ID = @ID";
-                using (var command = new SqlCommand(query, connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@ID", employee.ID);
-                    command.Parameters.AddWithValue("@FirstName", employee.FirstName);
-                    command.Parameters.AddWithValue("@LastName", employee.LastName);
-                    command.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
-                    command.Parameters.AddWithValue("@Password", employee.Password);
-                    command.Parameters.AddWithValue("@Username", employee.Username);
+                    string query = "UPDATE dbo.Employee SET FirstName = @FirstName, LastName = @LastName, JobPosition = @JobPosition, Password = @Password, Username = @Username WHERE ID = @ID";
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@ID", employee.ID);
+                        command.Parameters.AddWithValue("@FirstName", employee.FirstName);
+                        command.Parameters.AddWithValue("@LastName", employee.LastName);
+                        command.Parameters.AddWithValue("@JobPosition", employee.JobPosition.ToString());
+                        command.Parameters.AddWithValue("@Password", employee.Password);
+                        command.Parameters.AddWithValue("@Username", employee.Username);
 
-                    connection.Open();
-                    command.ExecuteNonQuery();
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in UpdateEmployee: " + ex.Message);
+                throw;
             }
         }
 
         public void DeleteEmployee(Employee employee)
         {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                connection.Open();
-
-                using (SqlTransaction transaction = connection.BeginTransaction())
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    try
+                    connection.Open();
+                    using (SqlTransaction transaction = connection.BeginTransaction())
                     {
-
-                        
                         string deleteAvailabilityQuery = "DELETE FROM dbo.Availability WHERE EmployeeId = @EmployeeId";
                         using (var deleteAvailabilityCommand = new SqlCommand(deleteAvailabilityQuery, connection, transaction))
                         {
@@ -73,7 +83,6 @@ namespace DataAccess
                             deleteAvailabilityCommand.ExecuteNonQuery();
                         }
 
-                        
                         string deleteEmployeeQuery = "DELETE FROM dbo.Employee WHERE ID = @ID";
                         using (var deleteEmployeeCommand = new SqlCommand(deleteEmployeeQuery, connection, transaction))
                         {
@@ -83,138 +92,162 @@ namespace DataAccess
 
                         transaction.Commit();
                     }
-                    catch (Exception ex)
-                    {
-                        System.Diagnostics.Debug.WriteLine($"Exception: {ex.Message}");
-                        transaction.Rollback();
-                        throw;
-                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in DeleteEmployee: " + ex.Message);
+                throw;
             }
         }
 
-
         public Employee GetEmployeeById(Guid id)
         {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT * FROM dbo.Employee WHERE ID = @ID";
-                using (var command = new SqlCommand(query, connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@ID", id);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
+                    string query = "SELECT * FROM dbo.Employee WHERE ID = @ID";
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@ID", id);
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
                         {
-                            var employee = new Employee
+                            if (reader.Read())
                             {
-                                ID = (Guid)reader["ID"],
-                                FirstName = reader["FirstName"].ToString(),
-                                LastName = reader["LastName"].ToString(),
-                                JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
-                                Password = reader["Password"].ToString(),
-                                Username = reader["Username"].ToString()
-                            };
-
-                            employee.Shifts = new List<Shift>();
-
-                            return employee;
+                                return new Employee
+                                {
+                                    ID = (Guid)reader["ID"],
+                                    FirstName = reader["FirstName"].ToString(),
+                                    LastName = reader["LastName"].ToString(),
+                                    JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
+                                    Password = reader["Password"].ToString(),
+                                    Username = reader["Username"].ToString()
+                                };
+                            }
                         }
                     }
                 }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in GetEmployeeById: " + ex.Message);
+                throw;
+            }
         }
 
         public List<Employee> GetAllEmployees()
         {
-            var employees = new List<Employee>();
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT * FROM dbo.Employee";
-                using (var command = new SqlCommand(query, connection))
+                var employees = new List<Employee>();
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
+                    string query = "SELECT * FROM dbo.Employee";
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        while (reader.Read())
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
                         {
-                            employees.Add(new Employee
+                            while (reader.Read())
                             {
-                                ID = (Guid)reader["ID"],
-                                FirstName = reader["FirstName"].ToString(),
-                                LastName = reader["LastName"].ToString(),
-                                JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
-                                Password = reader["Password"].ToString(),
-                                Username = reader["Username"].ToString()
-                            });
+                                employees.Add(new Employee
+                                {
+                                    ID = (Guid)reader["ID"],
+                                    FirstName = reader["FirstName"].ToString(),
+                                    LastName = reader["LastName"].ToString(),
+                                    JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
+                                    Password = reader["Password"].ToString(),
+                                    Username = reader["Username"].ToString()
+                                });
+                            }
                         }
                     }
                 }
+                return employees;
             }
-            return employees;
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in GetAllEmployees: " + ex.Message);
+                throw;
+            }
         }
 
         public Employee Authenticate(string username, string password)
         {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT * FROM dbo.Employee WHERE Username = @Username AND Password = @Password";
-                using (var command = new SqlCommand(query, connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@Username", username);
-                    command.Parameters.AddWithValue("@Password", password);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
+                    string query = "SELECT * FROM dbo.Employee WHERE Username = @Username AND Password = @Password";
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@Username", username);
+                        command.Parameters.AddWithValue("@Password", password);
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
                         {
-                            return new Employee
+                            if (reader.Read())
                             {
-                                ID = (Guid)reader["ID"],
-                                FirstName = reader["FirstName"].ToString(),
-                                LastName = reader["LastName"].ToString(),
-                                JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
-                                Password = reader["Password"].ToString(),
-                                Username = reader["Username"].ToString()
-                            };
+                                return new Employee
+                                {
+                                    ID = (Guid)reader["ID"],
+                                    FirstName = reader["FirstName"].ToString(),
+                                    LastName = reader["LastName"].ToString(),
+                                    JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
+                                    Password = reader["Password"].ToString(),
+                                    Username = reader["Username"].ToString()
+                                };
+                            }
                         }
                     }
                 }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in Authenticate: " + ex.Message);
+                throw;
+            }
         }
+
         public Employee GetEmployeeByUsername(string username)
         {
-            using (var connection = new SqlConnection(connectionString))
+            try
             {
-                string query = "SELECT * FROM dbo.Employee WHERE Username = @Username";
-                using (var command = new SqlCommand(query, connection))
+                using (var connection = new SqlConnection(connectionString))
                 {
-                    command.Parameters.AddWithValue("@Username", username);
-                    connection.Open();
-                    using (var reader = command.ExecuteReader())
+                    string query = "SELECT * FROM dbo.Employee WHERE Username = @Username";
+                    using (var command = new SqlCommand(query, connection))
                     {
-                        if (reader.Read())
+                        command.Parameters.AddWithValue("@Username", username);
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
                         {
-                            var employee = new Employee
+                            if (reader.Read())
                             {
-                                ID = (Guid)reader["ID"],
-                                FirstName = reader["FirstName"].ToString(),
-                                LastName = reader["LastName"].ToString(),
-                                JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
-                                Password = reader["Password"].ToString(),
-                                Username = reader["Username"].ToString()
-                            };
-
-                            return employee;
+                                return new Employee
+                                {
+                                    ID = (Guid)reader["ID"],
+                                    FirstName = reader["FirstName"].ToString(),
+                                    LastName = reader["LastName"].ToString(),
+                                    JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
+                                    Password = reader["Password"].ToString(),
+                                    Username = reader["Username"].ToString()
+                                };
+                            }
                         }
                     }
                 }
+                return null;
             }
-            return null;
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Exception in GetEmployeeByUsername: " + ex.Message);
+                throw;
+            }
         }
-
     }
 }

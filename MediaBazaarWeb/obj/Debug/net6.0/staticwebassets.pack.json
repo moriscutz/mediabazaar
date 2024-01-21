@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\MediaBazaarWeb.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarWeb\\wwwroot\\css\\PageStyleSheet.css",
+      "PackagePath": "staticwebassets\\css\\PageStyleSheet.css"
+    },
+    {
       "Id": "C:\\Users\\ritov\\Desktop\\MediaBazaar de la 0\\MediaBazaarWeb\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },

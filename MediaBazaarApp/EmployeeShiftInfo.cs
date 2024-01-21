@@ -64,7 +64,8 @@ namespace MediaBazaarApp
 
                 Shift selectedShift = dataGridView.SelectedRows[0].DataBoundItem as Shift;
                 ChangeShift changeShift = new ChangeShift(administration,selectedShift);
-                changeShift.Show();
+                changeShift.ShowDialog();
+                RefreshShifts();
             }
             else
             {

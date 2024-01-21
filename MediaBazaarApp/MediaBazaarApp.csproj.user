@@ -10,6 +10,9 @@
     <Compile Update="ChangeShift.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="EditShiftForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="EmployeeShiftInfo.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -42,5 +42,9 @@ namespace DataAccess
             list = availabilityRepository.GetAvailableEmployeesByDayAndShift(dayOfWeek,shiftType);
             return list;
         }
+        public List<Employee> GetAvailableEmployeesByDay(int dayOfWeek)
+        {
+            return availabilityRepository.GetAvailableEmployeesByDay(dayOfWeek);
+        }
     }
 }

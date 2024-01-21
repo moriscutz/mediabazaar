@@ -19,6 +19,7 @@ namespace MediaBazaarApp
         {
             this.administration = administration;
             InitializeComponent();
+            availableEmployeesListBox.Items.Clear();
         }
         private void confirmButton_Click(object sender, EventArgs e)
         {
@@ -35,12 +36,12 @@ namespace MediaBazaarApp
                 MessageBox.Show("Please select a Shift Type first.");
                 return;
             }
-            if(selectedDate<today)
+            if (selectedDate < today)
             {
                 MessageBox.Show("You cannot create a shift in the past.");
                 return;
-            }    
-            if(selectedDate > endDate)
+            }
+            if (selectedDate > endDate)
             {
                 MessageBox.Show("Please select a correct date.");
                 return;
@@ -78,5 +79,25 @@ namespace MediaBazaarApp
             MessageBox.Show("Shift(s) added successfully.");
             this.Close();
         }
+
+        private void monthCalendarAddShift_DateChanged(object sender, DateRangeEventArgs e)
+        {
+            DateTime selectedStartDate = monthCalendarAddShift.SelectionRange.Start;
+            UpdateAvailableEmployeesListBox(selectedStartDate);
+        }
+
+
+        private void UpdateAvailableEmployeesListBox(DateTime selectedDate)
+        {
+            var availableEmployees = administration.GetAvailableEmployeesNotShifted(selectedDate);
+
+            availableEmployeesListBox.Items.Clear();
+            foreach (var employee in availableEmployees)
+            {
+                availableEmployeesListBox.Items.Add($"{employee.FirstName} {employee.LastName} {employee.Username}");
+            }
+        }
+
+
     }
 }

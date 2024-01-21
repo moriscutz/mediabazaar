@@ -1,4 +1,4 @@
-﻿//using BusinessLogic.Algorithm;
+﻿
 using BusinessLogic.Algorithm;
 using BusinessLogic.Classes;
 using BusinessLogic.Enums;
@@ -27,34 +27,18 @@ namespace MediaBazaarApp
             InitializeComponent();
 
             SearchFilterComboBox.SelectedIndex = 0;
-
+            shifts = administration.GetShiftsByDate(DateTime.Today);
+            System.Diagnostics.Debug.WriteLine($"{shifts.Count()}");
             RefreshEmployees(administration);
-            ShowShiftsForCurrentDate(administration);
-
+            RefreshShifts(administration,shifts);
         }
-
-        private void ShowShiftsForCurrentDate(Administration administration)
-        {
-            DateTime currentDate = DateTime.Today;
-
-            shifts.Clear();
-
-            foreach (ShiftType shiftType in Enum.GetValues(typeof(ShiftType)))
-            {
-                var shiftsForType = administration.GetShiftsByDateAndType(currentDate, shiftType);
-                if (shiftsForType != null)
-                {
-                    shifts.AddRange(shiftsForType);
-                }
-            }
-
-            RefreshShifts(administration, shifts);
-        }
+        
         private void RefreshEmployees(Administration administration)
         {
             employees.Clear();
             employees = administration.GetAllEmployees();
             dataGridViewEmployees.DataSource = employees;
+            PopulateEmployeeNames();
         }
         private void RefreshShifts(Administration administration)
         {
@@ -224,8 +208,13 @@ namespace MediaBazaarApp
 
         private void editSelectedShiftButton_Click(object sender, EventArgs e)
         {
-            // HAS TO BE IMPLEMENTED
-            MessageBox.Show("Has to be implemented.");
+            int index = dataGridViewShifts.SelectedRows[0].Index;
+            Shift selectedShift = shifts[index];
+            EditShiftForm editShiftForm = new EditShiftForm(administration, selectedShift);
+
+            editShiftForm.ShowDialog();
+
+            RefreshShifts(administration);
         }
 
         private void automaticShiftsButton_Click(object sender, EventArgs e)

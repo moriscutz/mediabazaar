@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BusinessLogic.Interfaces_For_Unit_Tests;
 
 namespace BusinessLogic.Classes
 {
-    public class Administration
+    public class Administration : IAdministration
     {
         private readonly IEmployeeDB employeeDB;
         private readonly IShiftDB shiftDB;
@@ -174,6 +175,47 @@ namespace BusinessLogic.Classes
         public Employee GetEmployeeByUsername(string username)
         {
             return employeeDB.GetEmployeeByUsername(username);
+        }
+        public List<Employee> GetAvailableEmployeesNotShifted(DateTime date)
+        {
+            var dayOfWeekMapped = MapToCustomDayOfWeek(date.DayOfWeek);
+
+            var availableEmployees = availabilityDB.GetAvailableEmployeesByDay((int)dayOfWeekMapped);
+            var shiftsOnDate = shiftDB.GetShiftsByDate(date);
+
+            var availableNotShifted = availableEmployees
+                .Where(emp => !shiftsOnDate.Any(shift => shift.EmployeeID == emp.ID))
+                .ToList();
+
+            return availableNotShifted;
+        }
+
+        public List<Shift> GetShiftsByDate(DateTime date)
+        {
+            return shiftDB.GetShiftsByDate(date);
+        }
+
+        private DaysOfWeek MapToCustomDayOfWeek(DayOfWeek day)
+        {
+            switch (day)
+            {
+                case DayOfWeek.Sunday:
+                    return DaysOfWeek.Sunday;
+                case DayOfWeek.Monday:
+                    return DaysOfWeek.Monday;
+                case DayOfWeek.Tuesday:
+                    return DaysOfWeek.Tuesday;
+                case DayOfWeek.Wednesday:
+                    return DaysOfWeek.Wednesday;
+                case DayOfWeek.Thursday:
+                    return DaysOfWeek.Thursday;
+                case DayOfWeek.Friday:
+                    return DaysOfWeek.Friday;
+                case DayOfWeek.Saturday:
+                    return DaysOfWeek.Saturday;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(day), $"Not expected day value: {day}");
+            }
         }
     }
 }
