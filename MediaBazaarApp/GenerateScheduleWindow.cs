@@ -27,13 +27,13 @@ namespace MediaBazaarApp
         {
             DateTime selectedDate = monthCalendar.SelectionStart;
             DateTime todayDate = DateTime.Today;
-            if(selectedDate < todayDate)
-            {
-                MessageBox.Show("You cannot schedule shifts in the past.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else if (selectedDate == todayDate)
+            if (selectedDate == todayDate)
             {
                 MessageBox.Show("You cannot schedule shifts for today, please do it manually.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (selectedDate < todayDate)
+            {
+                MessageBox.Show("You cannot schedule shifts in the past.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
@@ -46,18 +46,32 @@ namespace MediaBazaarApp
 
                 if (algorithm.daysNotScheduled.Count > 0)
                 {
+                    string daysNotScheduledMessage = $"There were insufficient employees on the following days: ";
                     foreach (DateTime date in algorithm.daysNotScheduled)
                     {
-
-                        MessageBox.Show($"There are not enough available employees for the date {date.DayOfWeek}, {date.Day}:{date.Month}:{date.Year}. Please create schedules manually.", "Schedule Not Generated", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                        daysNotScheduledMessage += $"{date.ToShortDateString()}, ";
                     }
+                    daysNotScheduledMessage = daysNotScheduledMessage.TrimEnd(',', ' ');
+                    daysNotScheduledMessage += ". Please create schedules manually for these days.";
 
+                    MessageBox.Show(daysNotScheduledMessage, "Schedule Partially Generated", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
-                MessageBox.Show($"{shiftsGenerated} shifts have been scheduled starting from {selectedDate.DayOfWeek}, {selectedDate.ToShortDateString()}, until the end of the week. {algorithm.shiftsAlreadyScheduled} shifts were already scheduled.", "Schedule Generated", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                string message = $"{shiftsGenerated} shifts have been scheduled starting from {selectedDate.ToShortDateString()} until the end of the week. ";
+                message += $"{algorithm.shiftsAlreadyScheduled} shifts were already scheduled. ";
+                if (algorithm.daysWithInsufficientStaff > 0)
+                {
+                    message += $"{algorithm.daysWithInsufficientStaff} days had insufficient staff to fully schedule.";
+                }
+
+                MessageBox.Show(message, "Schedule Generated", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 this.Close();
             }
-            
+        }
+
+        public List<DateTime> GetNotFullyScheduledDays()
+        {
+            return algorithm.daysNotScheduled;
         }
     }
 }

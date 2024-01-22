@@ -28,9 +28,10 @@ namespace MediaBazaarApp
 
             SearchFilterComboBox.SelectedIndex = 0;
             shifts = administration.GetShiftsByDate(DateTime.Today);
-            System.Diagnostics.Debug.WriteLine($"{shifts.Count()}");
+
             RefreshEmployees(administration);
             RefreshShifts(administration,shifts);
+            RefreshBoldedDates();
         }
         
         private void RefreshEmployees(Administration administration)
@@ -46,6 +47,7 @@ namespace MediaBazaarApp
             shifts = administration.GetAllShifts();
             dataGridViewShifts.DataSource = shifts;
             PopulateEmployeeNames();
+            RefreshBoldedDates();
         }
         private void PopulateEmployeeNames()
         {
@@ -208,22 +210,60 @@ namespace MediaBazaarApp
 
         private void editSelectedShiftButton_Click(object sender, EventArgs e)
         {
-            int index = dataGridViewShifts.SelectedRows[0].Index;
-            Shift selectedShift = shifts[index];
-            EditShiftForm editShiftForm = new EditShiftForm(administration, selectedShift);
+            if (dataGridViewShifts.SelectedRows.Count == 1)
+            {
+                int index = dataGridViewShifts.SelectedRows[0].Index;
+                Shift selectedShift = shifts[index];
+                EditShiftForm editShiftForm = new EditShiftForm(administration, selectedShift);
 
-            editShiftForm.ShowDialog();
+                editShiftForm.ShowDialog();
 
-            RefreshShifts(administration);
+                RefreshShifts(administration);
+            }
+            else
+            {
+                MessageBox.Show("Please choose the designed shift first.");
+            }
         }
 
         private void automaticShiftsButton_Click(object sender, EventArgs e)
         {
             GenerateScheduleWindow scheduleForm = new GenerateScheduleWindow(administration);
             scheduleForm.ShowDialog();
-
             RefreshShifts(administration);
         }
+
+
+        private void RefreshBoldedDates()
+        {
+            monthCalendar.RemoveAllBoldedDates();
+
+            var startOfWeek = DateTime.Today.AddDays(-(int)DateTime.Today.DayOfWeek + (int)DayOfWeek.Monday);
+            var endOfWeek = startOfWeek.AddMonths(1);
+
+            for (var date = startOfWeek; date <= endOfWeek; date = date.AddDays(1))
+            {
+                bool shouldBoldDate = false;
+
+                foreach (ShiftType shiftType in Enum.GetValues(typeof(ShiftType)))
+                {
+                    var shiftsForType = administration.GetShiftsByDateAndType(date, shiftType);
+                    if (shiftsForType.Count < 3) 
+                    {
+                        shouldBoldDate = true;
+                        break;
+                    }
+                }
+
+                if (shouldBoldDate)
+                {
+                    monthCalendar.AddBoldedDate(date);
+                }
+            }
+
+            monthCalendar.UpdateBoldedDates();
+        }
+
 
         private void button1_Click(object sender, EventArgs e)
         {

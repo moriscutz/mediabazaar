@@ -37,5 +37,6 @@ namespace BusinessLogic.Interfaces_For_Unit_Tests
         Employee GetEmployeeByUsername(string username);
         List<Employee> GetAvailableEmployeesNotShifted(DateTime date);
         List<Shift> GetShiftsByDate(DateTime date);
+        public List<Employee> GetAvailableEmployees(DateTime date);
     }
 }

@@ -58,7 +58,7 @@
             this.Controls.Add(this.startingDateLabel);
             this.Controls.Add(this.monthCalendar);
             this.Name = "GenerateScheduleWindow";
-            this.Text = "Form1";
+            this.Text = "Generate Schedule";
             this.ResumeLayout(false);
             this.PerformLayout();
 

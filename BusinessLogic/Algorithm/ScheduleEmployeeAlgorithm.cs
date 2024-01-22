@@ -1,20 +1,20 @@
 ﻿using BusinessLogic.Classes;
 using BusinessLogic.Enums;
 using BusinessLogic.Interfaces;
+using BusinessLogic.Interfaces_For_Unit_Tests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BusinessLogic.Interfaces_For_Unit_Tests;
+
 namespace BusinessLogic.Algorithm
 {
     public class ScheduleEmployeeAlgorithm
     {
         private readonly IAdministration administration;
-        public List<DateTime> daysNotScheduled = new List<DateTime>();
         public int shiftsAlreadyScheduled = 0;
-
+        public int peoplePerShiftType = 3;
+        public int daysWithInsufficientStaff = 0;
+        public List<DateTime> daysNotScheduled = new List<DateTime>();
         public ScheduleEmployeeAlgorithm(IAdministration _administration)
         {
             administration = _administration;
@@ -24,37 +24,51 @@ namespace BusinessLogic.Algorithm
         {
             var endDate = startDate.AddDays(6);
             var schedule = new List<Shift>();
-            var assignedEmployeeIdsPerDay = new Dictionary<DateTime, HashSet<Guid>>();
+            const int peoplePerShiftType = 3;
+            const int totalShiftsPerDay = 3 * peoplePerShiftType ; // shift types * peoplePerShiftType 
+            var shiftTypes = Enum.GetValues(typeof(ShiftType)).Cast<ShiftType>().ToList();
 
             for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
             {
-                assignedEmployeeIdsPerDay[date] = new HashSet<Guid>();
+                var availableEmployees = administration.GetAvailableEmployees(date);
+
+
+                if (availableEmployees == null)
+                {
+                    availableEmployees = new List<Employee>();
+                }
+
+                availableEmployees = availableEmployees.OrderBy(e => Guid.NewGuid()).ToList();
 
                 var existingShiftsForDate = administration.GetShiftsByDate(date);
 
-                foreach (ShiftType shiftType in Enum.GetValues(typeof(ShiftType)))
+                var assignedEmployeeIdsForDay = new HashSet<Guid>();
+                int totalAssignedForDay = 0; 
+
+                foreach (var employee in availableEmployees)
                 {
-                    var availableEmployees = administration.GetAvailableEmployees(date, shiftType);
-                    bool shiftAssigned = false;
-
-                    foreach (var employee in availableEmployees)
+                    if (totalAssignedForDay >= totalShiftsPerDay)
                     {
-                        if (!existingShiftsForDate.Any(s => s.EmployeeID == employee.ID) &&
-                            !assignedEmployeeIdsPerDay[date].Contains(employee.ID))
-                        {
-                            Guid shiftId = Guid.NewGuid();
-                            var shift = new Shift(shiftId, date, shiftType, employee.ID);
-
-                            schedule.Add(shift);
-                            assignedEmployeeIdsPerDay[date].Add(employee.ID);
-                            shiftAssigned = true;
-                            break; 
-                        }
+                        break; 
                     }
 
-                    if (!shiftAssigned && !daysNotScheduled.Contains(date))
+                    if (!existingShiftsForDate.Any(s => s.EmployeeID == employee.ID) &&
+                        !assignedEmployeeIdsForDay.Contains(employee.ID))
                     {
-                        daysNotScheduled.Add(date); 
+                        var shiftType = shiftTypes[totalAssignedForDay % shiftTypes.Count];
+                        var shift = new Shift(Guid.NewGuid(), date, shiftType, employee.ID);
+                        schedule.Add(shift);
+                        assignedEmployeeIdsForDay.Add(employee.ID);
+                        totalAssignedForDay++;
+                    }
+                }
+
+                if (totalAssignedForDay < totalShiftsPerDay)
+                {
+                    daysWithInsufficientStaff++;
+                    if (!daysNotScheduled.Contains(date))
+                    {
+                        daysNotScheduled.Add(date);
                     }
                 }
 
@@ -68,6 +82,8 @@ namespace BusinessLogic.Algorithm
 
             return schedule.Count();
         }
-    }
 
+
+
+    }
 }

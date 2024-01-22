@@ -108,7 +108,7 @@ namespace BusinessLogic.Classes
         }
         public bool IsShiftAvailable(DateTime date, ShiftType shiftType)
         {
-            return shiftDB.CountShiftsOnDateAndType(date, shiftType) < 3; // Example threshold
+            return shiftDB.CountShiftsOnDateAndType(date, shiftType) < 3; 
         }
 
         public void UpdateDatabaseWithNewSchedule(List<Shift> shifts)
@@ -117,7 +117,7 @@ namespace BusinessLogic.Classes
             foreach (var shift in shifts)
             {
 
-                if (shift.EmployeeID != Guid.Empty) // Check if shift is assigned
+                if (shift.EmployeeID != Guid.Empty) 
                 {
                     var alreadyExistingShift = GetShiftById(shift.ShiftId);
                     if (alreadyExistingShift != null)
@@ -155,6 +155,14 @@ namespace BusinessLogic.Classes
             dayOfWeek = dayOfWeek == 0 ? 6 : dayOfWeek - 1; 
 
             return availabilityDB.GetAvailableEmployeesByDayAndShift(dayOfWeek, shiftType);
+        }
+        public List<Employee> GetAvailableEmployees(DateTime date)
+        {
+
+            int dayOfWeek = (int)date.DayOfWeek;
+            dayOfWeek = dayOfWeek == 0 ? 6 : dayOfWeek - 1;
+
+            return availabilityDB.GetAvailableEmployeesByDay(dayOfWeek);
         }
 
         public void DeleteAllShifts()

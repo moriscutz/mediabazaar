@@ -6,9 +6,11 @@ using System;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using BusinessLogic.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MediaBazaarWeb.Pages
 {
+    [Authorize]
     public class AvailabilitiesModel : PageModel
     {
         private readonly Administration _administration;

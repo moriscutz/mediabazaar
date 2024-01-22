@@ -46,5 +46,9 @@ namespace DataAccess
         {
             return availabilityRepository.GetAvailableEmployeesByDay(dayOfWeek);
         }
+        public List<Employee> GetAvailableEmployees(DateTime date)
+        {
+            return availabilityRepository.GetAvailableEmployees(date);
+        }
     }
 }

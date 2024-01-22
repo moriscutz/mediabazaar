@@ -6,9 +6,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Hosting;
 using MediaBazaarWeb.Pages.Shared;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MediaBazaarWeb.Pages
 {
+    [Authorize]
     public class ScheduleModel : PageModel
     {
         private readonly Administration _administration;
@@ -43,13 +45,15 @@ namespace MediaBazaarWeb.Pages
             }
             int numberOfWeeks = view == "one-week" ? 1 : 2;
             InitializeSchedule(numberOfWeeks);
+            if(_administration.GetShiftsForEmployeeById(CurrentEmployee.ID).Count > 0)
             PopulateShiftsForEmployee(CurrentEmployee.ID);
+
         }
 
         private void InitializeSchedule(int numberOfWeeks)
         {
             var currentDate = DateTime.Today;
-            // Find the previous Monday or today if today is Monday
+            currentDate.AddDays(7);
             var startDate = currentDate.AddDays(-(int)currentDate.DayOfWeek + (int)DayOfWeek.Monday);
             if (startDate > currentDate)
             {
@@ -67,15 +71,6 @@ namespace MediaBazaarWeb.Pages
                     Shifts = new List<Shift>()
                 });
             }
-        }
-
-
-
-
-        private DateTime FindNextMonday(DateTime date)
-        {
-            int daysToAdd = ((int)DayOfWeek.Monday - (int)date.DayOfWeek + 7) % 7;
-            return daysToAdd == 0 ? date.AddDays(7) : date.AddDays(daysToAdd);
         }
 
         private void PopulateShiftsForEmployee(Guid employeeId)

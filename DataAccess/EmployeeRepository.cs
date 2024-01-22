@@ -83,6 +83,13 @@ namespace DataAccess
                             deleteAvailabilityCommand.ExecuteNonQuery();
                         }
 
+                        string deleteShiftsQuery = "DELETE FROM dbo.Shift WHERE EmployeeID = @EmployeeID";
+                        using (var deleteShiftsCommand = new SqlCommand(deleteShiftsQuery, connection, transaction))
+                        {
+                            deleteShiftsCommand.Parameters.AddWithValue("@EmployeeID", employee.ID);
+                            deleteShiftsCommand.ExecuteNonQuery();
+                        }
+                        
                         string deleteEmployeeQuery = "DELETE FROM dbo.Employee WHERE ID = @ID";
                         using (var deleteEmployeeCommand = new SqlCommand(deleteEmployeeQuery, connection, transaction))
                         {
@@ -91,6 +98,7 @@ namespace DataAccess
                         }
 
                         transaction.Commit();
+
                     }
                 }
             }

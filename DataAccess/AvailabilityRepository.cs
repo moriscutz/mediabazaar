@@ -229,5 +229,58 @@ namespace DataAccess
                 throw;
             }
         }
+        public List<Employee> GetAvailableEmployees(DateTime date)
+        {
+            try
+            {
+                var availableEmployees = new List<Employee>();
+                int dayOfWeek = (int)date.DayOfWeek;
+                dayOfWeek = dayOfWeek == 0 ? 6 : dayOfWeek - 1; 
+
+                using (var connection = new SqlConnection(connectionString))
+                {
+                    string query = @"
+                    SELECT e.* 
+                    FROM Employee e 
+                    INNER JOIN Availability a ON e.ID = a.EmployeeID 
+                    WHERE a.DayOfWeek = @DayOfWeek AND a.IsAvailable = 1";
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        command.Parameters.AddWithValue("@DayOfWeek", dayOfWeek);
+                        connection.Open();
+                        using (var reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+                                var employee = new Employee
+                                {
+                                    ID = (Guid)reader["ID"],
+                                    FirstName = reader["FirstName"].ToString(),
+                                    LastName = reader["LastName"].ToString(),
+                                    JobPosition = (Position)Enum.Parse(typeof(Position), reader["JobPosition"].ToString()),
+                                    Password = reader["Password"].ToString(),
+                                    Username = reader["Username"].ToString()
+                                };
+
+                                employee.Availabilities = GetAvailabilitiesByEmployeeId(employee.ID);
+                                availableEmployees.Add(employee);
+                            }
+                        }
+                    }
+                }
+                return availableEmployees;
+            }
+            catch (SqlException ex)
+            {
+                System.Diagnostics.Debug.WriteLine("SQL Error in GetAvailableEmployees: " + ex.Message);
+                throw;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine("Error in GetAvailableEmployees: " + ex.Message);
+                throw;
+            }
+        }
     }
 }

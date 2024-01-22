@@ -36,7 +36,7 @@
                             <td>
                                 @foreach (var shift in dayStatus.Shifts.Where(s => ((int)s.Date.DayOfWeek + 6) % 7 == i))
                                 {
-                                    <div style="background-color: @(GetShiftColor(shift, dayStatus.Date))">@ReturnShiftTypeByHours(shift)</div>
+                                    <div style="background-color:#90EE90">@ReturnShiftTypeByHours(shift)</div>
                                 }
                             </td>
                         }
@@ -49,24 +49,6 @@
         </div>
     </div>
 
-    @functions {
-        // Function to get the color based on shift status
-        private string GetShiftColor(Shift shift, DateTime currentDate)
-        {
-            if (shift.Date.Date == currentDate.Date)
-            {
-                return "green"; // Shift has already occurred
-            }
-            else if (shift.Date.Date > currentDate.Date)
-            {
-                return "yellow"; // Shift is in the future
-            }
-            else
-            {
-                return "red"; // Employee missed the shift
-            }
-        }
-    }
 
     @functions{
 
@@ -79,11 +61,11 @@
             }
             else if (shift.Type == BusinessLogic.Enums.ShiftType.Afternoon)
             {
-                str = "16:00-24:00";
+                str = "16:00-00:00";
             }
             else
             {
-                str = "24:00-08:00";
+                str = "00:00-08:00";
             }
             return str;
         }

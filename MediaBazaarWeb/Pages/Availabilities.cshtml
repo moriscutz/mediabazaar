@@ -13,7 +13,7 @@
         @for (int day = 1; day <= 7; day++)
         {
             <div>
-                <label>Availabilities for Day @day:</label>
+                <label>Availabilities for Day @SetDay(day-1):</label>
                 <select asp-for="SelectedAvailabilities[day]" asp-items="Model.ShiftTypes"></select>
             </div>
         }
@@ -22,3 +22,29 @@
     </form>
 </body>
 
+@functions{
+    private string SetDay(int day)
+    {
+        switch(day)
+        {
+            case 0:
+                return "Monday";
+            case 1:
+                return "Tuesday";
+            case 2:
+                return "Wednesday";
+            case 3:
+                return "Thursday";
+            case 4:
+                return "Friday";
+            case 5:
+                return "Saturday";
+            case 6:
+                return "Sunday";
+             default:
+                return null;
+
+        }
+    }
+    
+}
