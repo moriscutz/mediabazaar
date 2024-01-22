@@ -193,7 +193,9 @@ namespace MediaBazaarApp
                 int index = dataGridViewEmployees.SelectedRows[0].Index;
                 Employee selectedEmployee = employees[index];
                 UpdateEmployee updateEmployee = new UpdateEmployee(administration, selectedEmployee);
-                updateEmployee.Show();
+                updateEmployee.ShowDialog();
+
+                RefreshEmployees(administration);
             }
             else MessageBox.Show("Please select one employee to update.");
         }
