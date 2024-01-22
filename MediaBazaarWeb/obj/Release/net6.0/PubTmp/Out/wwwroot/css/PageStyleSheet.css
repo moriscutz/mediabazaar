@@ -1,0 +1,40 @@
+﻿header {
+    background-color: #E6E6FA; 
+}
+
+footer {
+    background-color: #E6E6FA; 
+}
+
+body {
+    
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    ;
+}
+
+input[type=submit] {
+    background-color: #A020F0;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.centered-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 4px solid #A020F0;
+    padding: 100px;
+}

@@ -36,10 +36,16 @@ namespace MediaBazaarApp
         
         private void RefreshEmployees(Administration administration)
         {
-            employees.Clear();
             employees = administration.GetAllEmployees();
+            dataGridViewEmployees.DataSource = null; 
             dataGridViewEmployees.DataSource = employees;
             PopulateEmployeeNames();
+        }
+        private void RefreshEmployeesWithNoShifts(Administration administration, List<Employee> employees)
+        {
+            var bindingList = new BindingList<Employee>(employees);
+            var source = new BindingSource(bindingList, null);
+            dataGridViewEmployees.DataSource = source;
         }
         private void RefreshShifts(Administration administration)
         {
@@ -118,11 +124,18 @@ namespace MediaBazaarApp
 
         private void seeEmployeeNoShiftButton_Click(object sender, EventArgs e)
         {
-            var noShiftEmployees = administration.GetAllEmployees()
-                .Where(emp => administration.GetShiftsForEmployeeById(emp.ID).Count == 0)
-                .ToList();
+            List<Employee> noShiftEmployees = new List<Employee>();
+            var allEmployees = administration.GetAllEmployees();
+            foreach(Employee emp in allEmployees)
+            {
+                if(administration.GetShiftsForEmployeeById(emp.ID) == null || administration.GetShiftsForEmployeeById(emp.ID).Count == 0)
+                {
+                    System.Diagnostics.Debug.WriteLine($"{administration.GetShiftsForEmployeeById(emp.ID).Count}, {emp.Username}, {emp.ID}");
+                    noShiftEmployees.Add(emp);
+                }
+            }
 
-            dataGridViewEmployees.DataSource = noShiftEmployees;
+            RefreshEmployeesWithNoShifts(administration, noShiftEmployees);
         }
 
 
@@ -190,22 +203,28 @@ namespace MediaBazaarApp
         {
             if (dataGridViewEmployees.SelectedRows.Count == 1)
             {
-                int index = dataGridViewEmployees.SelectedRows[0].Index;
-                Employee selectedEmployee = employees[index];
-                var shifts = administration.GetShiftsForEmployeeById(selectedEmployee.ID);
+                var selectedRow = dataGridViewEmployees.SelectedRows[0];
+                if (selectedRow.DataBoundItem is Employee selectedEmployee)
+                {
+                    var shifts = administration.GetShiftsForEmployeeById(selectedEmployee.ID);
 
-                if (shifts.Count == 0)
-                {
-                    MessageBox.Show("Employee has no shifts.");
-                }
-                else
-                {
-                    EmployeeShiftInfo employeeShiftInfo = new EmployeeShiftInfo(administration, selectedEmployee);
-                    employeeShiftInfo.Show();
+                    if (shifts.Count == 0)
+                    {
+                        MessageBox.Show("Employee has no shifts.");
+                    }
+                    else
+                    {
+                        EmployeeShiftInfo employeeShiftInfo = new EmployeeShiftInfo(administration, selectedEmployee);
+                        employeeShiftInfo.Show();
+                    }
                 }
             }
-            else MessageBox.Show("Please select one employee to see the shifts for.");
+            else
+            {
+                MessageBox.Show("Please select one employee to see the shifts for.");
+            }
         }
+
 
 
         private void editSelectedShiftButton_Click(object sender, EventArgs e)
