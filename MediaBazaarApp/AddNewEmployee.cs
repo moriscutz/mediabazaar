@@ -28,41 +28,48 @@ namespace MediaBazaarApp
             if (firstNameTextBox.Text != string.Empty && lastNameTextBox.Text != string.Empty
                 && usernameTextBox.Text != string.Empty && passwordTextBox.Text != string.Empty)
             {
-                Employee newEmployee = new Employee();
-                newEmployee.ID = Guid.NewGuid();
-                newEmployee.FirstName = firstNameTextBox.Text;
-                newEmployee.LastName = lastNameTextBox.Text;
-                newEmployee.Username = usernameTextBox.Text;
-                newEmployee.Password = passwordTextBox.Text;
-                newEmployee.Availabilities = new List<Availability>();
-
-                string selectedPosition = RoleComboBox.SelectedItem?.ToString();
-                if (!string.IsNullOrEmpty(selectedPosition) && Enum.TryParse(selectedPosition, out positionEnum))
+                if(administration.GetEmployeeByUsername(usernameTextBox.Text) != null)
                 {
-                    newEmployee.JobPosition = positionEnum;
+                    MessageBox.Show("The username is already taken.", "Username Taken", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    MessageBox.Show("Invalid selection for the Role");
-                    return;
-                }
+                    Employee newEmployee = new Employee();
+                    newEmployee.ID = Guid.NewGuid();
+                    newEmployee.FirstName = firstNameTextBox.Text;
+                    newEmployee.LastName = lastNameTextBox.Text;
+                    newEmployee.Username = usernameTextBox.Text;
+                    newEmployee.Password = passwordTextBox.Text;
+                    newEmployee.Availabilities = new List<Availability>();
 
-                foreach (DaysOfWeek day in Enum.GetValues(typeof(DaysOfWeek)))
-                {
-                    ComboBox dayComboBox = this.Controls.Find($"{day}Preference", true).FirstOrDefault() as ComboBox;
-
-                    if (dayComboBox != null)
+                    string selectedPosition = RoleComboBox.SelectedItem?.ToString();
+                    if (!string.IsNullOrEmpty(selectedPosition) && Enum.TryParse(selectedPosition, out positionEnum))
                     {
-                        bool isAvailable = dayComboBox.SelectedItem.ToString() == "Available";
-                        ShiftType defaultShiftType = ShiftType.Morning; 
-
-                        newEmployee.Availabilities.Add(new Availability(newEmployee.ID, day, defaultShiftType, isAvailable));
+                        newEmployee.JobPosition = positionEnum;
                     }
-                }
+                    else
+                    {
+                        MessageBox.Show("Invalid selection for the Role");
+                        return;
+                    }
 
-                administration.AddEmployee(newEmployee);
-                MessageBox.Show("Employee created successfully");
-                this.Close();
+                    foreach (DaysOfWeek day in Enum.GetValues(typeof(DaysOfWeek)))
+                    {
+                        ComboBox dayComboBox = this.Controls.Find($"{day}Preference", true).FirstOrDefault() as ComboBox;
+
+                        if (dayComboBox != null)
+                        {
+                            bool isAvailable = dayComboBox.SelectedItem.ToString() == "Available";
+                            ShiftType defaultShiftType = ShiftType.Morning;
+
+                            newEmployee.Availabilities.Add(new Availability(newEmployee.ID, day, defaultShiftType, isAvailable));
+                        }
+                    }
+
+                    administration.AddEmployee(newEmployee);
+                    MessageBox.Show("Employee created successfully");
+                    this.Close();
+                }
             }
             else
             {
